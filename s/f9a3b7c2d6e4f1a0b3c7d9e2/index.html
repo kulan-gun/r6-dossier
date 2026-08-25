@@ -1,22 +1,768 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <!-- Tell crawlers not to index this page -->
-  <meta name="robots" content="noindex, nofollow" />
-  <title>R6 Dossier (private link)</title>
-  <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding: 2rem; background:#f7f7fb; color:#111; }
-    .wrap { max-width:720px; margin:2rem auto; background:white; padding:1.5rem; border-radius:.5rem; box-shadow:0 6px 18px rgba(0,0,0,.06); }
-    small { color:#666; }
-  </style>
+<meta charset="utf-8">
+<meta name="document-version" content="2026-08-12-2230">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Dossier — R6 Siege</title>
+<style id="embedded-fonts">
+@font-face{font-family:'Oswald';src:url(data:font/woff2;base64,__FONT_DATA_REMOVED__) format('woff2');font-style:normal;font-weight:300;font-display:block}
+@font-face{font-family:'Oswald';src:url(data:font/woff2;base64,__FONT_DATA_REMOVED__) format('woff2');font-style:normal;font-weight:400;font-display:block}
+@font-face{font-family:'Oswald';src:url(data:font/woff2;base64,__FONT_DATA_REMOVED__) format('woff2');font-style:normal;font-weight:600;font-display:block}
+@font-face{font-family:'IBM Plex Sans';src:url(data:font/woff2;base64,__FONT_DATA_REMOVED__) format('woff2');font-style:normal;font-weight:400;font-display:block}
+@font-face{font-family:'IBM Plex Sans';src:url(data:font/woff2;base64,__FONT_DATA_REMOVED__) format('woff2');font-style:normal;font-weight:600;font-display:block}
+@font-face{font-family:'IBM Plex Mono';src:url(data:font/woff2;base64,__FONT_DATA_REMOVED__) format('woff2');font-style:normal;font-weight:400;font-display:block}
+@font-face{font-family:'IBM Plex Mono';src:url(data:font/woff2;base64,__FONT_DATA_REMOVED__) format('woff2');font-style:normal;font-weight:600;font-display:block}
+</style>
+<style>
+:root{
+  --paper:#E4E2DB; --card:#EFEDE7; --ink:#16191C; --mid:#5C6166; --faint:#8B8F93;
+  --rule:#C6C3BA; --atk:#1B5E9E; --def:#C2540E; --good:#3F7A3F; --bad:#A8352A;
+  --grid:rgba(22,25,28,.055);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:34px 34px;
+  color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:15px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 90px}
+h1,h2,h3{font-family:'Oswald',Impact,sans-serif;font-weight:600;letter-spacing:.045em;text-transform:uppercase;line-height:1.05}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--mid)}
+
+.hero{padding:64px 0 40px;border-bottom:2px solid var(--ink)}
+.hero h1{font-size:clamp(44px,9vw,96px);margin:14px 0 0}
+.hero h1 span{display:block}
+.hero h1 .thin{font-weight:300;color:var(--mid)}
+.thesis{max-width:48ch;margin-top:22px;font-size:17px;line-height:1.5}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:38px}
+.hstat{background:var(--paper);padding:16px}
+.hstat b{display:block;font-family:'IBM Plex Mono',monospace;font-size:30px;font-weight:600;line-height:1}
+.hstat small{display:block;margin-top:7px;font-size:11.5px;color:var(--mid);letter-spacing:.06em;text-transform:uppercase}
+.hero-note{margin-top:20px;max-width:74ch;font-size:13.5px;line-height:1.55;color:var(--mid)}
+
+section{padding-top:58px}
+.sec-head{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--ink);padding-bottom:8px;margin-bottom:24px;flex-wrap:wrap}
+.sec-head h2{font-size:24px}
+.sec-head .eyebrow{margin-left:auto}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;text-align:left;font-weight:600;color:var(--mid);padding:7px 9px;border-bottom:1px solid var(--rule)}
+td{padding:8px 9px;border-bottom:1px solid var(--rule);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+td.n{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+.roster td:first-child{font-weight:600}
+.table-label{font-size:14px;margin:17px 0 7px;display:flex;align-items:baseline;gap:10px}
+.table-label:first-of-type{margin-top:0}
+.table-label.prep-label{margin-top:38px}
+.table-label span{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.11em;color:var(--mid);font-weight:500}
+.snapshot-label{margin-top:22px}
+.snapshot-roster td:nth-child(2){white-space:nowrap}
+.snapshot-roster td:nth-child(3){font-size:12.5px}
+
+.key{background:var(--card);border:1px solid var(--rule);border-left:5px solid var(--ink);padding:20px 22px}
+.keygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:15px 26px}
+.keygrid div{font-size:13.5px;line-height:1.45}
+.keygrid b{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;display:block;margin-bottom:2px}
+.keynote{margin-top:18px;padding-top:15px;border-top:1px solid var(--rule);font-size:13px;color:var(--mid)}
+
+.card{background:var(--card);border:1px solid var(--rule);border-left:5px solid var(--ink);margin-bottom:26px}
+.card-top{padding:20px 22px 18px;border-bottom:1px solid var(--rule)}
+.name-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.name-row h3{font-size:28px}
+.handle{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--faint)}
+.role{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;border:1px solid var(--ink);padding:3px 9px;text-transform:uppercase}
+.summary{margin-top:11px;font-size:16.5px;line-height:1.45;max-width:72ch}
+
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:1px;background:var(--rule);border-bottom:1px solid var(--rule)}
+.strip div{background:var(--card);padding:11px 22px}
+.strip b{display:block;font-family:'IBM Plex Mono',monospace;font-size:19px;font-weight:600;line-height:1}
+.strip small{display:block;margin-top:5px;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--mid)}
+
+.gauge{padding:18px 22px 20px}
+.gauge-label{display:flex;justify-content:space-between;align-items:baseline;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:9px}
+.track{position:relative;height:20px;background:var(--paper);border:1px solid var(--rule)}
+.fill{position:absolute;top:0;bottom:0;left:0;background:repeating-linear-gradient(135deg,var(--ink) 0 5px,#2b3136 5px 10px)}
+.fill.ok{background:repeating-linear-gradient(135deg,var(--good) 0 5px,#4b8a4b 5px 10px)}
+.target{position:absolute;top:-6px;bottom:-6px;left:40%;width:2px;background:var(--bad)}
+.target::after{content:'40% TARGET';position:absolute;left:6px;top:-3px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--bad);white-space:nowrap}
+.gauge-note{margin-top:22px;font-size:13px;color:var(--mid)}
+
+.swx{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rule)}
+.swx>div{padding:17px 22px;border-right:1px solid var(--rule)}
+.swx>div:nth-child(2n){border-right:none}
+.swx>div:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+.swx h4{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:9px}
+.swx .s h4{color:var(--good)}
+.swx .w h4{color:var(--bad)}
+.swx .g h4{color:var(--atk)}
+.swx .a h4{color:var(--def)}
+.avoid-list{list-style:none;margin:0;padding:0}
+.avoid-list li{position:relative;padding-left:14px;margin-bottom:6px;font-size:13px;line-height:1.4;color:var(--mid)}
+.avoid-list li:last-child{margin-bottom:0}
+.avoid-list li::before{content:"";position:absolute;left:0;top:7px;width:5px;height:5px;background:var(--def)}
+.avoid-list b{color:var(--ink);font-weight:600}
+.swx .s .avoid-list li::before{background:var(--good)}
+.swx .w .avoid-list li::before{background:var(--bad)}
+.swx .g .avoid-list li::before{background:var(--atk)}
+.swx p{font-size:13.5px;line-height:1.5}
+
+.ops{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rule)}
+.ops>div{padding:16px 22px 12px}
+.ops-test{border-top:none;padding-top:0}
+.ops-test>div{padding:0 22px 18px}
+
+.ops>div:first-child{border-right:1px solid var(--rule)}
+.ops h4{font-family:'Oswald',sans-serif;font-size:15px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:7px;margin-bottom:4px;border-bottom:2px solid}
+.ops .atk h4{color:var(--atk);border-color:var(--atk)}
+.ops .def h4{color:var(--def);border-color:var(--def)}
+.ops th{font-size:9.5px;letter-spacing:.1em;padding:6px 5px}
+.ops td{padding:7px 5px;font-size:13px}
+.tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;padding:1px 5px;border:1px solid var(--faint);color:var(--mid);vertical-align:2px;margin-left:6px}
+.why{display:block;font-size:11.5px;color:var(--mid);line-height:1.35;margin-top:2px}
+.testing{padding-top:12px;border-top:1px dashed var(--rule);break-inside:avoid;page-break-inside:avoid}
+.testing h5{font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.17em;text-transform:uppercase;color:var(--mid);margin-bottom:5px}
+.testing tbody tr:first-child td{border-top:none}
+.testing .na td{color:var(--faint)}
+.testing .na b{font-weight:600}
+
+.guests{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.guest{background:var(--card);border:1px solid var(--rule);border-left:5px solid var(--ink);padding:18px 20px}
+.guest h3{font-size:21px;margin-bottom:2px}
+.guest .summary{font-size:14.5px;margin-top:8px}
+.guest ul{list-style:none;margin-top:12px;font-size:13px}
+.guest li{padding:6px 0;border-bottom:1px solid var(--rule);display:flex;gap:10px}
+.guest li:last-child{border:none}
+.guest li b{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;min-width:64px;color:var(--mid);padding-top:2px;flex-shrink:0}
+
+.comps{display:grid;grid-template-columns:1fr;gap:20px}
+.comp{background:var(--card);border:1px solid var(--rule)}
+.comp h3{font-size:16px;padding:12px 18px;color:#fff;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.comp h3 em{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;opacity:.85}
+.comp.a h3{background:var(--atk)}
+.comp.d h3{background:var(--def)}
+.comp .site{padding:10px 18px;font-size:13px;line-height:1.5;color:var(--mid);border-bottom:1px solid var(--rule);background:rgba(0,0,0,.02)}
+.comp .site b{font-family:'IBM Plex Mono',monospace;color:var(--ink);font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:9.5px;margin-right:6px}
+.comp .site.maps{background:rgba(0,0,0,.05)}
+.comp tr.trio td{background:rgba(43,92,138,.07)}
+.comp tr.trio td:first-child{box-shadow:inset 3px 0 0 var(--atk)}
+.comp .site.maps i{font-style:normal;font-weight:600;color:var(--ink)}
+.maplist{display:grid;grid-template-columns:1fr 1fr;background:var(--card);border:1px solid var(--rule)}
+.maplist>div{padding:9px 18px;border-bottom:1px solid var(--rule)}
+.maplist>div:nth-child(2n){border-left:1px solid var(--rule)}
+.maplist b{display:block;font-size:13.5px;color:var(--ink)}
+.maplist span{font-size:12.5px;color:var(--mid);line-height:1.4}
+.maplog b{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.maplog .rd{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;flex:none}
+.maplog .rd.bad{color:var(--bad)}.maplog .rd.good{color:var(--good)}.maplog .rd.mid{color:var(--atk)}
+.maplog .rec{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink);margin:3px 0}
+.maplog .rec i{font-style:normal;color:var(--mid)}
+.comp th{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--mid);text-align:left;padding:8px 18px 4px;font-weight:600}
+.comp.c h3{background:var(--ink)}
+.comp.cols4:not(.cores) td:first-child{width:76px}
+.comp.cols4:not(.cores) td:nth-child(2),.comp.cols4:not(.cores) td:nth-child(3){width:132px}
+.comp.cols5 td:first-child{width:68px}
+.comp.cols5 td:nth-child(2),.comp.cols5 td:nth-child(3),.comp.cols5 td:nth-child(4){width:104px}
+.comp.cores td:first-child{width:118px;font-weight:600}
+.comp.cores td:nth-child(2){width:120px}
+.comp.cores td:nth-child(3){width:34%}
+.comp td{padding:8px 18px;font-size:13px}
+.comp td:first-child{font-weight:600;width:74px}
+.comp td:nth-child(2){width:104px}
+.comp:not(.cores):not(.cols4):not(.cols5) td:first-child{width:104px;white-space:nowrap}
+.comp:not(.cores):not(.cols4):not(.cols5) td:nth-child(2){width:40%}
+.comp.cores td:first-child{width:150px}
+.comp .cnote a{color:var(--atk);text-decoration:underline;text-underline-offset:2px}
+.comp .cnote{padding:12px 18px 14px;font-size:12.5px;color:var(--mid);border-top:1px solid var(--rule);line-height:1.45}
+
+.tipgroup{margin-bottom:30px}
+.tipgroup h3{font-size:17px;margin-bottom:4px}
+.tipgroup>p{font-size:13.5px;color:var(--mid);margin-bottom:13px}
+ol.tips{list-style:none;counter-reset:t}
+ol.tips li{counter-increment:t;position:relative;padding:11px 0 11px 46px;border-bottom:1px solid var(--rule);font-size:14.5px}
+ol.tips li::before{content:counter(t,decimal-leading-zero);position:absolute;left:0;top:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--faint)}
+ol.tips li:last-child{border:none}
+
+.foot{margin-top:60px;padding-top:18px;border-top:2px solid var(--ink);font-size:12.5px;color:var(--mid)}
+
+@media (max-width:860px){.swx{grid-template-columns:1fr}.swx>div{border-right:none;border-bottom:1px solid var(--rule)}.swx>div:last-child{border-bottom:none}}
+@media (max-width:760px){
+  .ops,.guests,.comps{grid-template-columns:1fr}
+  .ops>div:first-child{border-right:none;border-bottom:1px solid var(--rule)}
+  .role{margin-left:0}
+}
+@media (prefers-reduced-motion:no-preference){
+  .card,.guest,.comp{animation:rise .5s ease both}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+}
+
+@media print{
+  @page{size:A4;margin:9mm 8mm 10mm}
+  html,body{width:auto!important;min-width:0!important}
+  body{font-size:10.1px;line-height:1.38;background-size:24px 24px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wrap{max-width:none;padding:0}
+  .hero{padding:7mm 0 5mm}
+  .hero h1{font-size:52px;margin-top:6px}
+  .thesis{font-size:12.2px;margin-top:9px;max-width:64ch}
+  .hero-stats{margin-top:14px}
+  .hstat{padding:9px 10px}.hstat b{font-size:21px}.hstat small{font-size:7.8px;margin-top:4px}
+  .hero-note{font-size:9.5px;margin-top:9px;max-width:90ch}
+  section{padding-top:8mm}
+  .sec-head{margin-bottom:10px;padding-bottom:5px}.sec-head h2{font-size:17px}.eyebrow{font-size:7.8px}
+  table{font-size:9.2px}th{font-size:7.3px;padding:4px 5px}td{padding:5px 5px}
+  .table-label{font-size:10px;margin:8px 0 4px}.table-label span{font-size:6.5px}.snapshot-label{margin-top:10px}.snapshot-roster td:nth-child(3){font-size:8.2px}
+  .key{padding:11px 13px}.keygrid{grid-template-columns:repeat(4,1fr);gap:8px 14px}.keygrid div{font-size:8.8px}.keygrid b{font-size:8px}.keynote{font-size:8.6px;margin-top:9px;padding-top:8px}
+  .gauge-note{font-size:8.6px;margin-top:9px}
+  #cards .card{break-before:page}
+  #cards .card:first-child{break-before:auto}
+  .card{margin-bottom:0;break-inside:auto}
+  .card-top{padding:12px 14px 10px}.name-row h3{font-size:21px}.handle{font-size:8px}.role{font-size:7.6px;padding:2px 6px}.summary{font-size:11px;margin-top:6px}
+  .strip div{padding:7px 14px}.strip b{font-size:14px}.strip small{font-size:7px;margin-top:3px}
+  .gauge{padding:9px 14px 10px}.gauge-label{font-size:7.5px;margin-bottom:5px}.track{height:14px}.target::after{font-size:6.5px;top:-1px}.gauge-note{margin-top:13px}
+  .swx>div{padding:10px 14px}.swx h4{font-size:7.5px;margin-bottom:5px}.swx p{font-size:9px;line-height:1.38}.avoid-list li{font-size:9px;line-height:1.38;margin-bottom:4px;padding-left:11px}.avoid-list li::before{top:5px;width:4px;height:4px}
+  .testing{padding-top:7px}.ops-test>div{padding:0 14px 9px}.ops>div{padding:9px 14px 6px}.testing h5{font-size:6.8px;letter-spacing:.13em;margin-bottom:3px}
+  .ops>div{padding:9px 14px 10px}.ops h4{font-size:11px;padding-bottom:4px;margin-bottom:2px}.ops th{font-size:6.8px;padding:3px}.ops td{font-size:8.5px;padding:4px 3px}.why{font-size:7.3px;line-height:1.25;margin-top:1px}.tag{font-size:6.3px;padding:0 3px;margin-left:3px}
+  .swx{grid-template-columns:1fr 1fr}
+  .swx>div{border-right:1px solid var(--rule);border-bottom:none}
+  .swx>div:nth-child(2n){border-right:none}
+  .swx>div:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+  .ops>div{padding:9px 14px 6px}
+  #guests,#comps{break-inside:avoid}.guests,.comps{gap:10px}.guest{padding:11px 12px}.guest h3{font-size:16px}.guest .summary{font-size:9.6px}.guest ul{font-size:8.5px;margin-top:6px}.guest li{padding:4px 0}.guest li b{font-size:7px;min-width:48px}
+  .comp{break-inside:avoid;page-break-inside:avoid}.comp th{font-size:6.4px;padding:5px 10px 2px}.comp.cols4:not(.cores) td:first-child{width:48px}.comp.cols4:not(.cores) td:nth-child(2),.comp.cols4:not(.cores) td:nth-child(3){width:86px}.comp.cols5 td:first-child{width:44px}.comp.cols5 td:nth-child(2),.comp.cols5 td:nth-child(3),.comp.cols5 td:nth-child(4){width:68px}.comp.cores td:first-child{width:78px}.comp.cores td:nth-child(2){width:80px}.comp.cores td:nth-child(3){width:34%}
+  .comp .site{padding:6px 10px;font-size:8.6px;line-height:1.45}.maplist>div{padding:5px 10px}.maplist b{font-size:8.6px}.maplist span{font-size:7.8px;line-height:1.35}.maplog .rd{font-size:6.6px}.maplog .rec{font-size:7.4px;margin:2px 0}.comp .site b{font-size:6.6px}.comp .site b{font-size:6.5px}
+  .comp h3{font-size:11px;padding:8px 10px}.comp h3 em{font-size:6.8px}.comp td{font-size:8.4px;padding:5px 10px}.comp td:first-child{width:55px}.comp td:nth-child(2){width:78px}.comp .cnote{font-size:8px;padding:7px 10px 9px}
+  .tipgroup{margin-bottom:14px;break-inside:avoid}.tipgroup h3{font-size:12px}.tipgroup>p{font-size:8.5px;margin-bottom:5px}ol.tips li{font-size:9.1px;padding:6px 0 6px 30px}ol.tips li::before{font-size:7.2px;top:7px}
+  .foot{font-size:7.7px;margin-top:15px;padding-top:8px}
+  section:nth-of-type(4){break-before:page}
+  section:nth-of-type(6){break-before:page}
+  section:nth-of-type(5) .sec-head{break-after:avoid-page;page-break-after:avoid}
+  .tipgroup + .tipgroup{break-before:page}
+  .card,.guest,.comp{animation:none!important}
+}
+
+</style>
 </head>
 <body>
-  <main class="wrap">
-    <h1>R6 Dossier — private link</h1>
-    <p>This is a placeholder page. Replace this file with your full index.html when ready. The page includes <code>&lt;meta name="robots" content="noindex,nofollow"&gt;</code> so crawlers should not index it.</p>
-    <p><small>Do not link this page publicly if you want it to remain unlisted. Anyone with the URL can still access it.</small></p>
-  </main>
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">Rainbow Six Siege · Career figures · PS5</div>
+  <h1><span class="thin">The</span><span>Dossier</span></h1>
+  <p class="thesis">A squad review for the five regular players. Each card covers what the numbers show, the five attackers and five defenders worth their rounds, and one clear thing to work on. Cards are alphabetical and deliberately unranked.</p>
+  
+</header>
+
+<section>
+  <div class="sec-head"><h2>Acronyms and definitions</h2><span class="eyebrow">Read this first</span></div>
+  <div class="key">
+    <div class="keygrid">
+      <div><b>K/D</b>Kills divided by deaths. 1.00 means an even trade. Support operators sit lower by design — it is not a skill score.</div>
+      <div><b>WR</b>Win rate: the share of rounds won on that operator, or matches won across a career. Note this is a <em>team</em> stat — it reflects who a player plays with as much as how they play.</div>
+      <div><b>SRV</b>Survival rate: the share of rounds finished alive. A dead player contributes nothing for the rest of the round, so this moves win rate more than any other figure here.</div>
+      <div><b>HS%</b>Headshot percentage. The cleanest read on pure gun skill, because explosives and gadget kills cannot inflate it.</div>
+      <div><b>Entry +/−</b>Opening kills minus opening deaths — the first kill and first death of each round. Gadget and explosive kills count, so always read it next to HS%.</div>
+      <div><b>Rds</b>Rounds played on that operator. Ten rounds or fewer is noise; 11–30 is a hint; 30+ starts to mean something.</div>
+      <div><b><span class="tag" style="margin:0">REC</span></b>Recommended, not proven. Ten rounds or fewer played, so the pick is based on playstyle and role fit rather than a settled result.</div>
+      <div><b>Outside plays</b>Maps where attackers can meaningfully work from outside through windows or open sides. For Glaz, the useful pattern is strong outside-to-inside sightlines: Plane and Outback are proven, with Club House, Oregon, Chalet and Coastline worth testing.</div><div><b>Experiment with</b>A short testing queue outside the top five. Use Field Training where that operator has AI support; otherwise test in live matches. Each row states the deliberate round target rather than treating one evening as a verdict.</div><div><b>Career vs Season</b>Every figure here is career unless labelled otherwise. Single seasons swing wildly; careers don't.</div>
+    </div>
+    <p class="keynote"><b>On sample size:</b> a rate held over 1,000 matches is a harder and more reliable number than the same rate over 200. Small samples drift upward on a good run and collapse on a bad one; large ones settle on the truth. Read every figure below with its match count attached.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Squad at a glance</h2><span class="eyebrow">Alphabetical · no ranking</span></div>
+  <h3 class="table-label">The five <span>Current career lines</span></h3>
+  <table class="roster">
+    <thead><tr><th>Player</th><th>Matches</th><th>K/D</th><th>WR</th><th>HS%</th><th>Role</th></tr></thead>
+    <tbody id="roster"></tbody>
+  </table>
+  <p class="gauge-note">Maintained from the latest available tracker exports.</p>
+</section>
+
+<section>
+  <div class="sec-head"><h2>The five</h2><span class="eyebrow">Alphabetical</span></div>
+  <div id="cards"></div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Team setups</h2><span class="eyebrow">Duos, trios and four-stacks</span></div>
+  <div class="comps" id="comps"></div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Maps</h2><span class="eyebrow">What each one is, in our own words</span></div>
+  <div class="maplist" id="maplist"></div>
+  <p class="gauge-note">Pick the setup from the site and from how the last round went: contain a roaming team, rush an anchored one. Swap individual operators freely by who fancies what — the only lines worth holding are one hard breach on attack, one intel operator on defence, and nobody doubling up on the same job. Operators nobody owns yet are marked in the notes.</p>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Site clusters</h2><span class="eyebrow">Read the site type, not the map name</span></div>
+  <div class="key">
+    <div class="keygrid">
+      <div><b>1 · Sub-level / basement</b>Attackers come from above but never below. One ceiling and a small number of stairwells to hold, so hatch denial and anti-Fuze cover matter more than anything else. Hard breach is usually mandatory. <i>Oregon Laundry and Supply, Bank Vault and Open Area, Club House Church and Arsenal, Chalet Snowmobile Garage, Consulate Garage and Cafeteria.</i> <b>Picks:</b> Denari, Tubarão, Kaid, plus Mute cover alongside.</div>
+      <div><b>2 · Top floor / roof-exposed</b>The inverse problem. Rappellers, windows and floor hatches mean the site is attacked from outside and above at the same time. Exterior angles are worth more than interior ones. <i>Kafe 3F Cigar Lounge, Oregon Kids and Dorms, Club House Bedroom and Gym, Bank CEO and Server, Villa Aviator and Games.</i> <b>Picks:</b> Valkyrie, Echo, Tubarão.</div>
+      <div><b>3 · Open mid-floor / long sightline</b>Large rooms, many entrances, angles too long to deny. Full access denial does not work here because there are always more ways in than gadgets to cover them. <i>Bank Tellers and Open Area, Coastline Hookah and Billiards, Border Customs, Skyscraper.</i> <b>Picks:</b> Valkyrie, Echo, Doc. Denari gets bypassed here, and anything built around a close-range gun is a liability past fifteen metres.</div>
+      <div><b>4 · Tight interior / CQB</b>Cluttered rooms and short sightlines, with most fights decided inside ten metres. Rewards close-range weapons and punishes anything that needs range to work. <i>Theme Park Throne Room and Lab, Border Armory Lockers, Villa Kitchen and Dining, Oregon Laundry.</i> <b>Picks:</b> Sentry, Lesion, Skopós.</div>
+      <div><b>5 · Linear / corridor</b>Forced pathing through doors and hallways, with hard breaching rarely used because attackers simply walk in. Trap value is at its highest here and exposure is at its lowest. <i>Presidential Plane throughout, Kanal, Consulate lobby routes, Yacht.</i> <b>Picks:</b> Denari, Kapkan, Lesion.</div>
+      <div><b>These are axes, not boxes</b>Oregon Laundry is cluster 1 and cluster 4 at once. Chalet Garage is 1 and 5. The cluster tells you the type of threat; the specific site tells you which combination you are facing. Expect most sites to belong to two.</div>
+    </div>
+  </div>
+  <h3 class="table-label prep-label">Prep phase, four questions <span>In this order, every round</span></h3>
+  <div class="key">
+    <div class="keygrid">
+      <div><b>1 · Am I below everything?</b>Hatch denial and anti-Fuze cover come first. Tubarão freezing a breach mid-plant wins the round on its own.</div>
+      <div><b>2 · Am I above everything?</b>Exterior and rappel angles come first. Valkyrie cameras outside, Echo for the anti-plant.</div>
+      <div><b>3 · How many entrances?</b>Two or three, take Denari. Five or more, the connectors get bypassed, so take Valkyrie or Echo.</div>
+      <div><b>4 · How long is the longest angle?</b>Under fifteen metres and the close-range picks are live: Sentry, Lesion, Skopós. Longer than that and pick for the gun instead.</div>
+    </div>
+  </div>
+  <h3 class="table-label">Map defaults <span>Starting point, not a rule</span></h3>
+  <table class="roster">
+    <thead><tr><th>Map</th><th>Cluster</th><th>Defence</th><th>Attack</th><th>Why</th></tr></thead>
+    <tbody id="mapdefaults"></tbody>
+  </table>
+  <p class="gauge-note">Defaults are a starting point for the first round, not a rule for the match. The cluster answers what kind of threat the site creates; the site itself decides the pick. When the two disagree, trust the site.</p>
+  <h3 class="table-label">Map record <span>Two logged windows · Kulan_G100</span></h3>
+  <div class="maplist maplog" id="maplog"></div>
+  <p class="gauge-note">Two windows, amalgamated. The 20 to 23 August figures are match-level and complete. The 12 to 15 August column is reconstructed from session notes, is game-level rather than match-level, and is used only to confirm or contradict. A map read one way in one window and the other way in the other stays Mixed rather than being settled in favour of the newer data. Most lines rest on one to four matches, and five is still the bar for calling anything real. The good maps share a shape: space, readable sightlines and room to choose the fight. The problem maps split into two kinds, the ones where the fights are lost and the ones where the fights are won and the rounds are not. Not listed, with one match and no second window: Lair, Tower, Stadium Bravo, Stadium Alpha, Nighthaven Labs, Fortress, Skyscraper and Yacht.</p>
+</section>
+
+
+<section>
+  <div class="sec-head"><h2>Queue hypotheses</h2><span class="eyebrow">Patterns to test, not rules</span></div>
+  <div class="key">
+    <div class="keygrid">
+      <div><b>Working schedule</b>Tuesday and Wednesday evenings are the preferred windows, revised on 14 August. Friday and the weekend have been the worst sessions so far. The main benefit is still limiting volume and burnout; any matchmaking advantage remains a hypothesis.</div>
+      <div><b>Saturday daytime</b>May be tougher despite the larger pool. More fresh European players are online at once, including stronger regulars who are actively choosing to spend part of the weekend on Siege.</div>
+      <div><b>Late UK evenings</b>The lobby mix may change again as Europe gets later and fresh North American players start coming online. That could change both opponent quality and connection conditions.</div>
+      <div><b>What would prove it</b>Log day, start time, solo/stack, matches, WR and K/D for several sessions. One hot streak or one bad afternoon is evidence to investigate, not a matchmaking law.</div>
+      <div><b>Weekend evidence so far</b>Saturday 8 August was brutal: 13 Quick Matches, 4 wins, 8 losses and a 0.65 K/D (15–23). Sunday 9 August ultimately finished positive at 8 wins, 5 losses and a 1.11 K/D (41–37), despite the rough late block. Weekend quality looks volatile rather than uniformly bad.</div>
+      <div><b>Monday solo check</b>The 10 August tracker summary finished 6 wins, 4 losses and a 0.95 K/D (20–21). It was not a fragging session, but the positive result supports keeping Tuesday/Friday evenings as the preferred low-volume windows rather than treating solo play as automatically doomed.</div>
+      <div><b>Tuesday-night evidence</b>The long 11 August session crossed midnight, so the tracker later split its matches across two calendar dates. Treat it as one Tuesday-night block rather than comparing the old combined screenshot directly with the later daily breakdown.</div>
+      <div><b>12 August daily line</b>Seven wins, four losses and a 1.50 K/D (39–26), including the post-midnight 6–1 recovery and the later session with Big_Bunda_20 and eshwador. Another positive weekday result, but still one data point rather than proof of easier matchmaking.</div>
+      <div><b>14–15 August session</b>Sixteen matches across midnight: five wins, nine losses, 0.76 K/D (28–37). Big_Bunda_20 left partway through and the rest was solo on Villa, Club House, Chalet and Presidential Plane. The 14 August portion alone finished 4–8 at 0.62. It closed on a 6–2 MVP on Presidential Plane, with Glaz 5–1 and Kapkan 1–1 — but one good last game is a mood, not a result. The session kept going long after it stopped working.</div>
+      <div><b>20 August session</b>Nineteen matches with Big_Bunda_20: 8 wins, 11 losses, 1.42 K/D (47–33) and 40.4% headshots. The losses were front-loaded and the wins came in blocks, including a three-win run where Skopós carried Bank. The pattern worth logging is the shape rather than the result: slow starts, then a streak once the map read lands. Volume was still high for a Thursday.</div>
+      <div><b>23–24 August session</b>Eight matches: six wins, two losses, a 2.10 K/D and plus one hundred and thirty RP, promoted from Silver V to Silver IV. The headshot rate that day was below the career average, so the result came from decisions rather than aim. Bandit was picked deliberately for wall denial despite poor survival, and the round conversion followed.</div>
+      <div><b>After a bad Quick Match loss, switch to Ranked</b>Three separate instances now point the same way. The plausible mechanism is that Ranked forces slower, fuller rounds, and that a Quick Match loss is often the tell that concentration has slipped rather than that the lobby was hard. Worth applying deliberately rather than noticing after the fact.</div>
+      <div><b>Playlist may explain some bad maps</b>Calypso Casino and Oregon were both on the watch list from Quick Match evidence, and both produced comfortable Ranked wins. Big open maps punish uncoordinated play more than they punish this profile. Test before rewriting the map record.</div>
+      <div><b>Controller setup was wrong for a long time</b>Trigger deadzones were at ten per cent, which discards the first tenth of the trigger pull, and stick deadzones were the same. That explains inputs that felt like they never registered. Now at zero on the triggers and single figures on the sticks. Vertical sensitivity is next: it sits far above the range experienced players use, and it is the axis that settles the crosshair onto a head.</div>
+      <div><b>22–23 August session</b>Thirteen matches across midnight: a long negative run, then three Ranked games at the end going 2–1 with a 4–0 and an 11–3 win. The group shrank from four to two over the night and the results improved as it did. Two aces arrived in the middle of the bad run, both on Skopós, on Villa and Club House. The session is the clearest example yet that the day total and the quality of play can point in opposite directions.</div>
+      <div><b>Four-stacks versus randoms</b>A four-stack fills the fifth slot with one of us rather than leaving it to matchmaking, and matchmaking sometimes supplies a better player than the slot we are filling. Worth testing deliberately: play a block as a duo or trio and compare the win rate against the four-stack blocks. Team setups are now built around two, three and four-player cores for this reason.</div>
+      <div><b>21 August session</b>Thirteen matches: 4 wins, 9 losses, 0.82 K/D (31–38). The first seven were the worst block in a fortnight at 13–22, then Niro__99 joined, the group switched to Ranked and the gunfights turned: 12 kills to 10 deaths across three Ranked matches including a 4–0 and a 1v1 clutch. The recovery is the finding, not the day total.</div>
+      <div><b>Map signals</b>Two windows are amalgamated in the map record above. Club House, Theme Park, Chalet and Villa carry negative evidence in both and form the watchlist. Bank has moved off it: the older window was negative, the recent one clearly is not. Kanal is volatile rather than bad, and its Ranked win is the standing argument against writing a map off after one battering.</div>
+      <div><b>Ranked as the hard-day option</b>Career Ranked is 18 matches at a 33.3% win rate and 0.83 K/D, against 1,471 Quick Match and Unranked at 50.6% and 1.02 — so on the headline numbers Ranked is worse. The interesting split is kills per match: 3.44 in Ranked against 2.34 elsewhere, and on 14 August the two Ranked matches went 12–10 while ten Quick Matches went 8–18. The plausible mechanism is that Ranked forces slower, fuller rounds. Eighteen matches is nowhere near enough to call it.</div>
+      <div><b>Friday and the weekend</b>Flagged on 14 August after a 3–7 session, consistent with 8 August (4–8, 0.65 K/D), and still holding. Friday remains the worst day in the log while the other weekdays are consistently better. Three data points now point the same way, though tiredness at the end of a working week remains at least as likely an explanation as the lobby. The practical version is simple: treat Friday as a low-volume night or skip it.</div>
+      <div><b>Watching versus playing</b>A long stretch of Siege video on 14 August did not show up in the result. VODs are good for map knowledge, setups and gadget interactions and poor substitutes for reps under pressure — but one bad session does not test the method either. If video is going to earn its time, it needs one specific thing to try in the next session, not general viewing.</div>
+    </div>
+    <p class="keynote"><b>Status:</b> working hypotheses from recent sessions. Quick Match does not expose enough matchmaking information to attribute a good or bad lobby to time of day with confidence, so keep these separate from the operator conclusions above.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Tips</h2><span class="eyebrow">Small habits to squad protocols</span></div>
+
+  <div class="tipgroup">
+    <h3>Micro — do these without thinking</h3>
+    <p>No decisions required. Just repetition until they're automatic.</p>
+    <ol class="tips">
+      <li><b>Crosshair at head height, permanently.</b> It should be on the doorway before the doorway is on screen.</li>
+      <li><b>Lean-peek, don't body-peek.</b> Shoulder out, not whole silhouette.</li>
+      <li><b>Reload after every kill</b>, before moving — never when the mag runs dry, never in the open.</li>
+      <li><b>Stand a step to the side of a doorway</b>, not in it.</li>
+      <li><b>Walk within one room of site.</b> Sprint only when rotating.</li>
+      <li><b>Park the drone alive</b> in a safe corner after entry. Free late-round flank intel for nothing.</li>
+      <li><b>Check floors and archways before entering.</b> The original rule, still the highest-value one.</li>
+      <li><b>Clear the immediate threat before chasing the next one.</b> The Deimos lesson. A callout twenty metres away does not matter while somebody is standing in the room you are in.</li>
+      <li><b>Aim low with the Scorpion.</b> On Denari the upward recoil is heavy enough that lower-body aim climbs into headshots on its own. Start at the chest or below and let the gun do the rest.</li>
+      <li><b>Three losses in a row, stop for the night.</b> No decision, no debate. Every long negative session in the log kept going well past the point it was salvageable.</li>
+    </ol>
+  </div>
+
+  <div class="tipgroup">
+    <h3>Round — procedures inside a single round</h3>
+    <p>These need a decision, but only one, and always the same one.</p>
+    <ol class="tips">
+      <li><b>One angle at a time.</b> If you can be shot from two places at once, back out and re-approach.</li>
+      <li><b>Move after every gunfight.</b> Win or lose. Most casual deaths land 5–10 seconds after a kill, in the same spot.</li>
+      <li><b>Stay in trade distance.</b> If nobody can see the angle you're about to take, don't take it.</li>
+      <li><b>Open rotations in prep phase.</b> Every second spent making a hole mid-round is a second not shooting.</li>
+      <li><b>Decide pre-plant or post-plant before entering.</b> Mixing them is how kills go up and wins go down.</li>
+      <li><b>One fight you start per round.</b> After that, only fights that come to you or that the objective demands.</li>
+      <li><b>Shoot gadgets, not just people.</b> Batteries, ADS units, traps. Costs nothing, wins rounds.</li>
+      <li><b>Roam with intel, anchor without it.</b> The rule that fixes the most deaths across the whole squad.</li>
+      <li><b>Enter where you know.</b> Take the entry point you are comfortable with and work across to site. A familiar route entered early beats the perfect route entered late.</li>
+      <li><b>Do not repeat an entry.</b> The same rappel window twice in a match, or breaking windows in the same order every round, tells the defence where you will appear next. Vary it even when the first one worked.</li>
+      <li><b>Flanks scale with room size.</b> Roaming and flanking pays on small-room maps like Villa, Club House and House. On big interiors like Bank the flank crosses open ground, so hold an angle instead of running into one.</li>
+      <li><b>Clear the room, not the route.</b> The roamer behind you and the corner you walked past kill more rounds than the objective does.</li>
+      <li><b>Trap the doors nobody breaches.</b> On maps where attackers walk through doorways because hard breaching is rare — Presidential Plane above all — Kapkan collects kills for no exposure at all.</li>
+    </ol>
+  </div>
+
+  <div class="tipgroup">
+    <h3>Squad — protocols for the stack</h3>
+    <p>None of these are individual skill, and they're the ones that move the win rate.</p>
+    <ol class="tips">
+      <li><b>Assign roles before the match, not per round.</b> Five minutes of "yasbas10 is always breach, Big_Bunda_20 is always Lion" beats any individual improvement here.</li>
+      <li><b>Protect the planter.</b> Kulan_G100's job is reaching the site alive with the defuser. Two players should be watching angles during the plant, not fragging elsewhere.</li>
+      <li><b>Call it out — all five of you.</b> Comms are a squad habit, not one player's job. Five people trading accurate callouts beats five people shooting well in silence.</li>
+      <li><b>Plan the entry out loud in prep phase.</b> Name the wall, the breacher, who goes in behind him, which peep-holes get made and who watches them. The rounds this squad wins are the ones where that conversation happened; the losses are the improvised ones.</li>
+      <li><b>Enter behind the hard breach, not beside it.</b> yasbas10 opens the wall, somebody else takes first contact, then he trades. His opening record on Ace is very poor, and the squad needs him alive to finish the breach.</li>
+      <li><b>Never two people on one angle.</b> One is wasted and both die to the same grenade.</li>
+      <li><b>Fuze never deploys after the defuser is down.</b> Cluster charges destroy a planted defuser and kill teammates in the room below. Call the location out loud before deploying, every time.</li>
+      <li><b>Rotate off an angle once it has been peeked.</b> Holding the same spot twice is how anchors get found.</li>
+      <li><b>Pick tight sites.</b> With Castle, Kaid, Azami and Valkyrie the squad is built for enclosed, hole-heavy sites.</li>
+      <li><b>Cut the operator pool.</b> yasbas10 concentrates most of his rounds into a compact pool and holds the best career K/D in the squad. That is the lesson.</li>
+    </ol>
+  </div>
+</section>
+
+
+
+</div>
+
+<script>
+/* op = [name, rounds, WR, K/D, SRV, note, isRec] */
+const P = [
+ {
+  tst_a:"na",
+  tst_d:"na",
+  a:["<b>No operator-specific avoid call yet</b> — the weak lines are all below ten rounds, so they remain unproven rather than ruled out.","<b>The habit</b> — spreading attack rounds across too many operators at once. Build the useful samples before adding another pick."],
+  name:"eshwador", handle:"", role:"Support / Anchor",
+  summary:"A flexible anchor who is building a dependable site-holding core around Azami and Pulse.",
+  strip:[["340","Matches"],["1,046","Career kills"],["1.01","Career K/D"],["53.8%","Career WR"],["35.6%","Career HS%"]],
+  srv:34,
+  note:"Survival is fair on attack and poor on defence. Staying alive on site remains the clearest target.",
+  s:["<b>Highest win rate in the squad</b> — with an even career K/D behind it.", "<b>Sledge is the attack main</b> — good win rate, excellent K/D and the best survival on his card. Vertical pressure without an entry fight.", "<b>The gun output on attack is real</b> — Hibana and Glaz both frag well above his own baseline.", "<b>A defensive base exists</b> — Azami and Pulse carry the volume, both at good win rates."],
+  w:["<b>Defensive survival is the gap</b> — poor on defence against fair on attack, and it is the whole story of this card.", "<b>Azami</b> — a good opening record and then very poor survival. He does not live long enough to use the advantage he creates.", "<b>Attack conversion</b> — Hibana and Glaz both frag well and win poorly, so the kills are not becoming rounds.", "<b>Smallest sample in the squad</b> — and he plays least often, so every line on this card moves quickly."],
+  g:["<b>Play the second contact, not the first</b> — the gun output is already there. Survival is the only thing holding this card back, and it is a positioning fix rather than an aim one.", "<b>Attack</b> — Sledge is the main, Glaz and Hibana behind him, and Iana deserves more rounds on the intel slot.", "<b>Defence</b> — Azami and Pulse are the base. Clash has the best conversion and survival on the card and should get real rounds rather than staying a recommendation.", "<b>Thatcher stays the defined anti-denial pick</b> — the squad still does not own that job, and one EMP changes a controlled breach."],
+  atk:[
+   ["Sledge",20,"60%","1.60","50%","Vertical pressure, the best gun output on the profile, and he survives it."],
+   ["Hibana",17,"35%","1.30","41%","Positive K/D with breach utility. Conversion is still the question."],
+   ["Glaz",20,"40%","1.21","30%","Strong gun output, but the win rate and survival have both slipped."],
+   ["Iana",14,"50%","0.75","43%","Risk-free intel on a cooldown, and the second-best survival on the card.",1],
+   ["Thatcher","—","—","—","—","One EMP gives him a defined anti-denial job the rest of the pool lacks.",1]
+  ],
+  def:[
+   ["Azami",39,"56%","0.81","21%","The main by volume and opening duels. Survival remains the concern."],
+   ["Pulse",32,"56%","0.96","25%","Second-largest sample and almost an even K/D."],
+   ["Clash",5,"60%","1.33","40%","Best conversion and survival on the card. The shield suits a patient anchor.",1],
+   ["Thunderbird",9,"44%","0.86","22%","Heals from cover without holding an angle. Worth more rounds.",1],
+   ["Skopós",6,"50%","1.00","33%","Mobile site information with an even early K/D.",1]
+  ]
+ },
+ {
+  tst_a:[
+   ["Nomad","—","—","—","—","Airjabs keep working after placement, so a lost opening trade does not cost the whole round.",1],
+   ["Osa","—","—","—","—","Deployable shields create cover for the whole team. Clear job, low mechanical overhead.",1]
+  ],
+  tst_d:[
+   ["Thunderbird",5,"60%","2.00","60%","Best K/D and survival on his defensive card. Heals from cover, no angle held.",1],
+   ["Tachanka",7,"71%","1.00","57%","Fire denies the route and the LMG suits an anchor. Already owned, already working.",1]
+  ],
+  a:["<b>Castle</b> — a poor win rate, K/D and survival across real volume. The clearest proven drain on the profile.","<b>Blackbeard</b> — the second drain. High rounds, a negative opening record and the weakest K/D of anything he plays often. The shield invites exactly the duel he does not want.","<b>The habit</b> — holding an angle after it has been peeked, and staying on a camera once the callout has been made."],
+  name:"Big_Bunda_20", handle:"", role:"Intel / Support",
+  summary:"A dependable support player whose strongest rounds come from controlling space rather than forcing gunfights.",
+  strip:[["936","Matches"],["2,043","Career kills"],["0.79","Career K/D"],["51.3%","Career WR"],["35.2%","Career HS%"]],
+  srv:30,
+  note:"Survival is poor on both sides and drifting, so it is the whole card’s problem rather than a defensive one.",
+  s:["<b>Ash is the find</b> — good win rate and the only positive gun line on his attack card, on a rifle that asks nothing complicated of him.", "<b>Kapkan leads the defence</b> — excellent win rate and the best conversion in his pool. The traps do their work before the gunfight starts.", "<b>Thorn carries the volume</b> — his most-played operator, and a good win rate at that volume.", "<b>The support work converts</b> — a good career win rate on a poor K/D. He wins rounds without needing the kills."],
+  w:["<b>Reduce predictability</b> — the same angle, the same camera, the same spot after a trade, and in a 1vX he tends to hold where he is rather than move. This is a habit rather than a limitation, and it is the largest available gain on the card.", "<b>Thorn's opening record</b> — the weakest in the squad, which usually means playing the razorbloom line rather than setting it and walking away. One round of doing it differently would show up immediately.", "<b>Castle and Blackbeard</b> — two high-volume picks that are not paying back the rounds spent on them. Neither suits a player whose value comes from utility rather than duels.", "<b>Survival</b> — the common thread across both halves of the card, including on Ash, where the gun output is best. Getting off the angle after the trade would lift everything at once."],
+  g:["<b>Move after every contact, then move again</b> — the highest-value change available here. Trade, reposition, take the next fight from somewhere they are not expecting.", "<b>In a 1vX, relocate before they arrive</b> — they heard the last shot and they are walking towards it. Break line of sight, change floor or side, and make the first one come to a fresh angle. That turns a coin flip into a real chance.", "<b>Ash is the attack main</b> — the best gun line in the pool, and the simplest job on it.", "<b>Kapkan is first on defence</b> — best conversion in the pool, and the traps pay out whether he is alive or not.", "<b>Keep</b> — Lion and Fuze on volume, Flores where Ratero utility is needed, Thermite as the fallback breach, Mute for low exposure.", "<b>Maestro only in setups that use the Evil Eyes</b> — watch, call it, then leave the camera.", "<b>Test next</b> — Thunderbird and Tachanka, both already on the account, so neither needs a purchase."],
+  atk:[
+   ["Ash",19,"58%","1.13","21%","Best gun line in the pool. Trade early, then get off the entry angle."],
+   ["Lion",77,"56%","0.78","40%","Stable team utility with a meaningful sample."],
+   ["Fuze",75,"51%","0.98","40%","High volume and almost an even K/D; keep it situational."],
+   ["Flores",80,"41%","0.85","31%","Useful anti-gadget utility; round conversion remains the issue."],
+   ["Thermite",13,"54%","0.88","38%","Good win rate and the best survival on his attack card. A real fallback breach.",1]
+  ],
+  def:[
+   ["Kapkan",31,"68%","0.95","29%","Best win rate in the pool by a distance. The traps work before the gunfight."],
+   ["Thorn",97,"61%","0.82","30%","Highest defensive volume and win rate. The opening record says set it and leave."],
+   ["Kaid",58,"50%","0.67","22%","Wall and hatch denial fit the role, and the volume makes it dependable."],
+   ["Maestro",88,"50%","0.42","32%","Camera specialist for coordinated setups. Callouts matter more than fragging."],
+   ["Mute",14,"50%","0.55","21%","Simple denial near site. Low exposure, and it does not need a gunfight."]
+  ]
+ },
+ {
+  tst_a:[
+   ["Zofia",6,"83%","2.50","67%","Hard breach charge plus the Lifeline launcher. Tiny sample, excellent early numbers."],
+   ["Striker",11,"27%","1.71","36%","EMP impacts beat breach denial, then the charge sticks. Back in for a real run."]
+  ],
+  tst_d:[
+   ["Fenrir",19,"63%","1.09","42%","Owned now, so the rounds can start. Careful mine placement is the whole operator."],
+   ["Sentry",16,"50%","1.33","44%","Simple gun, useful utility, low overhead. The lowest-effort pick on the card."]
+  ],
+  a:["<b>Intel / utility attackers with high recoil guns — Grim, Solid Snake</b> — both should fit the intel-first playstyle on paper, but the primary weapons are the deal-breaker.","<b>Other attackers that do not fit — Rauora, Gridlock</b> — Rauora’s gadget loop feels awkward and exposing; Gridlock’s early combat line is poor enough not to justify more rounds.","<b>Low-survival defenders — Mute, Smoke, Azami, Lesion, Goyo</b> — too often die before or while getting enough value. Goyo can still influence rounds after death, but the overall fit is not worth building further.","<b>Retired / poor-fit defenders — Thorn, Aruni</b> — Thorn no longer fits the intended pool despite the volume; Aruni has the weakest meaningful K/D sample.","<b>Tilting and queueing through a bad run.</b> The long August sessions kept going well past the point they stopped working, and the damage arrived after that point rather than before it. This one is already improving: the same conditions came round again and the session was cut short instead."],
+  name:"Kulan_G100", handle:"", role:"Planter / Intel",
+  summary:"The squad’s most experienced player and its planter, with a clear identity around proactive intel and controlled breach.",
+  strip:[["1,686","Matches"],["4,013","Career kills"],["1.02","Career K/D"],["49.4%","Career WR"],["36.4%","Career HS%"]],
+  srv:44,
+  note:"Survival is fair and now level across both sides. Skopós and Denari did the lifting on the defensive half.",
+  s:["<b>Rounds with a defined job</b> — hard breach on Thermite, live pressure on Lion, a named target on Deimos. Give him the task and he executes it.", "<b>Aim</b> — excellent headshot rate, the highest in the squad, and his best lines are all on rifles that reward patience over speed.", "<b>Skopós</b> — high K/D, survival and win rate, with two aces in one night behind them. Roam and flank with one of the robots.", "<b>Late rounds</b> — a good clutch record on Echo, and the aces keep arriving the same way: patience, a known angle, somebody walking into it.", "<b>Reading the site</b> — picks denial that keeps working after he dies, which is how Denari went from a curiosity to a main.", "<b>The method itself</b> — tests honestly, holds the sample open, and drops what he likes when it stops working."],
+  w:["<b>Roam clearing</b> — rooms are not being cleared properly before he moves through them. Corners, the far side of the doorway, and above. Every room, every time, before committing to the next one.", "<b>Not ready for the fight while roaming</b> — too often the first shot arrives while he is walking, reloading or mid-reposition. Move between cover with the gun already up and the crosshair at head height, expecting contact rather than reacting to it.", "<b>Predictability</b> — repeating the same rappel entry, or breaking windows in a fixed order, has been punished more than once. What works against bots gets read quickly by people.", "<b>Slow entry</b> — the time spent hesitating outside is the time the defence uses to reset. Small fixed protocols beat good intentions.", "<b>Survival</b> — fair on both sides and now level with each other. Valkyrie is the weak line and the one worth fixing.", "<b>The fifth attack slot</b> — Hibana holds it on volume rather than results. Fair output, and it swings round to round."],
+  g:["<b>Skopós/Echo map rule</b> — roam and flank where the rooms are small and the staircases tight: Villa, Club House, House, Oregon. On a big interior like Bank the flank crosses open ground, so hold an angle instead of running into one.", "<b>Vary the entry</b> — never the same rappel window twice in a match, never the same order of broken windows. Change it even when the first one worked.", "<b>For slow entries</b> — take the door you know rather than the one closest to site, then work across. Familiar ground first, objective second.", "<b>Deimos is a good stack pick, but wait for the right moment</b> — DeathMARK works well when the team can act on the callouts. Prioritise vertical plays and do not always start with him. Read the enemy team on another operator first, watch how they behave, then use Deimos to exploit what you found. The exception is when they have already been checked on a stats tracker and look weak, in which case opening with him is fine."],
+  atk:[
+   ["Deimos",122,"53%","1.24","48%","DeathMARK creates late-round certainty when on comms with friends."],
+   ["Thermite",106,"50%","1.31","42%","Default hard breach. Strong rifle, positive conversion and one 1vX win."],
+   ["Lion",102,"50%","1.47","46%","Best attacker on the profile, with the volume to trust it, and an ace."],
+   ["Glaz",26,"46%","1.57","46%","Best gun line on the card. Long outside-in angles, and he survives them."],
+   ["Hibana",25,"48%","1.06","36%","Holds the slot on volume rather than on merit. The output swings round to round."]
+  ],
+  def:[
+   ["Denari",83,"58%","1.42","46%","Past Thorn and Snake on volume, and the K/D is still climbing."],
+   ["Valkyrie",96,"48%","1.16","35%","Cameras first, then flank with the Nitro. One ace on the card."],
+   ["Echo",90,"58%","1.02","42%","Mobile intel, plant denial and four 1vX wins. Built for late clutches."],
+   ["Tubarão",80,"56%","1.08","40%","Zoto canisters break the push, and the rifle wins the first duel."],
+   ["Skopós",27,"59%","2.46","52%","Two aces in one night. Roam and flank, best on small staircase maps."]
+  ]
+ },
+ {
+  tst_a:[
+   ["Twitch","—","—","—","—","Shock drones clear traps, cameras and batteries from safety. Utility without a gunfight.",1]
+  ],
+  tst_d:"na",
+  a:["<b>Jäger</b> — the worst line on the card. A poor win rate on top of the worst K/D and survival he has anywhere.","<b>Castle</b> — no kills at all across the sample, and he has yet to survive a round on it. Poor enough to be the small-sample exception.","<b>Frost</b> — early, but the same shape as the other two: low win rate, almost no gun output, and he dies on site.","<b>A note on all three</b> — these are small samples, so treat them as early warnings rather than verdicts. The pattern is the point: all three ask him to hold a fixed position and fight for it.","<b>Entry roles of any kind</b> — until the career headshot rate moves. That is aim work outside the game rather than another operator swap."],
+  name:"Niro__99", handle:"", role:"Utility / Support",
+  summary:"An objective-first anchor who sets the site up in prep and holds it once the fight arrives.",
+  strip:[["593","Matches"],["1,602","Career kills"],["0.87","Career K/D"],["50.8%","Career WR"],["20.7%","Career HS%"]],
+  srv:22,
+  note:"Lowest survival of the five. The operator changes below are aimed squarely at it.",
+  s:["<b>Kaid carries the defence</b> — by far his largest sample, and the job still suits him.", "<b>Mute and Alibi convert</b> — excellent win rates on both, and neither of them needs him to hold an angle.", "<b>Fuze produces</b> — the only positive gun line on the card, with a good opening record behind it.", "<b>He plays for the objective</b> — a good career win rate on a below-par K/D. The rounds get won without the kills."],
+  w:["<b>The attack pool leans on the right site turning up</b> — Fuze wants a floor above, Kali wants an exterior angle. On the maps that offer neither there is no natural fallback, which is a pool problem rather than a player one.", "<b>Kali on tight maps</b> — the win rate and survival both fall away indoors, and that is where most of the damage to the card has come from.", "<b>Headshot rate</b> — the lowest in the squad. That is aim work outside the game rather than another operator swap, and it caps what any pick can return.", "<b>Survival</b> — the lowest of the five, with Lion the weakest line. Scanning from cover rather than from the open would move it on its own."],
+  g:["<b>Add an attacker that solves a problem every map has</b> — the current pool is built on picks that need the right site to turn up. Two problems exist in every single round: a wall that needs opening, and defender gadgets that need destroying. Thermite, Ace or Hibana answers the first. Brava, Flores or Twitch answers the second. One of those played properly is worth more than a third situational pick.", "<b>Thermite is where I would start</b> — the squad is short of breachers, so the role is genuinely needed, and opening a wall does not require winning a duel. That suits this card better than anything asking him to frag first.", "<b>Fuze stays, but not as the main</b> — it is a good line and it is situational. Take it when there is a floor above the site rather than by default.", "<b>Kali may be more flexible than her record suggests</b> — the rifle only works at range, but the SPSMG9 secondary has been buffed and covers the close fights the CSRX cannot. Worth trying that loadout before writing her off on tight maps.", "<b>Defence</b> — Kaid for volume, then Mute and Alibi. Mute earns his slot on more than his own numbers: the jammers kill the drones that clear Denari and Kapkan traps.", "<b>Play behind first contact</b> — low-exposure utility is where he gets paid."],
+  atk:[
+   ["Fuze",66,"45%","1.02","30%","Highest volume and the only established positive K/D here."],
+   ["Lion",28,"61%","0.76","11%","Wins rounds, but survival remains the concern. Scan, then get behind cover."],
+   ["Kali",22,"45%","0.70","9%","Exterior sightlines only. The indoor rounds are where the survival went."],
+   ["Maverick",10,"60%","0.57","30%","Useful breach utility without forcing entry fights. Best survival on the card.",1],
+   ["Thermite",3,"33%","0.50","33%","Hard breach is needed almost everywhere. The job is opening the wall, not winning the duel.",1]
+  ],
+  def:[
+   ["Kaid",81,"51%","0.76","23%","By far the largest defensive sample. Wall and hatch denial shape where the fight happens."],
+   ["Mute",15,"67%","1.00","33%","Jammers deny the drones that clear traps. Real synergy with Denari and Kapkan."],
+   ["Alibi",11,"73%","0.88","27%","Best win rate on the card, and the decoys call the approach for free.",1],
+   ["Kapkan",5,"60%","0.75","20%","Trap utility works before the gunfight and can soften the entry.",1],
+   ["Bandit",9,"67%","0.57","22%","Good conversion, but the K/D and survival still need work.",1]
+  ]
+ },
+ {
+  tst_a:"na",
+  tst_d:"na",
+  a:["<b>No additional operator-specific avoid call yet</b> — the negative alternatives are all below ten rounds and remain too small to rule out.","<b>The habit</b> — taking first contact on Ace. His opening record on the operator the team most needs alive is very poor. Open the route, let contact happen ahead, then trade."],
+  name:"yasbas10", handle:"", role:"Breach / Anchor",
+  summary:"A disciplined breach-and-anchor player who gets more from a compact pool than the rest of the squad.",
+  strip:[["594","Matches"],["1,975","Career kills"],["1.26","Career K/D"],["53.0%","Career WR"],["34.5%","Career HS%"]],
+  srv:38,
+  note:"The whole attack card sits under the survival target, with Hibana the weakest of the three.",
+  s:["<b>The strongest gunfighting line in the squad</b> — an excellent career K/D, and it has held.", "<b>A compact pool</b> — he gets more out of fewer operators than anyone else here.", "<b>Ace at real volume</b> — the most proven attack main in the document, with a good K/D at that volume.", "<b>Defensive gun lines</b> — Castle, Azami and Kapkan all convert."],
+  w:["<b>Third-option depth</b> — Ace and Hibana cover two breach profiles, and Fuze is still situational on a poor win rate. When Ace is banned the plan gets thin quickly.", "<b>First contact on Ace</b> — a poor opening record on the operator the team most needs alive. Entering second would fix it without changing anything else.", "<b>Survival</b> — under target across the whole attack card, with Hibana the weakest of the three."],
+  g:["<b>Attack</b> — Ace is the main, Hibana the fallback when Ace is taken or a ranged breach suits the site.", "<b>Thermite is the pick to add, and it matters more than it looks</b> — Ace is banned constantly and Hibana alone is not enough cover. A third breach profile means the wall never depends on one operator being available, and the rifle suits the way he already plays. He is the squad's breacher; the pool should reflect that.", "<b>Maverick as the quiet option</b> — when the charge is denied outright, a blowtorch opens the wall without asking for an entry fight.", "<b>Fuze stays situational</b> — the K/D is strong and the conversion is not proof.", "<b>Defence</b> — Castle remains the anchor main, with Azami and Kapkan the strongest secondary gun lines.", "<b>Open the route, enter second</b> — let contact happen ahead of him, then trade."],
+  atk:[
+   ["Ace",152,"48%","1.29","36%","The proven attack main. Open the route, then enter second."],
+   ["Hibana",30,"53%","0.95","30%","The proven fallback: ranged hard breach with strong conversion."],
+   ["Fuze",10,"30%","1.80","50%","Strong K/D but poor conversion; keep it situational.",1],
+   ["Thermite","—","—","—","—","A third breach profile, so the wall never rests on one operator being available.",1],
+   ["Maverick","—","—","—","—","Opens walls quietly when the charge is denied, with no entry fight required.",1]
+  ],
+  def:[
+   ["Castle",63,"60%","1.15","37%","The clear defensive main and the best win rate at real volume."],
+   ["Azami",85,"49%","1.23","34%","Large sample with strong gun output and positive conversion."],
+   ["Kapkan",33,"55%","1.52","36%","Strong personal K/D; the team conversion is the target."],
+   ["Frost",4,"25%","1.00","50%","Tiny sample with even gun output; conversion is the question.",1],
+   ["Mira","—","—","—","—","Site denial suits an anchor who already holds position well.",1]
+  ]
+ }
+];
+
+
+const ROSTER = [
+ ["eshwador","340","1.01","53.8%","35.6%","Support / Anchor"],
+ ["Big_Bunda_20","936","0.79","51.3%","35.2%","Intel / Support"],
+ ["Kulan_G100","1,686","1.02","49.4%","36.4%","Planter / Intel"],
+ ["Niro__99","593","0.87","50.8%","20.7%","Utility / Support"],
+ ["yasbas10","594","1.26","53.0%","34.5%","Breach / Anchor"]
+];
+
+
+const TRIO = [];
+const COMPS = [
+ {side:"a", title:"Attack · Duo core", tag:"Controlled breach",
+  site:"The base case. Two players covering the only two jobs an attack cannot do without: opening the wall, and making sure the wall stays open.",
+  maps:"Anywhere.",
+  rows:[["Person 1","Thermite / Ace / Hibana","Hard breacher. Opens the wall, then enters second rather than first."],
+        ["Person 2","Flores / Twitch / Thatcher, or anyone carrying Impact EMPs such as Capitão","Enabler. Strips batteries, claws and cameras so the breach survives long enough to be used."]],
+  note:"Two roles, fixed. Everything else in the lobby is free to do what it likes. If the enabler cannot reach the denial with a drone, use Impact EMPs, frags, vertical shots or direct fire before sending another one."},
+ {side:"a", title:"Attack · Trio core", tag:"Balanced setup",
+  site:"The duo core plus whichever half of the map the site is weakest against: information, or a floor above.",
+  maps:"Kafe Dostoyevsky, Consulate, Bank, Tower and the other big-room maps.",
+  rows:[["Person 1","Thermite / Ace / Hibana","Hard breacher."],
+        ["Person 2","Flores / Twitch / Brava / Thatcher, or Impact EMPs such as Capitão","Enabler."],
+        ["Person 3","Lion / Deimos / Solid Snake, or Sledge / Buck / Ram / Fuze","Intel or vertical pressure. Pick whichever the site gives the defence for free."]],
+  note:"The third slot is the read. Roam-heavy site, take the intel option. Anchored site with a floor above it, take the vertical option."},
+ {side:"a", title:"Attack · Quad core", tag:"Balanced setup",
+  site:"Both halves of the third slot at once, so the site is squeezed from information and from above at the same time.",
+  maps:"Anywhere, though the map record still counts against Club House and Theme Park.",
+  rows:[["Person 1","Thermite / Ace / Hibana","Hard breacher."],
+        ["Person 2","Flores / Twitch / Brava / Thatcher, or Impact EMPs such as Capitão","Enabler."],
+        ["Person 3","Lion / Deimos / Solid Snake","Intel. Finds the roamer or freezes the rotate."],
+        ["Person 4","Sledge / Buck / Ram / Fuze","Vertical pressure from the floor above."]],
+  note:"Four defined jobs and no duplication. Whoever the lobby adds is free to entry, roam-hunt or anchor as they like without breaking any of it."},
+ {side:"d", title:"Defence · Duo core", tag:"Traps and jammers",
+  site:"The base case. One player taxes the approaches, the other protects the tax.",
+  maps:"Anywhere.",
+  rows:[["Person 1","Kapkan / Thorn / Denari","Trapper. Traps the doorways and routes nobody else is watching, then leaves them alone."],
+        ["Person 2","Mute","Jammers deny the drones that would otherwise find and clear every trap, and they stop signal-reliant hard breaching as well."]],
+  note:"The strongest evidenced pairing in the document. Both players win rounds through utility that keeps working after they die, which is exactly what a defence with no comms needs."},
+ {side:"d", title:"Defence · Trio core", tag:"Heavily fortified",
+  site:"Sites where one reinforced wall decides the round.",
+  maps:"Oregon, Club House, Bank, Chalet and Consulate basements.",
+  rows:[["Person 1","Bandit","Batteries on the reinforced wall, replaced as they get frag-cleared."],
+        ["Person 2","Kaid","Electroclaws cover the wall and the hatch above it at the same time."],
+        ["Person 3","Castle / Azami","Barricades cut the approaches down, or Kiba resealing puts back whatever gets opened."]],
+  note:"Layered wall denial rather than one battery and hope. The attack has to spend utility twice before the breach even starts."},
+ {side:"d", title:"Defence · Quad core", tag:"Hold the site",
+  site:"Four on site or near it, with the roam left to whoever wants it.",
+  maps:"Anywhere with a defined site and one wall worth reinforcing.",
+  rows:[["Person 1","Denari / Kapkan","Access denial on the approaches, then plays the gun from a held angle."],
+        ["Person 2","Thorn","Razorblooms on the flank routes so every rotation costs health or time."],
+        ["Person 3","Castle","Barricades cut the approaches down to a number four people can hold."],
+        ["Person 4","Skopós / Pulse / Valkyrie","Flank watch and late-round intel, from somewhere nobody has to stand."]],
+  note:"Four site-holders with one flank watcher is a complete defence on its own. Nothing here depends on a fifth player doing anything in particular."},
+ {side:"c", title:"Cores · Ours", tag:"Built on our own rounds",
+  head:["Core","Nickname","What it does","Where"],
+  rows:[["Denari + Mute","Trap and jam","The jammers kill the drones that would clear the traps, so the trap survives long enough to trigger.","Basements and corridor sites: Presidential Plane, Kanal, Consulate, Oregon."],
+        ["Castle + Kaid + Clash","Time burn","Barricades funnel everything into the electrified wall, and the shield slows whatever still gets through. Every route costs time rather than health, and the clock does the rest.","Long-hallway and flankable sites: Lair, Nighthaven Labs, Fortress, Skyscraper, Kanal."],
+        ["Valkyrie + Maestro","Camera spam","Cams on the approaches nobody is holding and Evil Eyes on the two long sightlines. Nobody moves until somebody has called it.","Small, familiar, house-shaped sites: House, Oregon, Chalet, Club House."],
+        ["Thermite + Capitão","Smoky bacon","Thermite carries smoke and Capitão carries Impact EMPs. The EMPs strip the denial, the wall goes up, the smoke goes into the hole, both enter together, then fire bolts deny the room behind them.","Any site with one reinforced wall worth opening."]],
+  note:"Combinations we have run or can build directly from established roles. Smoky bacon is the newest and the one that needs the least new practice, because both halves are already mains."}
+];
+
+document.getElementById('roster').innerHTML = ROSTER.map(r=>
+ `<tr><td>${r[0]}</td><td class="n">${r[1]}</td><td class="n">${r[2]}</td><td class="n">${r[3]}</td><td class="n">${r[4]}</td><td>${r[5]}</td></tr>`).join('');
+
+
+const COLS = '<colgroup><col style="width:48%"><col style="width:13%"><col style="width:13%"><col style="width:13%"><col style="width:13%"></colgroup>';
+const testRows = list => list === 'na'
+ ? `<tr class="na"><td><b>N/A</b><span class="why">Not enough data yet. The REC picks in the table above are already the live tests.</span></td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>`
+ : opRows(list);
+const avoidBody = v => Array.isArray(v)
+ ? `<ul class="avoid-list">${v.map(x=>`<li>${x}</li>`).join('')}</ul>`
+ : `<p>${v}</p>`;
+const testBlock = list => `<div class="testing"><h5>Experiment with</h5><table>${COLS}<tbody>${testRows(list)}</tbody></table></div>`;
+
+const opRows = list => list.map(o=>
+ `<tr><td><b>${o[0]}</b>${o[6]?'<span class="tag">REC</span>':''}<span class="why">${o[5]}</span></td><td class="n">${o[1]}</td><td class="n">${o[2]}</td><td class="n">${o[3]}</td><td class="n">${o[4]}</td></tr>`).join('');
+
+document.getElementById('cards').innerHTML = P.map(p=>`
+<article class="card">
+ <div class="card-top">
+   <div class="name-row"><h3>${p.name}</h3><span class="role">${p.role}</span></div>
+   <p class="summary">${p.summary}</p>
+ </div>
+ <div class="strip">${p.strip.map(s=>`<div><b>${s[0]}</b><small>${s[1]}</small></div>`).join('')}</div>
+ <div class="gauge">
+   <div class="gauge-label"><span>Survival rate · most-played operators</span><span>${p.srv}%</span></div>
+   <div class="track"><div class="fill ${p.srv>=40?'ok':''}" style="width:${p.srv}%"></div><div class="target"></div></div>
+   <p class="gauge-note">${p.note}</p>
+ </div>
+ <div class="swx">
+   <div class="s"><h4>Strengths</h4>${avoidBody(p.s)}</div>
+   <div class="w"><h4>Weaknesses</h4>${avoidBody(p.w)}</div>
+   <div class="g"><h4>Suggestions</h4>${avoidBody(p.g)}</div>
+   <div class="a"><h4>Consider avoiding</h4>${avoidBody(p.a)}</div>
+ </div>
+ <div class="ops">
+   <div class="atk"><h4>Top 5 attack</h4><table>${COLS}
+     <thead><tr><th>Operator</th><th>Rds</th><th>WR</th><th>K/D</th><th>SRV</th></tr></thead>
+     <tbody>${opRows(p.atk)}</tbody></table></div>
+   <div class="def"><h4>Top 5 defence</h4><table>${COLS}
+     <thead><tr><th>Operator</th><th>Rds</th><th>WR</th><th>K/D</th><th>SRV</th></tr></thead>
+     <tbody>${opRows(p.def)}</tbody></table></div>
+ </div>
+ <div class="ops ops-test">
+   <div class="atk">${testBlock(p.tst_a)}</div>
+   <div class="def">${testBlock(p.tst_d)}</div>
+ </div>
+</article>`).join('');
+
+
+const MAPS = [
+ ["Club House","German police vehicles and a strip club. Some outside plays, and a basement."],
+ ["Oregon","Barnyard house. Basement map, and one we both know well."],
+ ["Coastline","Luxurious hotel and mansion by the coast."],
+ ["Nighthaven Labs","Lots of hallways. Easy to get flanked."],
+ ["Lair","Lots of hallways. Easy to get flanked."],
+ ["Fortress","A massive castle. Lots of hallways, easy to get flanked."],
+ ["Skyscraper","The East Asian building. Lots of hallways, easy to get flanked."],
+ ["Kanal","The military unit. Hallways and staircases, easy to get flanked."],
+ ["Outback","Kangaroo Sandwich. Some outside plays."],
+ ["Theme Park","Big building with some outside plays."],
+ ["Border","Big building with some outside plays. Can get flanked."],
+ ["Kafe Dostoyevsky","Big building, large open rooms, wooden surfaces."],
+ ["Consulate","Big building, large open rooms."],
+ ["Bank","Big building, large open rooms. Basement sites."],
+ ["Chalet","Big ski chalet. Narrow hallways, a few outside plays, and a basement."],
+ ["Presidential Plane","Narrow hallways. One-sided: outside snipers you cannot shoot back at."],
+ ["Calypso Casino","Huge rooms and hallways."],
+ ["Tower","Huge open spaces with closed rooms."],
+ ["Stadium Bravo","So many rooms and hallways. Very flankable."],
+ ["Emerald Plains","Big mansion. Flankable, and a poor Echo map: nowhere to hide the drones."],
+ ["Favela","Big building, many storeys, flankable. Aced here."],
+ ["House","Literally a house. Know it well, and aced here."],
+ ["Yacht","Big yacht. A little interaction with outside, very flankable."]
+];
+
+document.getElementById('comps').innerHTML = COMPS.map(c=>`
+<div class="comp ${c.side}${c.head?' cols'+c.head.length:''}${c.side=='c'?' cores':''}">
+  <h3><span>${c.title}</span><em>${c.tag}</em></h3>
+  ${c.site?`<div class="site"><b>Use it on</b> ${c.site}</div>`:''}
+  ${c.maps?`<div class="site maps"><b>Maps</b> ${c.maps}</div>`:''}
+  <table>${c.head?`<thead><tr>${c.head.map(x=>`<th>${x}</th>`).join('')}</tr></thead>`:''}<tbody>${c.rows.map(r=>`<tr class="${c.side=='a'&&TRIO.includes(r[0])?'trio':''}">${r.map(x=>`<td>${x}</td>`).join('')}</tr>`).join('')}</tbody></table>
+  <p class="cnote">${c.note}</p>
+</div>`).join('');
+
+document.getElementById('maplist').innerHTML = MAPS.map(m=>`<div><b>${m[0]}</b><span>${m[1]}</span></div>`).join('');
+
+const MAPDEF = [
+ ["Presidential Plane","5","Denari","Thermite","Corridors and doors throughout, hard breach rarely needed"],
+ ["Kafe Dostoyevsky","2","Denari / Tubarão","Thermite","Chokepoints upstairs and hatches on every floor"],
+ ["Bank","1 · 3","Denari / Valkyrie","Thermite","Vault and CCTV are pure access denial, upper floors are open"],
+ ["Club House","1 · 4","Denari basement, Echo upstairs","Thermite","Tight basement, heavy vertical play, roam-heavy"],
+ ["Oregon","1 · 4","Denari basement, Tubarão upstairs","Thermite","Basement is close quarters, upper floors need hatch denial"],
+ ["Consulate","1 · 5","Denari","Thermite","Garage and Cafeteria are chokepoint-heavy"],
+ ["Border","3 · 4","Valkyrie / Sentry","Glaz","Big flanks and high destruction, but the sites themselves are tight"],
+ ["Coastline","2 · 3","Valkyrie","Thermite / Glaz","No basement, so play is horizontal and roof-based"],
+ ["Villa","2 · 4","Echo / Valkyrie","Glaz / Thermite","Vertical and roam-heavy, no exterior windows into site"],
+ ["Chalet","1 · 5","Tubarão","Thermite","Basement plus hard-breach-dependent sites"],
+ ["Kanal","2 · 5","Tubarão / Echo","Thermite","Hatches and breachable walls throughout"],
+ ["Theme Park","4","Sentry","Thermite","Tight, cluttered, short sightlines"]
+];
+document.getElementById('mapdefaults').innerHTML = MAPDEF.map(m=>`<tr><td><b>${m[0]}</b></td><td>${m[1]}</td><td>${m[2]}</td><td>${m[3]}</td><td>${m[4]}</td></tr>`).join('');
+
+const MAPLOG = [
+ ["Theme Park","Watch","bad","0–3 · 14–11 kills","0–1 earlier","Three logged losses while winning the gunfights. Round conversion, not aim, so it stays the most fixable."],
+ ["Calypso Casino","Mixed","mid","1–3 · 10–12 kills","One strong Tachanka game","Bad in Quick Match, then a 4–1 Ranked win with a 3K. The playlist may matter more than the map on the big open sites."],
+ ["Consulate","Watch","bad","0–2 · 3–7 kills","Mixed, low impact","Was unproven, now negative in both count and output. Chokepoint-heavy sites that have not been solved."],
+ ["Chalet","Watch","bad","0–1 · 2–3 kills","0–4 game","Negative in both windows. Narrow routes plus basement pressure, and no round converted yet."],
+ ["Presidential Plane","Mixed","mid","1–1 · 6–5 kills","In the bad block","Corridors plus outside angles that cannot be answered, but the record has evened out. Watch rather than avoid."],
+ ["Villa","Watch","bad","0–2 · 19–9 kills","0–2 twice","The Theme Park problem in its sharpest form. An ace and a 1v4 clutch here, both in losses. The rounds are not being converted."],
+ ["Club House","Volatile","mid","1–3 · 14–9 kills","0–3 earlier","Was the worst map on the log until an 11–3 win with an ace on it. Small rooms and tight staircases suit the roam and flank."],
+ ["Bank","Mixed","mid","2–2 · 16–14 kills","1–3 with a 1v3 loss","Four matches, evenly split. The big interiors punish flanking, so this is a hold-an-angle map rather than a roam one."],
+ ["Outback","Mixed","mid","1–2 · 8–8 kills","6–1 game","Was Good on the older window, has drifted to even. Worth watching rather than reclassifying."],
+ ["Oregon","Mixed","mid","1–1 · 7–7 kills","2–1 game","Level on both counts after a 4–2 Ranked win. A known map with no strong signal either way."],
+ ["Kanal","Good","good","2–1 · 8–4 kills","9–3 Ranked win, and a 0–1","Was volatile, now positive in both windows. The ceiling here is as high as anywhere on the log."],
+ ["Coastline","Neutral","mid","1–1 · 4–4 kills","3–3 game","Even on every count in both windows. Nothing here should change behaviour."],
+ ["Border","Good","good","2–1 · 8–2 kills","2–0 game","Now the cleanest record on the log, including a 4–0 Ranked win. Positive in both windows."],
+ ["Emerald Plains","Good","good","2–1 · 9–6 kills","Not played","Still positive despite a poor Echo map note, though the record is no longer perfect."],
+ ["Kafe Dostoyevsky","Good","good","1–1 · 7–4 kills","7–3 with a 2K","Positive gun output in both windows. Big rooms, and the home map of the Lion and Ace core."],
+ ["Favela","Good","good","1–1 · 7–4 kills","Not logged","Positive gun record, and an ace here historically."],
+ ["House","Good","good","1–0 · 0–2 kills","Not logged","One match and no kills in it, but a win, and an ace here historically. Small and well known."]
+];
+document.getElementById('maplog').innerHTML = MAPLOG.map(m=>
+ `<div><b>${m[0]}<span class="rd ${m[2]}">${m[1]}</span></b><span class="rec">${m[3]} <i>·</i> ${m[4]}</span><span>${m[5]}</span></div>`).join('');
+</script>
 </body>
 </html>
