@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="document-version" content="2026-08-26-1950">
+<meta name="document-version" content="2026-08-26-2228">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Dossier — R6 Siege</title>
 <style id="embedded-fonts">
@@ -71,9 +71,12 @@ td.n{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;whi
 
 .card{background:var(--card);border:1px solid var(--rule);border-left:5px solid var(--ink);margin-bottom:26px}
 .card-top{padding:20px 22px 18px;border-bottom:1px solid var(--rule)}
-.name-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.name-row{display:flex;align-items:center;gap:18px 22px;flex-wrap:wrap}
 .name-row h3{font-size:28px}
 .handle{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--faint)}
+.stat-links{display:flex;flex-wrap:wrap;gap:6px 28px;align-items:baseline}
+.stat-links a{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--atk);text-decoration:underline;text-underline-offset:2px}
+.stat-links a:hover{color:var(--ink)}
 .role{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;border:1px solid var(--ink);padding:3px 9px;text-transform:uppercase}
 .summary{margin-top:11px;font-size:16.5px;line-height:1.45;max-width:72ch}
 
@@ -113,7 +116,6 @@ td.n{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;whi
 .ops{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rule)}
 .ops>div{padding:16px 22px 12px}
 .ops-test{border-top:none;padding-top:0}
-.ops-test:has(:only-child){grid-template-columns:1fr}
 .ops-test>div{padding:0 22px 18px}
 
 .ops>div:first-child{border-right:1px solid var(--rule)}
@@ -220,7 +222,7 @@ ol.tips li:last-child{border:none}
   #cards .card{break-before:page}
   #cards .card:first-child{break-before:auto}
   .card{margin-bottom:0;break-inside:auto}
-  .card-top{padding:12px 14px 10px}.name-row h3{font-size:21px}.handle{font-size:8px}.role{font-size:7.6px;padding:2px 6px}.summary{font-size:11px;margin-top:6px}
+  .card-top{padding:12px 14px 10px}.name-row h3{font-size:21px}.handle{font-size:8px}.stat-links a{font-size:8px}.role{font-size:7.6px;padding:2px 6px}.summary{font-size:11px;margin-top:6px}
   .strip div{padding:7px 14px}.strip b{font-size:14px}.strip small{font-size:7px;margin-top:3px}
   .gauge{padding:9px 14px 10px}.gauge-label{font-size:7.5px;margin-bottom:5px}.track{height:14px}.target::after{font-size:6.5px;top:-1px}.gauge-note{margin-top:13px}
   .swx>div{padding:10px 14px}.swx h4{font-size:7.5px;margin-bottom:5px}.swx p{font-size:9px;line-height:1.38}.avoid-list li{font-size:9px;line-height:1.38;margin-bottom:4px;padding-left:11px}.avoid-list li::before{top:5px;width:4px;height:4px}
@@ -263,6 +265,7 @@ ol.tips li:last-child{border:none}
       <div><b>K/D</b>Kills divided by deaths. 1.00 means an even trade. Support operators sit lower by design — it is not a skill score.</div>
       <div><b>WR</b>Win rate: the share of rounds won on that operator, or matches won across a career. Note this is a <em>team</em> stat — it reflects who a player plays with as much as how they play.</div>
       <div><b>SRV</b>Survival rate: the share of rounds finished alive. A dead player contributes nothing for the rest of the round, so this moves win rate more than any other figure here.</div>
+      <div><b>1vX</b>Clutch wins: rounds won while outnumbered. 1v2, 1v3, 1v4 or 1v5. Counted per operator on stats.cc.</div>
       <div><b>HS%</b>Headshot percentage. The cleanest read on pure gun skill, because explosives and gadget kills cannot inflate it.</div>
       <div><b>Entry +/−</b>Opening kills minus opening deaths — the first kill and first death of each round. Gadget and explosive kills count, so always read it next to HS%.</div>
       <div><b>Rds</b>Rounds played on that operator. Ten rounds or fewer is noise; 11–30 is a hint; 30+ starts to mean something.</div>
@@ -349,7 +352,7 @@ ol.tips li:last-child{border:none}
       <div><b>23–24 August session</b>Eight matches: six wins, two losses, a 2.10 K/D and plus one hundred and thirty RP, promoted from Silver V to Silver IV. The headshot rate that day was below the career average, so the result came from decisions rather than aim. Bandit was picked deliberately for wall denial despite poor survival, and the round conversion followed.</div>
       <div><b>After a bad Quick Match loss, switch to Ranked</b>Still the default move, but 26 August is the caveat: Coastline stuffed 0–3, the next Ranked Border was also a loss, and the recovery was the Ranked game after that. Switching playlist is not a free win. It is a chance to play a slower round. If that one is also a blank page, stop or take a named plan into the next, do not queue another improvised one.</div>
       <div><b>Playlist may explain some bad maps</b>Calypso Casino and Oregon were both on the watch list from Quick Match evidence, and both produced comfortable Ranked wins. Big open maps punish uncoordinated play more than they punish this profile. Test before rewriting the map record.</div>
-      <div><b>Controller setup was wrong for a long time</b>Trigger deadzones were at ten per cent, which discards the first tenth of the trigger pull, and stick deadzones were the same. That explains inputs that felt like they never registered. Now at zero on the triggers and single figures on the sticks. Vertical sensitivity is next: it sits far above the range experienced players use, and it is the axis that settles the crosshair onto a head.</div>
+      <div><b>Controller setup was wrong for a long time</b>Trigger deadzones were at ten per cent, which discards the first tenth of the trigger pull, and stick deadzones were the same. That explains inputs that felt like they never registered. Now: look 40 vertical and 83 horizontal, five per cent on the sticks, zero on the triggers, ADS 35 on 1.0x and 40 on 2.5x. The F2 with Holo B, flash hider and vertical grip is the proof of concept. Twitch and Solid Snake are live tests in real matches, not in the shooting range.</div>
       <div><b>22–23 August session</b>Thirteen matches across midnight: a long negative run, then three Ranked games at the end going 2–1 with a 4–0 and an 11–3 win. The group shrank from four to two over the night and the results improved as it did. Two aces arrived in the middle of the bad run, both on Skopós, on Villa and Club House. The session is the clearest example yet that the day total and the quality of play can point in opposite directions.</div>
       <div><b>Four-stacks versus randoms</b>A four-stack fills the fifth slot with one of us rather than leaving it to matchmaking, and matchmaking sometimes supplies a better player than the slot we are filling. Worth testing deliberately: play a block as a duo or trio and compare the win rate against the four-stack blocks. Team setups are now built around two, three and four-player cores for this reason.</div>
       <div><b>21 August session</b>Thirteen matches: 4 wins, 9 losses, 0.82 K/D (31–38). The first seven were the worst block in a fortnight at 13–22, then Niro__99 joined, the group switched to Ranked and the gunfights turned: 12 kills to 10 deaths across three Ranked matches including a 4–0 and a 1v1 clutch. The recovery is the finding, not the day total.</div>
@@ -432,36 +435,43 @@ ol.tips li:last-child{border:none}
 /* op = [name, rounds, WR, K/D, SRV, note, isRec] */
 const P = [
  {
-  tst_a:"na",
-  tst_d:"na",
+  tst_a:[
+   ["Twitch","—","—","—","—","Shock drones clear gadgets without a gunfight.",1],
+   ["Nomad","—","—","—","—","Airjabs cover the flank after the plant.",1]
+  ],
+  tst_d:[
+   ["Smoke","—","—","—","—","Ongoing site denial. No one holds this role yet.",1],
+   ["Jäger","—","—","—","—","ADS cover for the plant and the hold.",1]
+  ],
   a:["<b>Valkyrie</b> — enough rounds to read. Poor gun, poor survival, and the cameras are not converting. Stop growing it.","<b>Zero</b> — a real sample of intel that does not convert, and he dies on it.","<b>The habit</b> — spreading attack rounds across too many operators at once. Build the useful samples before adding another pick."],
   name:"eshwador", handle:"", role:"Support / Anchor",
+  trn:"https://r6.tracker.network/r6siege/profile/psn/eshwador/overview",
+  cc:"https://stats.cc/siege/eshwador/4eb49f94-9424-481b-bcd6-e4c6b0d41671/operators",
   summary:"A flexible anchor who is building a dependable site-holding core around Azami and Pulse.",
   strip:[["352","Matches"],["1,111","Career kills"],["1.03","Career K/D"],["53.4%","Career WR"],["36.7%","Career HS%"]],
   srv:34,
   note:"Survival is fair on attack and poor on defence. Staying alive on site remains the clearest target.",
   s:["<b>Highest win rate in the squad</b> — with an even career K/D behind it, and a headshot rate now in the same band as the best gun lines here.", "<b>Sledge is the attack main</b> — good win rate, excellent K/D and the best survival on his card. Vertical pressure without an entry fight.", "<b>The gun output on attack is real</b> — Hibana especially, with Glaz behind. Both still have to turn those kills into rounds.", "<b>A defensive base exists</b> — Azami and Pulse carry the volume, both at good win rates."],
   w:["<b>Defensive survival is the gap</b> — poor on defence against fair on attack, and it is the whole story of this card.", "<b>Azami</b> — a good opening record and then very poor survival. He does not live long enough to use the advantage he creates.", "<b>Attack conversion</b> — Hibana and Glaz both frag well and win poorly, so the kills are not becoming rounds.", "<b>Smallest sample in the squad</b> — and he plays least often, so every line on this card moves quickly."],
-  g:["<b>Play the second contact, not the first</b> — the gun output is already there. Survival is the only thing holding this card back, and it is a positioning fix rather than an aim one.", "<b>Attack</b> — Sledge is the one that converts. Hibana is the volume gun. Ying now has a converting sample, so use her rather than opening another intel pick.", "<b>Defence</b> — Azami and Pulse are the base. Clash and Thunderbird are the survival tests. Solo is when Azami and Valkyrie eat the rounds, which is the opposite of the fix.", "<b>Thatcher stays the defined anti-denial pick</b> — the squad still does not own that job, and one EMP changes a controlled breach."],
+  g:["<b>Play the second contact, not the first</b> — the gun output is already there. Survival is the only thing holding this card back, and it is a positioning fix rather than an aim one.", "<b>Attack</b> — Sledge is the one that converts. Hibana is the volume gun. Ying now has a converting sample, so use her rather than opening another intel pick. Twitch and Nomad are the tests: gadget clear from safety, and airjabs after the plant.", "<b>Defence</b> — Azami and Pulse are the base. Smoke and Jäger cover jobs the squad does not currently own. Clash and Thunderbird remain the survival tests.", "<b>Thatcher stays the defined anti-denial pick</b> — the squad still does not own that job, and one EMP changes a controlled breach."],
   atk:[
    ["Sledge",22,"59%","1.50","45%","Vertical pressure without an entry fight. The one that converts."],
-   ["Hibana",28,"39%","1.73","46%","The volume gun, and the line is excellent. Conversion is still the question."],
-   ["Glaz",22,"41%","1.13","32%","Outside angles. Kills are not becoming rounds."],
+   ["Hibana",28,"39%","1.73","46%","The volume gun. Conversion is still the question."],
    ["Ying",12,"58%","1.13","33%","Candelas for the plant. Conversion is good, survival is not."],
-   ["Iana",15,"47%","0.89","40%","Intel on a cooldown, without taking a fight."]
+   ["Iana",15,"47%","0.89","40%","Intel on a cooldown, without taking a fight."],
+   ["Glaz",22,"41%","1.13","32%","Outside angles. Kills are not becoming rounds."]
   ],
   def:[
    ["Azami",60,"58%","1.02","27%","Main by volume and openings. Survival is the whole problem."],
    ["Pulse",32,"56%","0.96","25%","Site intel from below. Second-largest sample."],
    ["Clash",5,"60%","1.33","40%","Shield for a patient anchor. Tiny sample, good conversion.",1],
-   ["Thunderbird",9,"44%","0.86","22%","Heals from cover without holding an angle.",1],
-   ["Skopós",6,"50%","1.00","33%","Mobile site information. Even line, still a test.",1]
+   ["Skopós",6,"50%","1.00","33%","Mobile site information. Even line, still a test.",1],
+   ["Thunderbird",9,"44%","0.86","22%","Heals from cover without holding an angle.",1]
   ]
  },
  {
   tst_a:[
-   ["Thermite",18,"50%","0.58","33%","Fallback breach. Conversion is fair, the gun line is not."],
-   ["Nomad","—","—","—","—","Airjabs keep working after placement, so a lost opening trade does not cost the whole round.",1]
+   ["Thermite",18,"50%","0.58","33%","Fallback breach. Conversion is fair, the gun line is not."]
   ],
   tst_d:[
    ["Thunderbird",5,"60%","2.00","60%","Heals from cover, no angle held. Tiny sample, excellent survival.",1],
@@ -469,36 +479,40 @@ const P = [
   ],
   a:["<b>Castle</b> — a poor win rate, K/D and survival across real volume. The clearest proven drain on the profile.","<b>Blackbeard</b> — the second drain. High rounds, a negative opening record and the weakest K/D of anything he plays often. The shield invites exactly the duel he does not want.","<b>The habit</b> — holding an angle after it has been peeked, and staying on a camera once the callout has been made."],
   name:"Big_Bunda_20", handle:"", role:"Intel / Support",
+  trn:"https://r6.tracker.network/r6siege/profile/psn/Big_bunda_20/overview",
+  cc:"https://stats.cc/siege/Big_Bunda_20/92aa234b-26b7-46fb-911b-964b69c95c26/operators",
   summary:"A dependable support player whose strongest rounds come from controlling space rather than forcing gunfights.",
   strip:[["947","Matches"],["2,066","Career kills"],["0.78","Career K/D"],["51.1%","Career WR"],["34.4%","Career HS%"]],
   srv:30,
   note:"Survival is poor on both sides and drifting, so it is the whole card’s problem rather than a defensive one.",
   s:["<b>Ash is the find</b> — good win rate and the only positive gun line on his attack card, on a rifle that asks nothing complicated of him.", "<b>Kapkan leads the defence</b> — excellent win rate and the best conversion in his pool. The traps do their work before the gunfight starts.", "<b>Thorn carries the volume</b> — his most-played operator, and a good win rate at that volume.", "<b>The support work converts</b> — a good career win rate on a poor K/D. He wins rounds without needing the kills."],
   w:["<b>Reduce predictability</b> — the same angle, the same camera, the same spot after a trade, and in a 1vX he tends to hold where he is rather than move. This is a habit rather than a limitation, and it is the largest available gain on the card.", "<b>Thorn's opening record</b> — the weakest in the squad, which usually means playing the razorbloom line rather than setting it and walking away. One round of doing it differently would show up immediately.", "<b>Castle and Blackbeard</b> — two high-volume picks that are not paying back the rounds spent on them. Neither suits a player whose value comes from utility rather than duels.", "<b>Survival</b> — the common thread across both halves of the card, including on Ash, where the gun output is best. Getting off the angle after the trade would lift everything at once."],
-  g:["<b>Move after every contact, then move again</b> — the highest-value change available here. Trade, reposition, take the next fight from somewhere they are not expecting.", "<b>In a 1vX, relocate before they arrive</b> — they heard the last shot and they are walking towards it. Break line of sight, change floor or side, and make the first one come to a fresh angle. That turns a coin flip into a real chance.", "<b>Ash is the attack main</b> — the best gun line in the pool, and the simplest job on it.", "<b>Capitão is the named-plan pick, not a gunfight</b> — smoky bacon is already in the cores, and he has the volume to belong next to Lion and Fuze rather than sitting unused.", "<b>Kapkan is first on defence</b> — best conversion in the pool, and the traps pay out whether he is alive or not.", "<b>Maestro only in setups that use the Evil Eyes</b> — watch, call it, then leave the camera.", "<b>Test next</b> — Thunderbird and Tachanka, both already on the account, so neither needs a purchase."],
+  g:["<b>Move after every contact, then move again</b> — the highest-value change available here. Trade, reposition, take the next fight from somewhere they are not expecting.", "<b>In a 1vX, relocate before they arrive</b> — they heard the last shot and they are walking towards it. Break line of sight, change floor or side, and make the first one come to a fresh angle. That turns a coin flip into a real chance.", "<b>Ash is the attack main</b> — the best gun line in the pool, and the simplest job on it.", "<b>Capitão is the named-plan pick, not a gunfight</b> — smoky bacon is already in the cores, and he has the volume to belong next to Lion and Fuze rather than sitting unused.", "<b>Kapkan is the conversion pick on defence</b> — best conversion in the pool, and the traps pay out whether he is alive or not.", "<b>Maestro only in setups that use the Evil Eyes</b> — watch, call it, then leave the camera.", "<b>Test next</b> — Thunderbird and Tachanka, both already on the account, so neither needs a purchase."],
   atk:[
-   ["Lion",78,"55%","0.79","40%","Stable team utility with the volume to trust it."],
    ["Fuze",79,"53%","0.96","41%","Situational vertical. High volume, almost even."],
+   ["Lion",78,"55%","0.79","40%","Stable team utility with the volume to trust it."],
    ["Flores",84,"40%","0.81","30%","Ratero utility. Conversion remains the issue."],
    ["Capitão",55,"49%","0.68","25%","Smoky bacon. Impact EMPs and fire bolts, not a gunfight."],
-   ["Ash",19,"58%","1.13","21%","Best gun line in the pool. Trade early, then get off the entry angle."]
+   ["Ash",19,"58%","1.13","21%","Best gun line. Trade early, then leave the angle."]
   ],
   def:[
-   ["Kapkan",34,"68%","1.00","32%","Best conversion in the pool. Traps work before the gunfight."],
    ["Thorn",100,"60%","0.82","29%","Highest volume. Set the razorblooms and walk away."],
-   ["Kaid",64,"52%","0.66","22%","Wall and hatch denial. Dependable at this volume."],
+   ["Kapkan",34,"68%","1.00","32%","Best conversion in the pool. Traps work before the gunfight."],
    ["Maestro",88,"50%","0.42","32%","Cameras for coordinated setups. Call it, then leave."],
+   ["Kaid",64,"52%","0.66","22%","Wall and hatch denial. Dependable at this volume."],
    ["Mute",21,"48%","0.47","19%","Jammers for the trap pairing. Low exposure, poor gun line."]
   ]
  },
  {
   tst_a:[
-   ["Capitão",10,"40%","1.20","50%","Smoky bacon. Impact EMPs strip the wall, fire bolts deny the room.",1],
+   ["Twitch",23,"48%","0.90","57%","Shock drones clear gadgets from safety. Manage the F2's recoil."],
    ["Zofia",13,"54%","1.38","38%","Hard breach charge plus the launcher. Still a small sample."]
   ],
-  tst_d:"na",
-  a:["<b>Intel / utility attackers with high recoil guns — Grim, Solid Snake</b> — both should fit the intel-first playstyle on paper, but the primary weapons are the deal-breaker.","<b>Other attackers that do not fit — Rauora, Gridlock</b> — Rauora’s gadget loop feels awkward and exposing; Gridlock’s early combat line is poor enough not to justify more rounds.","<b>Low-survival defenders — Mute, Smoke, Azami, Lesion, Goyo</b> — too often die before or while getting enough value. Goyo can still influence rounds after death, but the overall fit is not worth building further.","<b>Retired / poor-fit defenders — Thorn, Aruni</b> — Thorn no longer fits the intended pool despite the volume; Aruni has the weakest meaningful K/D sample.","<b>Tilting and queueing through a bad run.</b> The long August sessions kept going well past the point they stopped working, and the damage arrived after that point rather than before it. This one is improving: a tired Border with nothing left was followed by a win and a stop, not another queue."],
+  tst_d:"The five are settled. Flex off-list when the site asks for it.",
+  a:["<b>Intel / utility attackers with high recoil guns — Grim</b> — should fit the intel-first playstyle on paper, but the primary weapon is the deal-breaker. Solid Snake is off this list while that rifle is being retested in real matches.","<b>Other attackers that do not fit — Rauora, Gridlock</b> — Rauora’s gadget loop feels awkward and exposing; Gridlock’s early combat line is poor enough not to justify more rounds.","<b>Low-survival defenders — Mute, Smoke, Azami, Lesion, Goyo</b> — too often die before or while getting enough value. Goyo can still influence rounds after death, but the overall fit is not worth building further.","<b>Retired / poor-fit defenders — Thorn, Aruni</b> — Thorn no longer fits the intended pool despite the volume; Aruni has the weakest meaningful K/D sample.","<b>Tilting and queueing through a bad run.</b> The long August sessions kept going well past the point they stopped working, and the damage arrived after that point rather than before it. This one is improving: a tired Border with nothing left was followed by a win and a stop, not another queue."],
   name:"Kulan_G100", handle:"", role:"Planter / Intel",
+  trn:"https://r6.tracker.network/r6siege/profile/psn/Kulan_G100/overview",
+  cc:"https://stats.cc/siege/Kulan_G100/604dfcce-92e1-4b40-864b-69e025620569/operators",
   summary:"The squad’s most experienced player and its planter, with a clear identity around proactive intel and controlled breach.",
   strip:[["1,697","Matches"],["4,053","Career kills"],["1.02","Career K/D"],["49.3%","Career WR"],["36.4%","Career HS%"]],
   srv:44,
@@ -508,46 +522,50 @@ const P = [
   g:["<b>Skopós/Echo map rule</b> — roam and flank where the rooms are small and the staircases tight: Villa, Club House, House, Oregon. On a big interior like Bank the flank crosses open ground, so hold an angle instead of running into one.", "<b>Vary the entry</b> — never the same rappel window twice in a match, never the same order of broken windows. Change it even when the first one worked.", "<b>For slow entries</b> — take the door you know rather than the one closest to site, then work across. Familiar ground first, objective second.", "<b>Deimos is a good stack pick, but wait for the right moment</b> — DeathMARK works well when the team can act on the callouts. Prioritise vertical plays and do not always start with him. Read the enemy team on another operator first, watch how they behave, then use Deimos to exploit what you found. The exception is when they have already been checked on a stats tracker and look weak, in which case opening with him is fine."],
   atk:[
    ["Deimos",132,"53%","1.31","49%","DeathMARK creates late-round certainty when on comms with friends."],
-   ["Thermite",111,"51%","1.31","41%","Default hard breach. Strong rifle, positive conversion and one 1vX win."],
-   ["Lion",102,"50%","1.47","46%","Best attacker on the profile, with the volume to trust it, and an ace."],
-   ["Maverick",29,"55%","1.00","48%","Quiet hard breach. Opens the wall without an entry fight, and he survives it."],
-   ["Glaz",26,"46%","1.57","46%","Best gun line on the card. Long outside-in angles, and he survives them."]
+   ["Lion",102,"50%","1.47","46%","Intel gatherer and freezes enemies for the defuser. One ace."],
+   ["Thermite",111,"51%","1.31","41%","Default hard breach. Strong rifle and positive conversion."],
+   ["Glaz",26,"46%","1.57","46%","Best gun line on the card. Long outside-in angles."],
+   ["Maverick",29,"55%","1.00","48%","Quiet hard breach. Opens the wall without a fight."]
   ],
   def:[
-   ["Valkyrie",96,"48%","1.16","35%","Cameras first, then flank with the Nitro. One ace on the card."],
+   ["Skopós",36,"61%","2.28","50%","Two aces. Roam and flank on small staircase maps."],
+   ["Denari",89,"58%","1.34","44%","Trap the approaches, then hold an angle or roam and flank."],
    ["Echo",90,"58%","1.02","42%","Mobile intel, plant denial and four 1vX wins. Built for late clutches."],
-   ["Denari",89,"58%","1.34","44%","Trap the approaches, then hold an angle. The mines convert after he is dead."],
    ["Tubarão",80,"56%","1.08","40%","Zoto canisters break the push, and the rifle wins the first duel."],
-   ["Skopós",36,"61%","2.28","50%","Two aces in one night. Roam and flank, best on small staircase maps."]
+   ["Valkyrie",96,"48%","1.16","35%","Cameras first, then flank with the Nitro. One ace on the card."]
   ]
  },
  {
   tst_a:[
-   ["Twitch","—","—","—","—","Shock drones clear traps, cameras and batteries from safety. Utility without a gunfight.",1]
+   ["Finka","—","—","—","—","A heal and a boost for the survival gap.",1]
   ],
-  tst_d:"na",
+  tst_d:[
+   ["Smoke","—","—","—","—","Site denial, and the SMG he has been asking for.",1]
+  ],
   a:["<b>Jäger</b> — the worst line on the card. A poor win rate on top of the worst K/D and survival he has anywhere.","<b>Castle</b> — no kills at all across the sample, and he has yet to survive a round on it. Poor enough to be the small-sample exception.","<b>Frost</b> — early, but the same shape as the other two: low win rate, almost no gun output, and he dies on site.","<b>A note on all three</b> — these are small samples, so treat them as early warnings rather than verdicts. The pattern is the point: all three ask him to hold a fixed position and fight for it.","<b>Entry roles of any kind</b> — until the career headshot rate moves. That is aim work outside the game rather than another operator swap."],
   name:"Niro__99", handle:"", role:"Utility / Support",
+  trn:"https://r6.tracker.network/r6siege/profile/psn/Niro__99/overview",
+  cc:"https://stats.cc/siege/Niro__99/880105f9-9259-4da5-bbef-252a7b736032/operators",
   summary:"An objective-first anchor who sets the site up in prep and holds it once the fight arrives.",
   strip:[["593","Matches"],["1,602","Career kills"],["0.87","Career K/D"],["50.8%","Career WR"],["20.7%","Career HS%"]],
   srv:22,
   note:"Lowest survival of the five. The operator changes below are aimed squarely at it.",
   s:["<b>Kaid carries the defence</b> — by far his largest sample, and the job still suits him.", "<b>Mute and Alibi convert</b> — excellent win rates on both, and neither of them needs him to hold an angle.", "<b>Fuze produces</b> — the only positive gun line on the card, with a good opening record behind it.", "<b>He plays for the objective</b> — a good career win rate on a below-par K/D. The rounds get won without the kills."],
-  w:["<b>The attack pool leans on the right site turning up</b> — Fuze wants a floor above, Kali wants an exterior angle. On the maps that offer neither there is no natural fallback, which is a pool problem rather than a player one.", "<b>Kali on tight maps</b> — the win rate and survival both fall away indoors, and that is where most of the damage to the card has come from.", "<b>Headshot rate</b> — the lowest in the squad. That is aim work outside the game rather than another operator swap, and it caps what any pick can return.", "<b>Survival</b> — the lowest of the five, with Lion the weakest line. Scanning from cover rather than from the open would move it on its own."],
-  g:["<b>Add an attacker that solves a problem every map has</b> — the current pool is built on picks that need the right site to turn up. Two problems exist in every single round: a wall that needs opening, and defender gadgets that need destroying. Thermite, Ace or Hibana answers the first. Brava, Flores or Twitch answers the second. One of those played properly is worth more than a third situational pick.", "<b>Thermite is where I would start</b> — the squad is short of breachers, so the role is genuinely needed, and opening a wall does not require winning a duel. That suits this card better than anything asking him to frag first.", "<b>Fuze stays, but not as the main</b> — it is a good line and it is situational. Take it when there is a floor above the site rather than by default.", "<b>Kali may be more flexible than her record suggests</b> — the rifle only works at range, but the SPSMG9 secondary has been buffed and covers the close fights the CSRX cannot. Worth trying that loadout before writing her off on tight maps.", "<b>Defence</b> — Kaid for volume, then Mute and Alibi. Mute earns his slot on more than his own numbers: the jammers kill the drones that clear Denari and Kapkan traps.", "<b>Play behind first contact</b> — low-exposure utility is where he gets paid."],
+  w:["<b>The attack pool leans on the right site turning up</b> — Fuze wants a floor above, Kali wants an exterior angle. On the maps that offer neither there is no natural fallback, which is a pool problem rather than a player one.", "<b>Kali</b> — very poor survival, the weakest line on the card, and it falls away further indoors. Exterior angles only.", "<b>Headshot rate</b> — the lowest in the squad. That is aim work outside the game rather than another operator swap, and it caps what any pick can return.", "<b>Survival</b> — the lowest of the five, with Kali the weakest line. Scanning from cover rather than from the open would move it on its own."],
+  g:["<b>Add an attacker that solves a problem every map has</b> — the current pool is built on picks that need the right site to turn up. Two problems exist in every single round: a wall that needs opening, and defender gadgets that need destroying. Thermite, Ace or Hibana answers the first. Brava, Flores or Twitch answers the second. One of those played properly is worth more than a third situational pick.", "<b>Thermite is where I would start</b> — the squad is short of breachers, so the role is genuinely needed, and opening a wall does not require winning a duel. That suits this card better than anything asking him to frag first.", "<b>Finka is the survival test</b> — a heal and a boost on a card whose gap is staying alive, rather than another situational gun.", "<b>Fuze stays, but not as the main</b> — it is a good line and it is situational. Take it when there is a floor above the site rather than by default.", "<b>Kali may be more flexible than her record suggests</b> — the rifle works best at range, but the SPSMG9 secondary has been buffed and covers the close fights the CSRX cannot. Worth trying that loadout before writing her off on tight maps.", "<b>Vigil is the roam test</b> — the gun output on the only round he has is excellent. He may already be a better roamer than the anchor pool suggests, and he has not given it a real sample.", "<b>Smoke is the gun he asked for</b> — site denial that keeps working after death, on a submachine gun he actually wants to shoot. No sample yet, so it is an experiment.", "<b>Defence</b> — Kaid for volume, then Mute and Alibi. Vigil is the roam test. Smoke is the experiment.", "<b>Play behind first contact</b> — low-exposure utility is where he gets paid."],
   atk:[
    ["Fuze",66,"45%","1.02","30%","Highest volume and the only established positive gun line here."],
    ["Lion",28,"61%","0.76","11%","Wins rounds, but survival remains the concern. Scan, then get behind cover."],
-   ["Kali",22,"45%","0.70","9%","Exterior sightlines only. Indoor rounds are where survival falls away."],
+   ["Kali",22,"45%","0.70","9%","Very poor survival. Exterior sightlines only."],
    ["Maverick",10,"60%","0.57","30%","Useful breach utility without forcing entry fights. Best survival on the card.",1],
-   ["Thermite",3,"33%","0.50","33%","Hard breach is needed almost everywhere. The job is opening the wall, not winning the duel.",1]
+   ["Thermite",3,"33%","0.50","33%","Hard breach, then smoke for the plant.",1]
   ],
   def:[
-   ["Kaid",81,"51%","0.76","23%","By far the largest defensive sample. Wall and hatch denial shape where the fight happens."],
-   ["Mute",15,"67%","1.00","33%","Jammers deny the drones that clear traps. Real synergy with Denari and Kapkan."],
-   ["Alibi",11,"73%","0.88","27%","Best conversion on the card, and the decoys call the approach for free.",1],
-   ["Kapkan",5,"60%","0.75","20%","Trap utility works before the gunfight and can soften the entry.",1],
-   ["Bandit",9,"67%","0.57","22%","Good conversion. The gun line and survival are not.",1]
+   ["Kaid",81,"51%","0.76","23%","Largest defensive sample. Excellent wall and hatch denial."],
+   ["Mute",15,"67%","1.00","33%","Jammers deny the drones that clear traps. Synergy with Denari and Kapkan."],
+   ["Alibi",11,"73%","0.88","27%","Best conversion. Decoys call the approach for free.",1],
+   ["Vigil",1,"100%","4.00","100%","Quiet roam. Tiny sample, but the gun was excellent.",1],
+   ["Kapkan",5,"60%","0.75","20%","Trap utility works before the gunfight and can soften the entry.",1]
   ]
  },
  {
@@ -555,6 +573,8 @@ const P = [
   tst_d:"na",
   a:["<b>No additional operator-specific avoid call yet</b> — the negative alternatives are all below ten rounds and remain too small to rule out.","<b>The habit</b> — taking first contact on Ace. His opening record on the operator the team most needs alive is very poor. Open the route, let contact happen ahead, then trade."],
   name:"yasbas10", handle:"", role:"Breach / Anchor",
+  trn:"https://r6.tracker.network/r6siege/profile/psn/yasbas10/overview",
+  cc:"https://stats.cc/siege/yasbas10/7884f2fd-fca7-47de-a0fd-d4c280bcdc16/operators",
   summary:"A disciplined breach-and-anchor player who gets more from a compact pool than the rest of the squad.",
   strip:[["594","Matches"],["1,975","Career kills"],["1.26","Career K/D"],["53.0%","Career WR"],["34.5%","Career HS%"]],
   srv:38,
@@ -566,13 +586,13 @@ const P = [
    ["Ace",152,"48%","1.29","36%","The proven attack main. Open the route, then enter second."],
    ["Hibana",30,"53%","0.95","30%","The proven fallback: ranged hard breach with strong conversion."],
    ["Fuze",10,"30%","1.80","50%","Strong gun line, poor conversion. Keep it situational.",1],
-   ["Thermite","—","—","—","—","A third breach profile, so the wall never rests on one operator being available.",1],
-   ["Maverick","—","—","—","—","Opens walls quietly when the charge is denied, with no entry fight required.",1]
+   ["Thermite","—","—","—","—","A third breach profile when Ace is banned or taken.",1],
+   ["Maverick","—","—","—","—","Quiet breach when the charge is denied, or Ace is banned.",1]
   ],
   def:[
    ["Castle",63,"60%","1.15","37%","The clear defensive main and the best win rate at real volume."],
    ["Azami",85,"49%","1.23","34%","Large sample with strong gun output and positive conversion."],
-   ["Kapkan",33,"55%","1.52","36%","Strong gun line. Team conversion is the target."],
+   ["Kapkan",33,"55%","1.52","36%","Strong gun line. Higher SRV is the target."],
    ["Frost",4,"25%","1.00","50%","Tiny sample with even gun output; conversion is the question.",1],
    ["Mira","—","—","—","—","Site denial suits an anchor who already holds position well.",1]
   ]
@@ -647,9 +667,10 @@ document.getElementById('roster').innerHTML = ROSTER.map(r=>
 
 
 const COLS = '<colgroup><col style="width:48%"><col style="width:13%"><col style="width:13%"><col style="width:13%"><col style="width:13%"></colgroup>';
-const testRows = list => list === 'na'
- ? `<tr class="na"><td><b>N/A</b><span class="why">Not enough data yet. The REC picks in the table above are already the live tests.</span></td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>`
- : opRows(list);
+const NA_DEFAULT = 'Not enough data yet. The REC picks in the table above are already the live tests.';
+const testRows = list => Array.isArray(list)
+ ? opRows(list)
+ : `<tr class="na"><td><b>N/A</b><span class="why">${list==='na'?NA_DEFAULT:list}</span></td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td></tr>`;
 const avoidBody = v => Array.isArray(v)
  ? `<ul class="avoid-list">${v.map(x=>`<li>${x}</li>`).join('')}</ul>`
  : `<p>${v}</p>`;
@@ -661,7 +682,7 @@ const opRows = list => list.map(o=>
 document.getElementById('cards').innerHTML = P.map(p=>`
 <article class="card">
  <div class="card-top">
-   <div class="name-row"><h3>${p.name}</h3><span class="role">${p.role}</span></div>
+   <div class="name-row"><h3>${p.name}</h3><span class="stat-links"><a href="${p.trn}" target="_blank" rel="noopener noreferrer"><b>View your stats</b></a><a href="${p.cc}" target="_blank" rel="noopener noreferrer"><b>View operator data</b></a></span><span class="role">${p.role}</span></div>
    <p class="summary">${p.summary}</p>
  </div>
  <div class="strip">${p.strip.map(s=>`<div><b>${s[0]}</b><small>${s[1]}</small></div>`).join('')}</div>
@@ -685,8 +706,8 @@ document.getElementById('cards').innerHTML = P.map(p=>`
      <tbody>${opRows(p.def)}</tbody></table></div>
  </div>
  ${p.tst_a!=='na'||p.tst_d!=='na'?`<div class="ops ops-test">
-   ${p.tst_a!=='na'?`<div class="atk">${testBlock(p.tst_a)}</div>`:''}
-   ${p.tst_d!=='na'?`<div class="def">${testBlock(p.tst_d)}</div>`:''}
+   <div class="atk">${testBlock(p.tst_a==='na'?'na':p.tst_a)}</div>
+   <div class="def">${testBlock(p.tst_d==='na'?'na':p.tst_d)}</div>
  </div>`:''}
 </article>`).join('');
 

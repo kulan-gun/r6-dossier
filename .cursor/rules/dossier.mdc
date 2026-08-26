@@ -48,6 +48,10 @@ Inside `P`, each player has: `name`, `role`, `summary`, `strip` (career figures)
 
 Local tracker PDFs live in `pdfs/`. That folder is gitignored so it is never pushed. Read those files when refreshing operator tables. Do not add `pdfs/` to `.cursorignore`.
 
+`rough-notes.md` is gitignored. Local working notes, tests, and the handle-to-name map. Do not commit it, and never copy real names from it onto the page, into commits, or into README.
+
+Top-five attack and defence order uses the equal-weight score in `README.md` (win rate, K/D, survival, rounds — 25% each), compared inside sample-size bands (30+ / 11–29 / ≤10). Do not sort by rounds alone.
+
 After a content update, bump `<meta name="document-version">` to `YYYY-MM-DD-HHMM` in local time.
 
 ## Voice and method
@@ -61,7 +65,7 @@ Write like the existing page: plain, specific, slightly dry. No hype, no ranking
 - Small samples are volatile and large ones are anchored. An operator's K/D can be transformed by one good run below roughly twenty-five rounds and is effectively fixed above forty. Never promise improvement the arithmetic forbids.
 - Hypotheses stay hypotheses until the log actually proves them. One session is not a law.
 - Operator rows are `[name, rounds, WR, K/D, SRV, note, isRec?]`. Keep the five-plus-experiment shape per side.
-- Operator notes: maximum ~100 characters, roughly three lines. **No em dashes inside them** — use commas or full stops. No dated figures; they go stale.
+- Operator notes: hard cap **12 words**, **78 characters with spaces**, **67 without**. That is three lines in the table. **No em dashes inside them** — use commas or full stops. No dated figures; they go stale. The same cap applies to experiment-row notes.
 - Strengths / weaknesses / suggestions / avoid are HTML strings in arrays. Lead with `<b>claim</b> — explanation.` Skimming the bold labels alone should be useful.
 - Weaknesses describe playstyle, ability and behaviour, not what happened on a given date. Session events belong in queue hypotheses.
 - If a figure changes, update every copy of it: `P.strip`, `P.srv` / `P.note` if survival moved, `ROSTER`, and the operator row. There should be no fourth copy anywhere.
