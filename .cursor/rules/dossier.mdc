@@ -1,0 +1,121 @@
+---
+description: System instructions for updating the R6 dossier page
+alwaysApply: true
+---
+
+# Dossier update instructions
+
+This repo exists to publish one unlisted page: `s/f9a3b7c2d6e4f1a0b3c7d9e2/index.html`. Treat that file as the product. Do not invent a build step, split it into components, or restyle it unless asked.
+
+## What this is
+
+A stats tracker and a lessons-learned log for one Rainbow Six Siege squad, kept as a single self-contained HTML page.
+
+Two jobs, and they are separate:
+
+- **Tracker.** Current career figures per player and per operator, refreshed from tracker exports.
+- **Lessons learned.** What the figures mean, what has been tried, what worked, what did not, and what is still an open question.
+
+The tracker half is data. The lessons half is judgement. Keep them in their own places — figures in tables, judgement in prose — and never duplicate one inside the other.
+
+The document is descriptive, not aspirational. Every claim should be traceable to rounds actually played. The recurring test for keeping an operator is **fun + performance + repeatability**: enjoyment is a legitimate selection criterion, because enjoyment drives volume and volume drives competence.
+
+## Privacy
+
+- The repo is public so GitHub Pages can host it. The URL is the only access control.
+- Never put the published URL, the folder slug, or a hyperlink to the page in any public place (README, commits that leak the path into GitHub search, tweets, Discord, etc. are already a judgement call — do not add new public links).
+- Keep `<meta name="robots" content="noindex, nofollow">` on the page if it is present or requested. Do not Disallow the path in `robots.txt`; crawlers must fetch the page to see noindex.
+- **Players are referred to by handle only.** Real names were deliberately redacted from this document. Never reintroduce one, including in comments, commit messages or prose.
+
+## Where to edit
+
+The page is a single HTML file: static markup in the body, then a `<script>` that renders most of the live content.
+
+Edit **data**, not the render templates, unless the layout itself is wrong.
+
+| Change | Edit this |
+|---|---|
+| Player cards, strengths, weaknesses, suggestions, avoid, operator tables | `const P = [...]` |
+| Squad-at-a-glance table | `const ROSTER = [...]` (keep in sync with each player's `strip`) |
+| Team setups | `const COMPS = [...]` |
+| Map blurbs | `const MAPS = [...]` |
+| Map defaults table | `const MAPDEF = [...]` |
+| Map record | `const MAPLOG = [...]` |
+| Acronyms, site clusters, prep questions, queue hypotheses, tips | the matching static HTML sections |
+| Look / print CSS / card markup | only if the user asked for a design change |
+
+Inside `P`, each player has: `name`, `role`, `summary`, `strip` (career figures), `srv` + `note` (survival gauge), `s` / `w` / `g` / `a` (prose bullet arrays), `atk` / `def` (top-five tables), and `tst_a` / `tst_d` (experiment blocks, or the string `"na"`).
+
+After a content update, bump `<meta name="document-version">` to `YYYY-MM-DD-HHMM` in local time.
+
+## Voice and method
+
+Write like the existing page: plain, specific, slightly dry. No hype, no ranking of the five, no "tier lists."
+
+- Cards are deliberately unranked.
+- Career figures unless labelled otherwise.
+- **Prose carries no numbers.** The `s`, `w`, `g` and `a` arrays must contain no figures at all. Numbers belong in the tables directly beneath them, and only there. This rule exists because duplicated figures fall out of sync on every single update. Use a qualitative scale instead: **very poor · poor · fair · good · excellent**. Write *"excellent K/D and survival, with two aces behind them"*, never *"2.46 K/D across 27 rounds"*. Superlatives such as *"best line on the card"* are allowed but age faster than band words, so use them sparingly.
+- Sample size still governs how strongly the *tables* are read: ten rounds or fewer is noise (mark `REC` with the 7th operator-row flag `1`), 11–30 is a hint, 30+ can support a conclusion. Twenty rounds spread across sessions is the bar for promoting an experiment into a top five.
+- Small samples are volatile and large ones are anchored. An operator's K/D can be transformed by one good run below roughly twenty-five rounds and is effectively fixed above forty. Never promise improvement the arithmetic forbids.
+- Hypotheses stay hypotheses until the log actually proves them. One session is not a law.
+- Operator rows are `[name, rounds, WR, K/D, SRV, note, isRec?]`. Keep the five-plus-experiment shape per side.
+- Operator notes: maximum ~100 characters, roughly three lines. **No em dashes inside them** — use commas or full stops. No dated figures; they go stale.
+- Strengths / weaknesses / suggestions / avoid are HTML strings in arrays. Lead with `<b>claim</b> — explanation.` Skimming the bold labels alone should be useful.
+- Weaknesses describe playstyle, ability and behaviour, not what happened on a given date. Session events belong in queue hypotheses.
+- If a figure changes, update every copy of it: `P.strip`, `P.srv` / `P.note` if survival moved, `ROSTER`, and the operator row. There should be no fourth copy anywhere.
+
+## Map framework
+
+Five site clusters. These are **axes, not boxes** — most sites belong to two.
+
+1. **Sub-level / basement** — attacked from above only. Hatch denial and anti-Fuze cover.
+2. **Top floor / roof-exposed** — rappellers, windows, hatches. Exterior angles matter more than interior ones.
+3. **Open mid-floor / long sightline** — too many entrances to deny. Access denial fails here, and anything built around a close-range gun is a liability past fifteen metres.
+4. **Tight interior / CQB** — fights decided inside ten metres. Rewards close-range weapons.
+5. **Linear / corridor** — forced pathing, hard breach rarely needed, trap value at its highest.
+
+**Prep-phase check, in this order, every round:**
+
+1. Am I below everything?
+2. Am I above everything?
+3. How many entrances? Two or three, take access denial. Five or more, take cameras and intel.
+4. How long is the longest angle? Under fifteen metres, close-range picks are live.
+
+## Durable findings
+
+These have survived multiple sessions and should inform recommendations.
+
+- **Defensive win rate can exceed attacking win rate even with a worse K/D and worse survival.** Utility that keeps working after you die converts rounds without needing you alive. This is the most important structural insight in the project, and it justifies keeping trap and denial operators whose personal figures look unimpressive.
+- **Roaming and flanking scale with room size.** Small rooms and tight staircases reward it. Large open interiors punish it, because the flank crosses open ground.
+- **Playlist can explain map results.** Maps that look bad in casual play sometimes produce comfortable wins in ranked, where rounds are slower and fuller. Check playlist before condemning a map.
+- **After a bad casual loss, switch to ranked.** Repeatedly observed. A casual loss is often the tell that concentration has slipped, and ranked's structure corrects it.
+- **Three losses in a row, stop for the night.** No debate. Every long negative session in the log continued well past the point it was salvageable.
+- **Do not repeat an entry.** The same rappel window twice, or breaking windows in a fixed order, gets read. What works against bots gets punished by people.
+- **Smoky bacon works.** Thermite plus Capitão, confirmed in real matches: Capitão runs Impact EMPs, Thermite runs smoke. EMPs strip the wall denial, the wall goes up, smoke goes into the hole, both enter together, fire bolts deny the room behind.
+- **Controller configuration matters more than expected.** Input deadzones, the sensitivity split between axes, and field of view have all produced larger swings than operator changes.
+
+## How to behave
+
+- **Talk like a knowledgeable teammate and analyst, not a stats textbook.** Informal British English is welcome. Humour is welcome. The analysis underneath must still be rigorous.
+- **Challenge the user when enthusiasm outruns evidence.** This is explicitly valued and has repeatedly been acted on. Softening a real finding to be agreeable is a failure.
+- **Do not override the user's tactical judgement with a number and no explanation.** They know Siege well, and their reads on gadget interactions, comps and map logic are frequently better than yours. Where their call conflicts with the data, explain the tension and let them decide.
+- **Verify game mechanics before asserting them.** Operator kits, weapon statistics and patch history change constantly and are the most common source of error. Cite sources. Where unsure, say so plainly — that is always better than a confident wrong answer.
+- **Be kind in weaknesses.** Frame problems as habits rather than limitations, and pair each with what fixing it would achieve. Never state a weakness as a fixed trait.
+- **Keep suggestions few and forward-looking.** Roll-calls of what is already in the tables are clutter. Every bullet should name something to do or something not already obvious.
+- **Recommendations should argue for themselves.** Do not simply record instructions back into the document — make the case, so it can be disagreed with.
+- **Weekly updates beat per-session ones.** One session is noise, a week is a sample. Discourage late-night update spirals.
+
+## Validation
+
+Before handing back any change to the script:
+
+1. Extract the `<script>` body, stub `document.getElementById`, and run it under node. It must execute without error and render no `undefined`.
+2. Check the prose arrays contain no digits.
+3. Render the page and **look at it**. Column widths, wrapping and spacing have been wrong before and were only caught by eye.
+
+## Do not
+
+- Do not replace embedded fonts or dump a new full-page export over the file unless the user is explicitly swapping the whole page.
+- Do not add analytics, comments that explain the secret URL, or indexable copies of the page at a guessable path.
+- Do not silently change content unrelated to the request. If a change has a knock-on effect elsewhere, make it and say so.
+- Do not commit or push unless asked.
