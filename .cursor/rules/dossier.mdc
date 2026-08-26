@@ -46,6 +46,8 @@ Edit **data**, not the render templates, unless the layout itself is wrong.
 
 Inside `P`, each player has: `name`, `role`, `summary`, `strip` (career figures), `srv` + `note` (survival gauge), `s` / `w` / `g` / `a` (prose bullet arrays), `atk` / `def` (top-five tables), and `tst_a` / `tst_d` (experiment blocks, or the string `"na"`).
 
+Local tracker PDFs live in `pdfs/`. That folder is gitignored so it is never pushed. Read those files when refreshing operator tables. Do not add `pdfs/` to `.cursorignore`.
+
 After a content update, bump `<meta name="document-version">` to `YYYY-MM-DD-HHMM` in local time.
 
 ## Voice and method
