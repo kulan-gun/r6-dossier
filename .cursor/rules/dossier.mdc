@@ -54,6 +54,29 @@ Top-five attack and defence order uses the equal-weight score in `README.md` (wi
 
 After a content update, bump `<meta name="document-version">` to `YYYY-MM-DD-HHMM` in local time.
 
+## Reading the tracker PDFs
+
+Tracker exports in `pdfs/` are the source of truth for operator tables. Read them properly — most errors in this project have come from working off the top of a table or a screenshot.
+
+**Extract the whole table, every time.**
+
+- The operator list is paginated and the column header row repeats on each page and sometimes mid-table. Do not stop at the first page, and do not treat a repeated header as a data row.
+- Operator names wrap across lines in some exports (a two-word name can land with the name on one line and its figures on the next). Handle wrapped rows rather than dropping them.
+- Capture every column: rounds, wins, win rate, K/D, opening kills and opening deaths, headshot percentage, survival, and 1vX wins. Opening records and survival are frequently the most informative columns and are the ones most often skipped.
+- Go all the way to the bottom. Low-round operators are where new candidates live; the project's best finds have come from rows near the end of the table, not the top.
+
+**Then sanity-check before using it.**
+
+- Cross-check the profile summary — matches, career kills, K/D, win rate, headshot rate — against what you extracted. If they disagree, the extraction is wrong, not the tracker.
+- The export does not label attackers and defenders. Classify each operator yourself before splitting into `atk` and `def`.
+- Compare against the values currently in the page. A figure that has moved a long way in a short time usually means a parsing error, a different season filter, or a different playlist filter — check before writing it in.
+
+**Picking the best operators.**
+
+- Score with the equal-weight method in `README.md` (win rate, K/D, survival, rounds), compared **inside** sample-size bands.
+- Surface candidates the page does not already list: operators with a strong line and low volume, operators whose role fills a gap in the pool, and operators whose figures have moved meaningfully since the last export.
+- Report what you found and why, including the band each candidate sits in, before editing any table.
+
 ## Voice and method
 
 Write like the existing page: plain, specific, slightly dry. No hype, no ranking of the five, no "tier lists."
@@ -63,12 +86,57 @@ Write like the existing page: plain, specific, slightly dry. No hype, no ranking
 - **Prose carries no numbers.** The `s`, `w`, `g` and `a` arrays must contain no figures at all. Numbers belong in the tables directly beneath them, and only there. This rule exists because duplicated figures fall out of sync on every single update. Use a qualitative scale instead: **very poor · poor · fair · good · excellent**. Write *"excellent K/D and survival, with two aces behind them"*, never *"2.46 K/D across 27 rounds"*. Superlatives such as *"best line on the card"* are allowed but age faster than band words, so use them sparingly.
 - Sample size still governs how strongly the *tables* are read: ten rounds or fewer is noise (mark `REC` with the 7th operator-row flag `1`), 11–30 is a hint, 30+ can support a conclusion. Twenty rounds spread across sessions is the bar for promoting an experiment into a top five.
 - Small samples are volatile and large ones are anchored. An operator's K/D can be transformed by one good run below roughly twenty-five rounds and is effectively fixed above forty. Never promise improvement the arithmetic forbids.
+- **Never compare across sample-size bands as if the numbers were equivalent.** A five-round line does not "beat" a sixty-round line, whatever the percentages say. Ranking, promotion and any "X over Y" claim happen *inside* a band, never across one. Writing "more Clash beats more solo Azami" when Clash has a handful of rounds and Azami has dozens is exactly the error to avoid: the percentages are not measuring the same thing, so the comparison is meaningless rather than merely uncertain.
+- **What a small sample can support:** that an operator is worth more rounds, that an early line is encouraging, that it fits a role the pool lacks. **What it cannot support:** that it is better than an established pick, that it should displace one, or that it solves a diagnosed problem. Phrase small-sample claims as reasons to test, never as findings.
+- **Do not dress a recommendation as a finding.** "Worth trying Clash for the survival problem" is honest. "Clash beats Azami on survival" is a claim the data cannot carry. If the evidence is a hunch about role fit, say so.
 - Hypotheses stay hypotheses until the log actually proves them. One session is not a law.
 - Operator rows are `[name, rounds, WR, K/D, SRV, note, isRec?]`. Keep the five-plus-experiment shape per side.
 - Operator notes: hard cap **12 words**, **78 characters with spaces**, **67 without**. That is three lines in the table. **No em dashes inside them** — use commas or full stops. No dated figures; they go stale. The same cap applies to experiment-row notes.
 - Strengths / weaknesses / suggestions / avoid are HTML strings in arrays. Lead with `<b>claim</b> — explanation.` Skimming the bold labels alone should be useful.
 - Weaknesses describe playstyle, ability and behaviour, not what happened on a given date. Session events belong in queue hypotheses.
 - If a figure changes, update every copy of it: `P.strip`, `P.srv` / `P.note` if survival moved, `ROSTER`, and the operator row. There should be no fourth copy anywhere.
+
+## Voice and tone
+
+The severity of a judgement is set by the figures. The *framing* around it is a choice, and it is the framing that has gone wrong before, not the vocabulary.
+
+**Do not euphemise.** Keep the honest band words — very poor, poor, fair, good, excellent. Softening "poor" to "below fair" undersells a real finding and makes the document less useful. If something is genuinely bad, say poor.
+
+**Rate the evidence, do not sentence the operator.** The line is between describing what the numbers show and issuing a verdict on what should happen next. The first is analysis. The second reads as scolding, and it is usually overreach anyway, because the reader decides what to play.
+
+### Avoid
+
+- **Imperatives that sound like telling off** — "Stop growing the EMP pick", "Drop him", "Leave it alone".
+- **Superlative rankings** — "the worst line in the squad", "the weakest operator on the card". They are rarely load-bearing, they age badly, and they read as a pile-on.
+- **Finality** — "it's over", "off this list", "on the shelf", "on the bench", "writing her off", "deal-breaker". Nothing in this document is a closed case.
+- **Stacking negatives in one clause** — "poor conversion, a very poor gun line, and he dies on it" lands as three insults rather than one finding.
+- **Weakness stated as identity** — "he dies on it" describes a person. "Survival is poor" describes a figure.
+- **Snark of any kind.** It is never worth the goodwill it costs.
+
+### Use instead
+
+Structures that carry the same information without the verdict:
+
+- *enough rounds to read* — the sample is sufficient, without pronouncing sentence
+- *not a priority* — deprioritised, not condemned
+- *worth waiting for a larger sample* — honest about uncertainty
+- *the card has stronger options* — comparative, not absolute
+- *the squad has better uses for the time* — reframes as opportunity cost
+- *the primary weapon is the blocker* — names the mechanism rather than the outcome
+
+### Worked example
+
+> ✗ Poor conversion, a very poor gun line, and he dies on it. Stop growing the EMP pick.
+>
+> ✓ Conversion and survival are both poor, and the squad has better uses for the time.
+
+Same severity. Same conclusion available to the reader. No imperative, no pile-on, no verdict.
+
+### The test
+
+Every line in this document could be read aloud to the player it describes. Findings survive that; snark does not. Apply it equally to all five cards — the owner's own card gets no harsher treatment than anyone else's, and no gentler.
+
+**Tone changes the framing, never the content.** This section is not licence to soften a real finding, bury a bad number, or avoid a conclusion the figures support. Say the hard thing plainly and once, then move on to what could be done about it.
 
 ## Map framework
 
