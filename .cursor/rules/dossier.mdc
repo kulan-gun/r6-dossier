@@ -77,6 +77,30 @@ Tracker exports in `pdfs/` are the source of truth for operator tables. Read the
 - Surface candidates the page does not already list: operators with a strong line and low volume, operators whose role fills a gap in the pool, and operators whose figures have moved meaningfully since the last export.
 - Report what you found and why, including the band each candidate sits in, before editing any table.
 
+| Metric | Very poor | Poor | Fair | Good | Excellent |
+|---|---|---|---|---|---|
+| **K/D — fragging role** | < 0.55 | 0.55–0.79 | 0.80–1.04 | 1.05–1.34 | ≥ 1.35 |
+| **K/D — support role** | < 0.40 | 0.40–0.59 | 0.60–0.84 | 0.85–1.09 | ≥ 1.10 |
+| **Win rate** | < 38% | 38–44% | 45–52% | 53–59% | ≥ 60% |
+| **Survival — attack** | < 20% | 20–29% | 30–39% | 40–47% | ≥ 48% |
+| **Survival — defence** | < 18% | 18–25% | 26–33% | 34–42% | ≥ 43% |
+| **Headshot %** | < 20% | 20–27% | 28–35% | 36–44% | ≥ 45% |
+| **Opening ratio** (entry kills ÷ entry deaths) | < 0.40 | 0.40–0.79 | 0.80–1.24 | 1.25–2.49 | ≥ 2.50 |
+
+**Which K/D row applies.** Use the **support** row when the player's career K/D sits below 1.00, or when their role is explicitly support, utility, intel or anchor. Use the **fragging** row otherwise. Choose the row from the *player*, not the operator, and apply it consistently across their whole card.
+
+**Not everyone is a natural fragger, and that is not a deficiency.** Some players contribute through position, utility and objective play rather than through duels. On those cards the kill column is a weak signal and the win rate is the strong one. The document's own central finding says so directly: utility that keeps working after death converts rounds without the player needing to be alive for it. Judging a support player on the fragging scale produces a card that is uniformly negative and analytically wrong.
+
+**Win rate bands are deliberately tight.** Matchmaking pulls everyone toward 50%, so a few points either side is a large real effect. Do not treat a 45% and a 58% as similar.
+
+**Opening ratio needs at least eight combined opening engagements to read.** Below that, report the raw split and say nothing about it.
+
+**Always sanity-check against the player's own career line as well as the absolute band.** The same figure means different things on different cards. Say which comparison you are making.
+
+**Do not describe a one-band gap as decisive.** Fair versus good is a nudge. Very poor versus good is a finding.
+
+- **A support-role card reading negative across the board.** Almost always means the fragging K/D row was applied by mistake. Re-band it before writing anything.
+
 ## Voice and method
 
 Write like the existing page: plain, specific, slightly dry. No hype, no ranking of the five, no "tier lists."
@@ -91,6 +115,7 @@ Write like the existing page: plain, specific, slightly dry. No hype, no ranking
 - **Do not dress a recommendation as a finding.** "Worth trying Clash for the survival problem" is honest. "Clash beats Azami on survival" is a claim the data cannot carry. If the evidence is a hunch about role fit, say so.
 - Hypotheses stay hypotheses until the log actually proves them. One session is not a law.
 - Operator rows are `[name, rounds, WR, K/D, SRV, note, isRec?]`. Keep the five-plus-experiment shape per side.
+- **If the export has a row, write the figures.** Dashes (`—`) are only for operators with no sample on the account. A two-round 4.00 K/D is still a 4.00 K/D. Mark it `REC` because the sample is tiny; do not blank it. Blanking a real row is how kills disappear from the page.
 - Operator notes: hard cap **12 words**, **78 characters with spaces**, **67 without**. That is three lines in the table. **No em dashes inside them** — use commas or full stops. No dated figures; they go stale. The same cap applies to experiment-row notes.
 - Strengths / weaknesses / suggestions / avoid are HTML strings in arrays. Lead with `<b>claim</b> — explanation.` Skimming the bold labels alone should be useful.
 - Weaknesses describe playstyle, ability and behaviour, not what happened on a given date. Session events belong in queue hypotheses.
