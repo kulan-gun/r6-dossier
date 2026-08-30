@@ -41,7 +41,7 @@ Edit **data**, not the render templates, unless the layout itself is wrong.
 | Map blurbs | `const MAPS = [...]` |
 | Map defaults table | `const MAPDEF = [...]` |
 | Map record | `const MAPLOG = [...]` |
-| Acronyms, site clusters, prep questions, queue hypotheses, tips | the matching static HTML sections |
+| Acronyms, site clusters, prep questions, journal entries, tips | the matching static HTML sections |
 | Look / print CSS / card markup | only if the user asked for a design change |
 
 Inside `P`, each player has: `name`, `role`, `summary`, `strip` (career figures), `srv` + `note` (survival gauge), `s` / `w` / `g` / `a` (prose bullet arrays), `atk` / `def` (top-five tables), and `tst_a` / `tst_d` (experiment blocks, or the string `"na"`).
@@ -70,6 +70,14 @@ Tracker exports in `pdfs/` are the source of truth for operator tables. Read the
 - Cross-check the profile summary — matches, career kills, K/D, win rate, headshot rate — against what you extracted. If they disagree, the extraction is wrong, not the tracker.
 - The export does not label attackers and defenders. Classify each operator yourself before splitting into `atk` and `def`.
 - Compare against the values currently in the page. A figure that has moved a long way in a short time usually means a parsing error, a different season filter, or a different playlist filter — check before writing it in.
+
+**Report the movement, not just the level.**
+
+- `rough-notes.md` holds a snapshot of the previous export under "Export snapshot". Diff the new export against it before touching a table, and say which way each figure moved.
+- A line that has climbed from very poor to poor is a completely different story from one that has sat at poor for a month, and the page cannot show that on its own. Direction of travel is often the most useful thing in the whole refresh.
+- Put the direction into the prose with band words — *"conversion has climbed"*, *"survival slipped a band"* — never the raw delta, because prose carries no numbers.
+- Lead the chat summary with the movers. Raw deltas are fine in chat.
+- Update the snapshot in `rough-notes.md` at the end of every refresh, or the next one has nothing to compare against.
 
 **Picking the best operators.**
 
@@ -118,7 +126,7 @@ Write like the existing page: plain, specific, slightly dry. No hype, no ranking
 - **If the export has a row, write the figures.** Dashes (`—`) are only for operators with no sample on the account. A two-round 4.00 K/D is still a 4.00 K/D. Mark it `REC` because the sample is tiny; do not blank it. Blanking a real row is how kills disappear from the page.
 - Operator notes: hard cap **12 words**, **78 characters with spaces**, **67 without**. That is three lines in the table. **No em dashes inside them** — use commas or full stops. No dated figures; they go stale. The same cap applies to experiment-row notes.
 - Strengths / weaknesses / suggestions / avoid are HTML strings in arrays. Lead with `<b>claim</b> — explanation.` Skimming the bold labels alone should be useful.
-- Weaknesses describe playstyle, ability and behaviour, not what happened on a given date. Session events belong in queue hypotheses.
+- Weaknesses describe playstyle, ability and behaviour, not what happened on a given date. Session events belong in the journal.
 - If a figure changes, update every copy of it: `P.strip`, `P.srv` / `P.note` if survival moved, `ROSTER`, and the operator row. There should be no fourth copy anywhere.
 
 ## Voice and tone
