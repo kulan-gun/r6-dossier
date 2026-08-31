@@ -6,6 +6,8 @@ Single-page repository for an unlisted GitHub Pages brief. The live path is ungu
 
 Do not sort a player's attack or defence table by round count alone. Score every operator with four equally weighted parts (25% each). Compare scores **inside a sample-size band**, so a hot fifteen-round sample cannot outrank an eighty-round main.
 
+The second table on each card is **Substitutes** on Kulan_G100's card, and **Substitutes (on trial)** on the other four. That is not a testing queue: it is the next seat when a top-five pick is banned, taken, or a poor fit for the site. "On trial" means the sample is not large enough to call the sub settled.
+
 ### Bands
 
 | Band | Rounds | What it means |

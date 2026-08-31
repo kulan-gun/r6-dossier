@@ -44,7 +44,7 @@ Edit **data**, not the render templates, unless the layout itself is wrong.
 | Acronyms, site clusters, prep questions, journal entries, tips | the matching static HTML sections |
 | Look / print CSS / card markup | only if the user asked for a design change |
 
-Inside `P`, each player has: `name`, `role`, `summary`, `strip` (career figures), `srv` + `note` (survival gauge), `s` / `w` / `g` / `a` (prose bullet arrays), `atk` / `def` (top-five tables), and `tst_a` / `tst_d` (experiment blocks, or the string `"na"`).
+Inside `P`, each player has: `name`, `role`, `summary`, `strip` (career figures), `srv` + `note` (survival gauge), `s` / `w` / `g` / `a` (prose bullet arrays), `atk` / `def` (top-five tables), and `tst_a` / `tst_d` (substitute blocks, or the string `"na"`). On Kulan_G100's card those blocks are labelled **Substitutes**. On the other four they are labelled **Substitutes (on trial)**, because the samples are not large enough to call them settled subs.
 
 Local tracker PDFs live in `pdfs/`. That folder is gitignored so it is never pushed. Read those files when refreshing operator tables. Do not add `pdfs/` to `.cursorignore`.
 
@@ -116,15 +116,15 @@ Write like the existing page: plain, specific, slightly dry. No hype, no ranking
 - Cards are deliberately unranked.
 - Career figures unless labelled otherwise.
 - **Prose carries no numbers.** The `s`, `w`, `g` and `a` arrays must contain no figures at all. Numbers belong in the tables directly beneath them, and only there. This rule exists because duplicated figures fall out of sync on every single update. Use a qualitative scale instead: **very poor · poor · fair · good · excellent**. Write *"excellent K/D and survival, with two aces behind them"*, never *"2.46 K/D across 27 rounds"*. Superlatives such as *"best line on the card"* are allowed but age faster than band words, so use them sparingly.
-- Sample size still governs how strongly the *tables* are read: ten rounds or fewer is noise (mark `REC` with the 7th operator-row flag `1`), 11–30 is a hint, 30+ can support a conclusion. Twenty rounds spread across sessions is the bar for promoting an experiment into a top five.
+- Sample size still governs how strongly the *tables* are read: ten rounds or fewer is noise (mark `REC` with the 7th operator-row flag `1`), 11–30 is a hint, 30+ can support a conclusion. Twenty rounds spread across sessions is the bar for promoting a substitute into a top five.
 - Small samples are volatile and large ones are anchored. An operator's K/D can be transformed by one good run below roughly twenty-five rounds and is effectively fixed above forty. Never promise improvement the arithmetic forbids.
 - **Never compare across sample-size bands as if the numbers were equivalent.** A five-round line does not "beat" a sixty-round line, whatever the percentages say. Ranking, promotion and any "X over Y" claim happen *inside* a band, never across one. Writing "more Clash beats more solo Azami" when Clash has a handful of rounds and Azami has dozens is exactly the error to avoid: the percentages are not measuring the same thing, so the comparison is meaningless rather than merely uncertain.
 - **What a small sample can support:** that an operator is worth more rounds, that an early line is encouraging, that it fits a role the pool lacks. **What it cannot support:** that it is better than an established pick, that it should displace one, or that it solves a diagnosed problem. Phrase small-sample claims as reasons to test, never as findings.
 - **Do not dress a recommendation as a finding.** "Worth trying Clash for the survival problem" is honest. "Clash beats Azami on survival" is a claim the data cannot carry. If the evidence is a hunch about role fit, say so.
 - Hypotheses stay hypotheses until the log actually proves them. One session is not a law.
-- Operator rows are `[name, rounds, WR, K/D, SRV, note, isRec?]`. Keep the five-plus-experiment shape per side.
+- Operator rows are `[name, rounds, WR, K/D, SRV, note, isRec?]`. Keep the five-plus-substitutes shape per side.
 - **If the export has a row, write the figures.** Dashes (`—`) are only for operators with no sample on the account. A two-round 4.00 K/D is still a 4.00 K/D. Mark it `REC` because the sample is tiny; do not blank it. Blanking a real row is how kills disappear from the page.
-- Operator notes: hard cap **12 words**, **78 characters with spaces**, **67 without**. That is three lines in the table. **No em dashes inside them** — use commas or full stops. No dated figures; they go stale. The same cap applies to experiment-row notes.
+- Operator notes: hard cap **12 words**, **78 characters with spaces**, **67 without**. That is three lines in the table. **No em dashes inside them** — use commas or full stops. No dated figures; they go stale. The same cap applies to substitute-row notes.
 - Strengths / weaknesses / suggestions / avoid are HTML strings in arrays. Lead with `<b>claim</b> — explanation.` Skimming the bold labels alone should be useful.
 - Weaknesses describe playstyle, ability and behaviour, not what happened on a given date. Session events belong in the journal.
 - If a figure changes, update every copy of it: `P.strip`, `P.srv` / `P.note` if survival moved, `ROSTER`, and the operator row. There should be no fourth copy anywhere.
