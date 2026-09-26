@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="document-version" content="2026-09-25-0210">
+<meta name="document-version" content="2026-09-26-0404">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Dossier — R6 Siege</title>
 <style id="embedded-fonts">
@@ -122,6 +122,7 @@ td.n{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;whi
 .ops h4{font-family:'Oswald',sans-serif;font-size:15px;letter-spacing:.1em;text-transform:uppercase;padding-bottom:7px;margin-bottom:4px;border-bottom:2px solid}
 .ops .atk h4{color:var(--atk);border-color:var(--atk)}
 .ops .def h4{color:var(--def);border-color:var(--def)}
+.mapnote{padding:13px 22px 16px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--mid);line-height:1.45}
 .ops th{font-size:9.5px;letter-spacing:.1em;padding:6px 5px}
 .ops td{padding:7px 5px;font-size:13px}
 .tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;padding:1px 5px;border:1px solid var(--faint);color:var(--mid);vertical-align:2px;margin-left:6px}
@@ -153,16 +154,19 @@ td.n{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;whi
 .comp tr.trio td{background:rgba(43,92,138,.07)}
 .comp tr.trio td:first-child{box-shadow:inset 3px 0 0 var(--atk)}
 .comp .site.maps i{font-style:normal;font-weight:600;color:var(--ink)}
-.maplist{display:grid;grid-template-columns:1fr 1fr;background:var(--card);border:1px solid var(--rule)}
-.maplist>div{padding:9px 18px;border-bottom:1px solid var(--rule)}
-.maplist>div:nth-child(2n){border-left:1px solid var(--rule)}
-.maplist b{display:block;font-size:13.5px;color:var(--ink)}
-.maplist span{font-size:12.5px;color:var(--mid);line-height:1.4}
-.maplog b{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
-.maplog .rd{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;flex:none}
-.maplog .rd.bad{color:var(--bad)}.maplog .rd.good{color:var(--good)}.maplog .rd.mid{color:var(--atk)}
-.maplog .rec{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink);margin:3px 0}
-.maplog .rec i{font-style:normal;color:var(--mid)}
+.mapgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:2px 22px 20px}
+.mg-h{grid-column:1/-1;font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);padding:14px 0 0}
+.mt{background:var(--paper);border:1px solid var(--rule);border-left:4px solid var(--c);padding:11px 14px 12px}
+.mt.good{--c:var(--good)}.mt.fair{--c:var(--atk)}.mt.poor{--c:var(--def)}.mt.vpoor{--c:var(--bad)}
+.mt-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.mt-h b{font-size:14.5px}
+.mt-h span{font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--c);flex:none}
+.mt-bar{position:relative;height:8px;background:var(--card);border:1px solid var(--rule);margin:8px 0 6px}
+.mt-bar i{position:absolute;left:0;top:0;bottom:0;background:var(--c)}
+.mt-bar::after{content:'';position:absolute;left:50%;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+.mt-fig{display:flex;justify-content:space-between;gap:4px 10px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--mid)}
+.mt-fig b{color:var(--ink)}
+.mt p{font-size:12.5px;color:var(--mid);line-height:1.4;margin-top:6px}
 .comp th{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--mid);text-align:left;padding:8px 18px 4px;font-weight:600}
 .comp.c h3{background:var(--ink)}
 .comp.cols4:not(.cores) td:first-child{width:76px}
@@ -192,6 +196,8 @@ ol.tips li:last-child{border:none}
 .foot{margin-top:60px;padding-top:18px;border-top:2px solid var(--ink);font-size:12.5px;color:var(--mid)}
 
 @media (max-width:860px){.swx{grid-template-columns:1fr}.swx>div{border-right:none;border-bottom:1px solid var(--rule)}.swx>div:last-child{border-bottom:none}}
+@media (max-width:860px){.mapgrid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.mapgrid{grid-template-columns:1fr}}
 @media (max-width:760px){
   .ops,.guests,.comps{grid-template-columns:1fr}
   .ops>div:first-child{border-right:none;border-bottom:1px solid var(--rule)}
@@ -233,9 +239,10 @@ ol.tips li:last-child{border:none}
   .swx>div:nth-child(2n){border-right:none}
   .swx>div:nth-child(-n+2){border-bottom:1px solid var(--rule)}
   .ops>div{padding:9px 14px 6px}
+  .mapnote{font-size:8.2px;padding:7px 14px 9px}
   #guests,#comps{break-inside:avoid}.guests,.comps{gap:10px}.guest{padding:11px 12px}.guest h3{font-size:16px}.guest .summary{font-size:9.6px}.guest ul{font-size:8.5px;margin-top:6px}.guest li{padding:4px 0}.guest li b{font-size:7px;min-width:48px}
   .comp{break-inside:avoid;page-break-inside:avoid}.comp th{font-size:6.4px;padding:5px 10px 2px}.comp.cols4:not(.cores) td:first-child{width:48px}.comp.cols4:not(.cores) td:nth-child(2),.comp.cols4:not(.cores) td:nth-child(3){width:86px}.comp.cols5 td:first-child{width:44px}.comp.cols5 td:nth-child(2),.comp.cols5 td:nth-child(3),.comp.cols5 td:nth-child(4){width:68px}.comp.cores td:first-child{width:78px}.comp.cores td:nth-child(2){width:80px}.comp.cores td:nth-child(3){width:34%}
-  .comp .site{padding:6px 10px;font-size:8.6px;line-height:1.45}.maplist>div{padding:5px 10px}.maplist b{font-size:8.6px}.maplist span{font-size:7.8px;line-height:1.35}.maplog .rd{font-size:6.6px}.maplog .rec{font-size:7.4px;margin:2px 0}.comp .site b{font-size:6.6px}.comp .site b{font-size:6.5px}
+  .comp .site{padding:6px 10px;font-size:8.6px;line-height:1.45}.mapgrid{gap:5px;padding:2px 14px 10px}.mg-h{font-size:7px;padding-top:6px}.mt{padding:6px 8px;break-inside:avoid}.mt-h b{font-size:9px}.mt-h span{font-size:6.5px}.mt-bar{height:5px;margin:4px 0}.mt-fig{font-size:7px}.mt p{font-size:7.6px;margin-top:3px}.comp .site b{font-size:6.6px}.comp .site b{font-size:6.5px}
   .comp h3{font-size:11px;padding:8px 10px}.comp h3 em{font-size:6.8px}.comp td{font-size:8.4px;padding:5px 10px}.comp td:first-child{width:55px}.comp td:nth-child(2){width:78px}.comp .cnote{font-size:8px;padding:7px 10px 9px}
   .tipgroup{margin-bottom:14px;break-inside:avoid}.tipgroup h3{font-size:12px}.tipgroup>p{font-size:8.5px;margin-bottom:5px}ol.tips li{font-size:9.1px;padding:6px 0 6px 30px}ol.tips li::before{font-size:7.2px;top:7px}
   .foot{font-size:7.7px;margin-top:15px;padding-top:8px}
@@ -297,90 +304,24 @@ ol.tips li:last-child{border:none}
 </section>
 
 <section>
-  <div class="sec-head"><h2>Maps</h2><span class="eyebrow">What each one is, in our own words</span></div>
-  <div class="maplist" id="maplist"></div>
-  <p class="gauge-note">Pick the setup from the site and from how the last round went: contain a roaming team, rush an anchored one. Swap individual operators freely by who fancies what — the only lines worth holding are one hard breach on attack, one intel operator on defence, and nobody doubling up on the same job. Operators nobody owns yet are marked in the notes.</p>
-</section>
-
-<section>
-  <div class="sec-head"><h2>Site clusters</h2><span class="eyebrow">Read the site type, not the map name</span></div>
+  <div class="sec-head"><h2>Maps</h2><span class="eyebrow">Squad record · all five accounts</span></div>
+  <article class="card">
+    <div class="card-top">
+      <div class="name-row"><h3>Every map, best to worst</h3><span class="role">Squad record</span></div>
+      <p class="summary" id="mapsum"></p>
+    </div>
+    <div class="mapgrid" id="mapgrid"></div>
+    <p class="mapnote" id="mapnote"></p>
+  </article>
+  <h3 class="table-label">Prep check <span>Every round, in this order</span></h3>
   <div class="key">
     <div class="keygrid">
-      <div><b>1 · Sub-level / basement</b>Attackers come from above but never below. One ceiling and a small number of stairwells to hold, so hatch denial and anti-Fuze cover matter more than anything else. Hard breach is usually mandatory. <i>Oregon Laundry and Supply, Bank Vault and Open Area, Club House Church and Arsenal, Chalet Snowmobile Garage, Consulate Garage and Cafeteria.</i> <b>Picks:</b> Denari, Tubarão, Kaid, plus Mute cover alongside.</div>
-      <div><b>2 · Top floor / roof-exposed</b>The inverse problem. Rappellers, windows and floor hatches mean the site is attacked from outside and above at the same time. Exterior angles are worth more than interior ones. <i>Kafe 3F Cigar Lounge, Oregon Kids and Dorms, Club House Bedroom and Gym, Bank CEO and Server, Villa Aviator and Games.</i> <b>Picks:</b> Valkyrie, Echo, Tubarão.</div>
-      <div><b>3 · Open mid-floor / long sightline</b>Large rooms, many entrances, angles too long to deny. Full access denial does not work here because there are always more ways in than gadgets to cover them. <i>Bank Tellers and Open Area, Coastline Hookah and Billiards, Border Customs, Skyscraper.</i> <b>Picks:</b> Valkyrie, Echo, Doc. Denari gets bypassed here, and anything built around a close-range gun is a liability past fifteen metres.</div>
-      <div><b>4 · Tight interior / CQB</b>Cluttered rooms and short sightlines, with most fights decided inside ten metres. Rewards close-range weapons and punishes anything that needs range to work. <i>Theme Park Throne Room and Lab, Border Armory Lockers, Villa Kitchen and Dining, Oregon Laundry.</i> <b>Picks:</b> Sentry, Lesion, Skopós.</div>
-      <div><b>5 · Linear / corridor</b>Forced pathing through doors and hallways, with hard breaching rarely used because attackers simply walk in. Trap value is at its highest here and exposure is at its lowest. <i>Presidential Plane throughout, Kanal, Consulate lobby routes, Yacht.</i> <b>Picks:</b> Denari, Kapkan, Lesion.</div>
-      <div><b>These are axes, not boxes</b>Oregon Laundry is cluster 1 and cluster 4 at once. Chalet Garage is 1 and 5. The cluster tells you the type of threat; the specific site tells you which combination you are facing. Expect most sites to belong to two.</div>
+      <div><b>1 · Below everything?</b>Deny the hatches and cover against Fuze first. Denari, Tubarão, Kaid.</div>
+      <div><b>2 · Above everything?</b>Exterior and rappel angles first. Valkyrie cameras outside, Echo for the plant.</div>
+      <div><b>3 · How many ways in?</b>Two or three, take Denari or Fenrir. Five or more, take cameras: Valkyrie or Echo.</div>
+      <div><b>4 · Longest angle?</b>Under fifteen metres, close-range picks work: Sentry, Lesion, Skopós. Longer, pick for the gun.</div>
     </div>
-  </div>
-  <h3 class="table-label prep-label">Prep phase, four questions <span>In this order, every round</span></h3>
-  <div class="key">
-    <div class="keygrid">
-      <div><b>1 · Am I below everything?</b>Hatch denial and anti-Fuze cover come first. Tubarão freezing a breach mid-plant wins the round on its own.</div>
-      <div><b>2 · Am I above everything?</b>Exterior and rappel angles come first. Valkyrie cameras outside, Echo for the anti-plant.</div>
-      <div><b>3 · How many entrances?</b>Two or three, take Denari. Five or more, the connectors get bypassed, so take Valkyrie or Echo.</div>
-      <div><b>4 · How long is the longest angle?</b>Under fifteen metres and the close-range picks are live: Sentry, Lesion, Skopós. Longer than that and pick for the gun instead.</div>
-    </div>
-  </div>
-  <h3 class="table-label">Map defaults <span>Starting point, not a rule</span></h3>
-  <table class="roster">
-    <thead><tr><th>Map</th><th>Cluster</th><th>Defence</th><th>Attack</th><th>Why</th></tr></thead>
-    <tbody id="mapdefaults"></tbody>
-  </table>
-  <p class="gauge-note">Defaults are a starting point for the first round, not a rule for the match. The cluster answers what kind of threat the site creates; the site itself decides the pick. When the two disagree, trust the site.</p>
-  <h3 class="table-label">Map record <span>Three logged windows · Kulan_G100</span></h3>
-  <div class="maplist maplog" id="maplog"></div>
-  <p class="gauge-note">Three windows, amalgamated. The 25 to 29 August and 20 to 23 August figures are match-level. The 12 to 15 August column is reconstructed from session notes, is game-level rather than match-level, and is used only to confirm or contradict. A map read one way in one window and the other way in the other stays Mixed rather than being settled in favour of the newer data. Most lines rest on one to four matches, and five is still the bar for calling anything real. The good maps share a shape: space, readable sightlines and room to choose the fight. The problem maps split into two kinds, the ones where the fights are lost and the ones where the fights are won and the rounds are not. Not listed, with one match and no second window: Stadium Bravo, Stadium Alpha and Skyscraper.</p>
-</section>
-
-
-<section>
-  <div class="sec-head"><h2>Journal</h2><span class="eyebrow">Sessions, and patterns to test</span></div>
-  <div class="key">
-    <div class="keygrid">
-      <div><b>Working schedule</b>Tuesday and Wednesday evenings are the preferred windows, revised on 14 August. Friday and the weekend have been the worst sessions so far. The main benefit is still limiting volume and burnout; any matchmaking advantage remains a hypothesis.</div>
-      <div><b>Saturday daytime</b>May be tougher despite the larger pool. More fresh European players are online at once, including stronger regulars who are actively choosing to spend part of the weekend on Siege.</div>
-      <div><b>Late UK evenings</b>The lobby mix may change again as Europe gets later and fresh North American players start coming online. That could change both opponent quality and connection conditions.</div>
-      <div><b>What would prove it</b>Log day, start time, solo/stack, matches, WR and K/D for several sessions. One hot streak or one bad afternoon is evidence to investigate, not a matchmaking law.</div>
-      <div><b>Weekend evidence so far</b>Saturday 8 August was brutal: 13 Quick Matches, 4 wins, 8 losses and a 0.65 K/D (15–23). Sunday 9 August ultimately finished positive at 8 wins, 5 losses and a 1.11 K/D (41–37), despite the rough late block. Weekend quality looks volatile rather than uniformly bad.</div>
-      <div><b>Monday solo check</b>The 10 August tracker summary finished 6 wins, 4 losses and a 0.95 K/D (20–21). It was not a fragging session, but the positive result supports keeping Tuesday/Friday evenings as the preferred low-volume windows rather than treating solo play as automatically doomed.</div>
-      <div><b>Tuesday-night evidence</b>The long 11 August session crossed midnight, so the tracker later split its matches across two calendar dates. Treat it as one Tuesday-night block rather than comparing the old combined screenshot directly with the later daily breakdown.</div>
-      <div><b>12 August daily line</b>Seven wins, four losses and a 1.50 K/D (39–26), including the post-midnight 6–1 recovery and the later session with Big_Bunda_20 and eshwador. Another positive weekday result, but still one data point rather than proof of easier matchmaking.</div>
-      <div><b>14–15 August session</b>Sixteen matches across midnight: five wins, nine losses, 0.76 K/D (28–37). Big_Bunda_20 left partway through and the rest was solo on Villa, Club House, Chalet and Presidential Plane. The 14 August portion alone finished 4–8 at 0.62. It closed on a 6–2 MVP on Presidential Plane, with Glaz 5–1 and Kapkan 1–1 — but one good last game is a mood, not a result. The session kept going long after it stopped working.</div>
-      <div><b>20 August session</b>Nineteen matches with Big_Bunda_20: 8 wins, 11 losses, 1.42 K/D (47–33) and 40.4% headshots. The losses were front-loaded and the wins came in blocks, including a three-win run where Skopós carried Bank. The pattern worth logging is the shape rather than the result: slow starts, then a streak once the map read lands. Volume was still high for a Thursday.</div>
-      <div><b>23–24 August session</b>Eight matches: six wins, two losses, a 2.10 K/D and plus one hundred and thirty RP, promoted from Silver V to Silver IV. The headshot rate that day was below the career average, so the result came from decisions rather than aim. Bandit was picked deliberately for wall denial despite poor survival, and the rounds started getting won.</div>
-      <div><b>After a bad Quick Match loss, switch to Ranked</b>Still the default move, but 26 August is the caveat: Coastline stuffed 0–3, the next Ranked Border was also a loss, and the recovery was the Ranked game after that. Switching playlist is not a free win. It is a chance to play a slower round. If that one is also a blank page, stop or take a named plan into the next, do not queue another improvised one.</div>
-      <div><b>Playlist may explain some bad maps</b>Calypso Casino and Oregon were both on the watch list from Quick Match evidence, and both produced comfortable Ranked wins. Big open maps punish uncoordinated play more than they punish this profile. Test before rewriting the map record.</div>
-      <div><b>Controller setup was wrong for a long time</b>Trigger deadzones were at ten per cent, which discards the first tenth of the trigger pull, and stick deadzones were the same. That explains inputs that felt like they never registered. Now: look 40 vertical and 83 horizontal, five per cent on the sticks, zero on the triggers, ADS 35 on 1.0x and 40 on 2.5x. The F2 with Holo B, flash hider and vertical grip is the proof of concept in training. Twitch is the live proof: the same setup now pays in real matches, and she is the fifth attacker. Solid Snake is still parked — that one is the playstyle, not the recoil.</div>
-      <div><b>22–23 August session</b>Thirteen matches across midnight: a long negative run, then three Ranked games at the end going 2–1 with a 4–0 and an 11–3 win. The group shrank from four to two over the night and the results improved as it did. Two aces arrived in the middle of the bad run, both on Skopós, on Villa and Club House. The session is the clearest example yet that the day total and the quality of play can point in opposite directions.</div>
-      <div><b>Four-stacks versus randoms</b>A four-stack fills the fifth slot with one of us rather than leaving it to matchmaking, and matchmaking sometimes supplies a better player than the slot we are filling. The converting Ranked block on the 28th was two on comms with randoms. The stuffed block later that night had more of the squad in the lobby, and it was after midnight. Two variables, not proof that the extra player is the problem. Worth testing deliberately: play a block as a duo or trio and compare the win rate against the four-stack blocks. Team setups are now built around two, three and four-player cores for this reason. The 29th evening was a clean four-stack with one matchmade fifth and it went 2–2, taking Silver II before it turned. That is the best four-stack block in the log, and it argues against the extra player being the problem at all. The 11th was five on comms and Ranked still ran through five losses after a late start. The 13th was five Ranked wins with two invited from an earlier lobby, then a stop after the one loss. Session length and the stop remain the better explanations.</div>
-      <div><b>21 August session</b>Thirteen matches: 4 wins, 9 losses, 0.82 K/D (31–38). The first seven were the worst block in a fortnight at 13–22, then Niro__99 joined, the group switched to Ranked and the gunfights turned: 12 kills to 10 deaths across three Ranked matches including a 4–0 and a 1v1 clutch. The recovery is what matters, not the day total.</div>
-      <div><b>Map signals</b>Theme Park has two converted Ranked wins now. Consulate added a Ranked 4–1 at 0–1, and is still Watch on the count. Calypso added a Ranked 4–0. Kafe converted twice on the 13th, a 4–0 and a 4–1. Bank is still Watch: another Ranked loss with a positive kill column. Club House Ranked is the seasonal hole: every Ranked match on it this season has been a loss. A named plan is the next write, the way smoky bacon is for Villa. The 11th stuffed Ranked on Border, Coastline, Calypso and Villa. The 13th converted Villa 4–2 and stuffed Coastline again. Tower Quick Match 3–1 at 9–1 is now a second window on that map.</div>
-      <div><b>Ranked as the hard-day option</b>Career Ranked is now 117 matches at a 40.2% win rate and a 1.30 K/D. Ranked remains the better gun: 4.84 kills per match against 2.47 in Quick Match and Unranked, where the win rate is still around even. The season is Silver V, Ranked at a 1.44 K/D and a 40.4% win rate. The remaining gap is still winning the match and session length, not aim. Fuller rounds produce more fights. They do not, on their own, produce more wins. The 10 September block converted 3–2 without a rare gun night: Calypso 4–0, Theme Park 4–2, Consulate 5–4 against a 14–5. The 13th was a five-win Ranked block, then a loss, and it put the career percentage back near where the 11th had left it. That is the ordinary-win shape. The job is winning the match, not hunting a career percentage. Club House is still doing disproportionate damage: every Ranked Club House this season has been a loss. Session length is how career Ranked got here — the long August blocks kept queuing after the night had already turned, and the 11th ran past three.</div>
-      <div><b>25–26 August block</b>Two evenings with eshwador and Big_Bunda_20, mostly Ranked, 4–5 with a net RP gain and a 1.19 K/D. Tuesday was the gun night that did not convert: 2–3, 1.42 K/D, fights won on Oregon and Bank, rounds lost. Wednesday was tired and slower, 2–2, and it closed properly — Nighthaven Labs 4–2, Coastline Quick Match 0–3, Border 2–4 with nothing left, Fortress 4–0, then out. The stop is what to keep. Slow entry from worrying about roamers, rather than clearing them, showed up on the Border that got away. A Kapkan trap on a doorway that had already been punished is the tax, again.</div>
-      <div><b>26 August solo</b>eshwador, Ranked, four matches 2–2. Season Ranked K/D slipped while the win rate ticked up, so the block converted and the gun did not. Azami and Valkyrie took the volume. Valkyrie especially — more rounds on a line that was already poor. Solo is when the survival problem grows, because there is no one to play second contact for him.</div>
-      <div><b>27–28 August block</b>Stacked Ranked with eshwador and Big_Bunda_20, plus a solo Kanal. Thursday was 3–4 at 0.92. The two with the stack on Friday morning were 1–1 at 1.50: Villa 1–4 with a 4K on Bandit, then Calypso 4–0 with a 3K. Net RP up, Silver III. Solid Snake and Twitch were the failed tests — training recoil did not show up in the lobby. Mute on the solo Kanal: a 3K and a 1v1 after a blank start, and the gun on that operator has recovered enough to flex.</div>
-      <div><b>28 August evening</b>Four Ranked wins on the bounce with Big_Bunda_20 and randoms: Oregon 4–0, Lair 4–2, Calypso 5–4, Border 4–2. Peak Silver II. The job was the wall — Bandit when the battery was free, Kaid when it was not. A Presidential Plane Quick Match in the middle of that run was a loss and did not break the Ranked streak. Picking for the problem, not for preference, is what that winning block showed.</div>
-      <div><b>28–29 August overnight</b>Niro__99 joined later. Five Ranked losses, a 1.15 K/D, back to Silver III. Calypso without map knowledge, Bank twice, Fortress, Kafe. The gun was still there; the rounds were not. Most of it was after midnight. That is fatigue and the stop rule, not a verdict on the fifth player. Five losses is well past three. Composure held — teamkill included — and Deimos was still the operator he wanted to play. Bank: after a fight pays, the last angle gets hunted. Relocate. Rank is not the fight.</div>
-      <div><b>29 August evening</b>A four-stack with Niro__99, Big_Bunda_20 and yasbas10 plus one matchmade fifth. Two Ranked wins to open — Theme Park 5–3 and Villa 5–3, the first win ever logged on Theme Park — and promotion to Silver II. The two that followed, Lair 1–4 and Nighthaven Labs 2–4, were played in Silver II lobbies rather than Silver III ones, which is a different explanation from fatigue and worth keeping separate from it. The squad stopped at two losses rather than three and switched to Quick Match, winning Tower 3–2. yasbas10 stopped after his first loss. Finished back at Silver III. Entry, operator selection and pivoting all ran quicker than the week before. Two rounds went the same way and both were the defuser sound. On Villa, post-plant on Deimos, the tracked Thorn was holding an angle rather than touching the defuser, and the run at her went straight into it — she had been fed his position by the tracker the whole way in. On Lair, anchoring 2F Office on Bandit, plant noise pulled him forward out of a good spot. Neither was the objective actually changing hands, and the cover to stop at was there both times. Villa still finished 5–3. Stopping early is the finding: it is the first time the rule has been applied before it had to be.</div>
-      <div><b>30 August evening</b>A three-stack with Niro__99 and Big_Bunda_20. Five Ranked, 2–3, then a Quick Match and out — Forza and GTA after that, which is the version of the stop rule that does not even wait for the third loss. Bank 2–4 with a 1v3 clutch, Kanal 2–4, then Chalet 4–1 and Oregon 4–2, then Club House 0–4. Denari and Fenrir took the defensive volume. Denari was still placing when the Chalet round started; the sites need to be drilled in training before they are the Ranked default. Fenrir is the faster setup and it paid on Oregon. Club House Ranked was simply outgunned, and the gadget did not get a chance to matter. The Club House Quick Match finished 3–1, Fenrir and Deimos, and three of the five across the net were Platinum. In a 1v1 in 2F shower, the phone got turned off and the swing went out of the stall; the better play, worked out with Big_Bunda_20 after, was to leave the phone, take the chip, and swing when she was close. Ended on the high, still Silver III.</div>
-      <div><b>1–2 September, season open</b>Quick Match first with Big_Bunda_20 and yasbas10, then Ranked once eshwador joined. yasbas10 left after Coastline. Ten matches, 4–6, gun 58–34. Ranked 2–4, Quick Match 2–2. Finished Bronze I. Composure held. Kafe Ranked 5–3 was the converted one: a 4K, a plant in the last thirty seconds, and a Ram vertical call that had to wait too long on the third floor before it paid. Club House Ranked stuffed twice, Bank 0–4 with a 5–3 gun line, Coastline Ranked 3–5 with a 1v1 clutch in a loss. Villa Ranked 4–2 and a Quick Match 3–1. House Quick Match 3–0. A shield rush got through because the nitro did not land. Fenrir took the defensive volume and the line cooled. Bandit and Thermite were the attack and denial that paid. Echo once on Villa, cameras up, died roaming with no kill. Big_Bunda_20's traps were still the contribution; the gunfights were the gap.</div>
-      <div><b>2–3 September</b>With Big_Bunda_20 first, then eshwador. Ten matches, 4–6, gun 49–32, net RP up. Seven of them Ranked, 3–4. Club House 0–4 again. Coastline 4–2 with a 1v3 clutch, then 0–4. Kafe 4–1, a second converted Ranked win there. Villa 1–4 with a 6–4 gun line. Chalet 4–1 and a 3K. Border 1–4 after two teammates left; they roamed the rest of it, 6–3, a 1v3 lost. Finished Bronze I. Fenrir and Skopós took the defensive volume and both lines came back toward the mean. Dokkaebi's gun kept climbing.</div>
-      <div><b>3 September</b>With Big_Bunda_20 and eshwador. Four Ranked, 1–3, out after the first win, around midnight. Bank 2–4 at 7–4. Two Club House 2–4s, including a teammate teamkilling him on the plant as Deimos — reported, and the rank dropped to Bronze II. Then Fortress: 4–2, 14 kills 3 deaths, three 3Ks, and straight back to Bronze I. Best operators only, Denari and Dokkaebi, and it was the gun night of the season so far. A frost mat and a razorbloom he had already seen still claimed him at the end, because the fight arrived before the clear. The stop is the other finding.</div>
-      <div><b>4–5 September</b>With Big_Bunda_20. Quick Match Lair stuffed 0–3, then Ranked: Bank 5–3, Border 3–5, Lair 4–5. One win, two losses, and Big_Bunda_20 stopped a third Ranked. Bank was the night: 16 kills 5 deaths, four 3Ks. Border was a 10–6 and a 1v1 clutch in a loss. Lair Ranked was 9–7 and 4–5. Both losses were one round from going the other way, and both had two matchmade players who did not pay. The mistakes that were his: walking a Kapkan trap after the drone had already gone through the door, because the drone was not turned around to look at the frame; and swinging the near side of a room, then entering before the far side was cleared. Space already taken is when to slow down and drone the next angle, and if they are identified, call them before the swing. Finished Bronze I.</div>
-      <div><b>6 September</b>Niro__99 and Big_Bunda_20 queued Ranked together. Five matches, 4–1. Niro__99 finished Bronze I. Mute took his defensive volume. Several of the wins had almost no gun output from either of them — Chalet 4–1 with Niro__99 on 0–1, Consulate 5–3 with him on 1–4, Consulate 4–0 on 1–0. The exceptions were his: Bank 4–0 with a 4K, and a 1v3 clutch on the other Consulate. Club House was the loss, 2–4, and both were on the board. Utility can win a night without the kill column. It is also not a plan for a whole season.</div>
-      <div><b>7 September</b>Big_Bunda_20 queued Ranked with eshwador. Bank 5–3 converted with Big_Bunda_20 on 0–8; eshwador was 4–5. Calypso 2–4, and that one Big_Bunda_20 actually fragged, 4–3. Theme Park Unranked stuffed. The pattern is the same as the night before: rounds can convert while the scoreboard does not, and Club House is still not the problem they are solving.</div>
-      <div><b>9 September, solo</b>Back from a short break. Quick Match Lair 2–3, Ranked Skyscraper 0–4, Quick Match Chalet 2–2. One Ranked, and it was a stuffing. The gun was thin. Out after that.</div>
-      <div><b>10 September</b>With Big_Bunda_20. Ranked 3–2, a 1.11 K/D, plus ninety RP, finished Bronze I. Consulate 5–4 was the one: 8–6, a 4K and a 2K, MVP, against an opponent on 14–5 who still lost. The last few rounds were survival first. Four of Big_Bunda_20's five kills arrived late. Calypso 4–0 at 4–0 with two 1v1 clutches. Theme Park 4–2. Bank 1–4 at 4–3 with a 3K, and the other Consulate 3–5. Thermite was the operator of the night — the wall, then the rifle. Dokkaebi was fine, and the bans started to land. Rauora did not: the line went the wrong way on every column, and she is off the test list. Fenrir's win rate ticked. Bandit and Denari were the reliable defensive pair.</div>
-      <div><b>11–12 September</b>All four, on comms. Started properly after ten, two of them still unfed. Kulan_G100 joined after the first Ranked. Tower Quick Match 3–1 was the gun night: 9 kills 1 death, a 4K and a 3K. Ranked from his seat then went 0–4: Border 1–4 at 4–4, Coastline 0–4, Calypso 1–4 at 5–4 with a teamkill, Villa 1–4 at 5–4 and a 1v2 lost. The squad’s five included a Kafe 2–4 before he arrived. Calypso Quick Match 3–0 before the Ranked stuffing, Theme Park Quick Match 0–3 after. Operator selection was fine. The gun was there on Border and on the two 5–4s; the rounds were not. Finished Bronze II. Five Ranked losses is past the stop. Late and hungry is the condition, not a new operator finding.</div>
-      <div><b>13 September</b>With Niro__99 and Big_Bunda_20. They invited two from an earlier lobby, one of them a very strong Copper. Five Ranked wins on the bounce, then a loss. Fortress 4–0. Kafe 4–0. Consulate 4–1 at 0–1 — the round, not the kill column. Kafe again, 4–1, a 4K and a 1v1 clutch. Villa 4–2. Coastline 1–4 to close, and the lobby felt off. Quick Match Nighthaven Labs 2–1 in the middle. Finished Silver V. Bandit took the defensive volume. Thermite and Dokkaebi took the attack rounds. The five-win block put back what the 11th had taken off the career percentage. Stopping after the one loss is the other finding.</div>
-      <div><b>13–25 September</b>Twelve days of volume after the five-win night. Twitch with the Holo F2 is the change that stuck: shock the denial so the others can enter, then get off the drone. She has the sample to sit in the five. Solid Snake is parked — the playstyle, not the gun. Dokkaebi took more rounds and the win rate is still what to raise on both of them. Fenrir took the defensive volume this block. Finished still Silver V. Niro__99 has not queued since the middle of the month; the others have.</div>
-      <div><b>Named plans</b>Villa was a Ranked 4–0 on smoky bacon. Same three players, same week, and the improvised Borders were the ones that felt like a blank page. Confidence came from everyone knowing the job before the drone phase. One steamroll is not a law. It is enough to treat a named wall plan as the default on any site with one wall worth opening, and to write two more at that level of specificity rather than hunting a new operator. Club House is the next write: every Ranked match on it this season has been a loss, and that is eating the seasonal percentage. 6 September added another Ranked stuffing, Niro__99 and Big_Bunda_20. The maps that still feel like guesswork are the ones that need a name next.</div>
-      <div><b>Friday and the weekend</b>Flagged on 14 August after a 3–7 session, consistent with 8 August (4–8, 0.65 K/D), and still holding. Friday remains the worst day in the log while the other weekdays are consistently better. Three data points now point the same way, though tiredness at the end of a working week remains at least as likely an explanation as the lobby. The practical version is simple: treat Friday as a low-volume night or skip it.</div>
-      <div><b>Watching versus playing</b>A long stretch of Siege video on 14 August did not show up in the result. VODs are good for map knowledge, setups and gadget interactions and poor substitutes for reps under pressure — but one bad session does not test the method either. If video is going to earn its time, it needs one specific thing to try in the next session, not general viewing. The Denari placement videos are the current version of that: they explained the sites, and the Chalet round still opened with him placing. Training reps are the missing step, not another video.</div>
-    </div>
-    <p class="keynote"><b>Status:</b> working hypotheses from recent sessions. Quick Match does not expose enough matchmaking information to attribute a good or bad lobby to time of day with confidence, so keep these separate from the operator conclusions above.</p>
+    <p class="keynote">Two lines to hold on every map: one hard breach on attack and one intel operator on defence, with nobody doubling up on a job. Everything else is whoever fancies what.</p>
   </div>
 </section>
 
@@ -440,8 +381,8 @@ ol.tips li:last-child{border:none}
       <li><b>Rotate off an angle once it has been peeked.</b> Holding the same spot twice is how anchors get found.</li>
       <li><b>Pick tight sites.</b> With Castle, Kaid, Azami and Valkyrie the squad is built for enclosed, hole-heavy sites.</li>
       <li><b>Cut the operator pool.</b> Playing fewer operators, and repeating them, is how a line gets reliable. Spreading rounds across a dozen picks at once is how nothing settles.</li>
-      <li><b>Nobody owns anti-throwables, and that is the biggest gap in the squad.</b> Wamai has never been played on any of the five accounts, and the combined Jäger record across all of them is a handful of rounds at a very poor K/D. Every drone, grenade and breach charge that reaches site currently arrives unopposed. eshwador already carries Jäger or Wamai as a substitute on trial and is the natural owner.</li>
-      <li><b>Gadget clear is covered three ways.</b> Kulan_G100 now takes Twitch when he is the enabler: shock the denial, then get off the drone. Flores still has the most rounds on Big_Bunda_20, with Brava on trial there. On Niro__99 the pick is Flores, because he already keeps drones alive and hidden. The F2 is not a fit on his account.</li>
+      <li><b>Nobody owns anti-throwables, and that is the biggest gap in the squad.</b> Wamai has never been played on any of the five accounts, and the combined Jäger record across all of them is a handful of rounds at a very poor K/D. Every drone, grenade and breach charge that reaches site currently arrives unopposed. eshwador already carries Jäger or Wamai as a substitute on trial and is the natural owner. Until somebody owns it, whoever sees the grenades coming takes Jäger for the round. Kulan_G100 did exactly that on the 26th, and it paid.</li>
+      <li><b>Gadget clear is covered three ways.</b> Kulan_G100 now takes Twitch when he is the enabler: shock the denial, then get off the drone. Flores still has the most rounds on Big_Bunda_20. On Niro__99 the pick is Flores, because he already keeps drones alive and hidden. The F2 is not a fit on his account.</li>
       <li><b>Spend their bans on the oppressive picks.</b> Denari and Fenrir on defence, Dokkaebi on attack. Play them loud enough that two of the three bans land there, and Kapkan, Bandit or Kaid, Mute, Thorn and Skopós or Echo walk free. Win early as well, because a ban that arrives in the next match only matters if there is a next match.</li>
       <li><b>Write the plan before the drone phase.</b> A named attack, with jobs, is worth more than a better mechanical night. Smoky bacon is the proof. The maps that still feel like a blank page are the ones that need a name next.</li>
     </ol>
@@ -478,15 +419,15 @@ const P = [
   w:["<b>He dies too often on defence</b> — poor survival there against fair on attack, and that is the main problem.", "<b>Azami</b> — a good opening record and then fair survival. Winning the first fight is not turning into time alive.", "<b>Attack win rate</b> — Hibana frags well and the win rate is fair, so the remaining work is still turning those kills into wins. Ying now has the volume and the win rate is still poor. Zero has the volume too, and survival is still poor.", "<b>Smallest sample in the squad</b> — and he plays least often, so every line here moves quickly."],
   g:["<b>Play the second contact, not the first</b> — the gun is already there. Survival is the only thing holding him back, and it is a positioning fix rather than an aim one.", "<b>Attack</b> — Sledge wins his rounds, and he has played enough of it to trust. Hibana is the one he plays most, and the win rate is fair. Ying now has volume, and the win rate is still poor. Zero is in the five: cameras from a safe angle, and staying alive is what to work on. Ram is the vertical pick: gun and survival are good, and the sample is still small, so play more of it rather than treating it as better than Sledge. Maverick is the quiet-breach test when the charge is denied. Jackal is the other intel route. Nomad covers airjabs after the plant. Twitch is off: the recoil does not suit him.", "<b>When yasbas10 is in the stack</b> — Castle can still go to him. Azami can go either way: win rate is stronger here, the gun is stronger on his, and both still need better Kiba placement to create the nasty angles. Aruni is the default that works on every map: gates on every site. Pulse still for below-site intel. Echo is the plant-denial pick. Smoke remains a substitute on trial.", "<b>Defence solo</b> — Azami, Echo and Pulse are the base when you are queueing alone. Thorn is worth more rounds and actually has a gun. Aruni is the pick that works on every map. Smoke and Jäger cover jobs the squad does not currently own, and stopping grenades is the emptiest seat on the whole roster. Wamai is the same job with a different placement problem, so it is the fallback if the ADS never lands where it needs to.", "<b>Thorn is worth more rounds</b> — even gun, good survival, still a small sample. A reason to play it, not a reason to drop Azami or Echo.", "<b>Hibana's win rate is what to work on</b> — the gun is excellent and the win rate is fair. Enter with the team after the wall rather than taking the hole alone.", "<b>Play with the stack when you can</b> — the survival problem grows when he is the only one on site. Pulse and Aruni need someone there to trade."],
   atk:[
-   ["Hibana",44,"50%","1.56","43%","Ranged pellets. Volume hard-breach when the wall is the job."],
+   ["Hibana",46,"50%","1.54","43%","Ranged pellets. Volume hard-breach when the wall is the job."],
    ["Sledge",31,"58%","1.21","39%","Vertical pressure. The one that wins rounds."],
-   ["Ying",60,"42%","0.98","30%","Candelas for the plant. Volume is here, survival is not."],
-   ["Zero",35,"46%","1.00","29%","Argus cameras. Intel from a safe angle."],
+   ["Ying",61,"43%","0.98","31%","Candelas for the plant. Volume is here, survival is not."],
+   ["Zero",36,"44%","0.96","28%","Argus cameras. Intel from a safe angle."],
    ["Ram",21,"57%","1.33","43%","Vertical soft breach from another floor. Still a hint."]
   ],
   def:[
-   ["Azami",143,"53%","0.99","31%","Kiba barriers. Main by volume, holds the site."],
-   ["Echo",35,"49%","1.29","40%","Yokai intel and plant denial."],
+   ["Azami",146,"53%","0.96","31%","Kiba barriers. Main by volume, holds the site."],
+   ["Echo",37,"51%","1.32","41%","Yokai intel and plant denial."],
    ["Pulse",34,"59%","0.88","24%","Site intel from below."],
    ["Aruni",33,"42%","0.65","21%","Gates on every map. The map-agnostic default."],
    ["Thorn",23,"48%","1.14","39%","Razorblooms on a tight site. Worth more rounds."],
@@ -495,38 +436,36 @@ const P = [
  {
   tst_a:[
    ["Ash",30,"43%","0.72","17%","Rifle with no extra steps."],
-   ["Ace",31,"39%","0.62","32%","Hard breach when the wall is the job."],
-   ["Brava",28,"39%","0.16","32%","Takes cameras, traps, gates and wall denial over."]
+   ["Ace",32,"38%","0.64","31%","Hard breach when the wall is the job."]
   ],
   tst_d:[
-   ["Aruni",21,"52%","0.44","24%","Surya gates on every site."],
-   ["Melusi",10,"70%","0.57","30%","Banshees slow the push. Works after he is gone.",1],
+   ["Melusi",11,"73%","0.86","36%","Banshees slow the push. Works after he is gone."],
    ["Thunderbird",5,"60%","2.00","60%","Heals from cover, no angle held. Tiny sample, excellent survival.",1]
   ],
   a:["<b>Castle</b> — real volume, but win rate, gun and survival are all poor. The other anchors are stronger.", "<b>Blackbeard</b> — high volume with a poor win rate, a poor gun, and poor survival. Opening record is negative too.", "<b>Thatcher</b> — played enough to trust. Win rate and survival are both poor, and the squad has better uses for the time.", "<b>Mira</b> — smaller sample, same pattern. Not a priority until the larger lines are sorted.", "<b>Valkyrie</b> — played enough to trust. Cameras are not winning rounds, and survival is poor.", "<b>The habit</b> — holding an angle after it has been peeked, staying on a camera once the callout has been made, and walking the rotate or planting in the open after the site is already there."],
   name:"Big_Bunda_20", handle:"", role:"Intel / Support",
   trn:"https://r6.tracker.network/r6siege/profile/psn/Big_bunda_20/overview",
   cc:"https://stats.cc/siege/Big_Bunda_20/92aa234b-26b7-46fb-911b-964b69c95c26/operators",
-  summary:"A dependable support player whose strongest rounds come from utility that keeps working after he dies, then taking the fight that follows.",
-  strip:[["849","Matches"],["1,932","Career kills"],["0.76","Career K/D"],["50.2%","Career WR"],["33.9%","Career HS%"]],
+  summary:"A versatile, dependable support player who covers whatever job the round is missing, from traps and cameras to the breach and the plant. The gun has been a little sharper this season.",
+  strip:[["855","Matches"],["1,950","Career kills"],["0.76","Career K/D"],["50.1%","Career WR"],["33.7%","Career HS%"]],
   srv:31,
   note:"Survival sits under the target on both sides. Getting off the angle after contact is the clearest gain.",
   s:["<b>He wins rounds on the operators that matter</b> — Lion and Fuze both have a good win rate, at real volume.", "<b>He picks for the problem, not for preference</b> — he takes the operator the round needs even when it is not the one he enjoys. That is how support play is supposed to work.", "<b>The traps win rounds</b> — Kapkan and Thorn have the two strongest win rates he plays, both at volume large enough to trust, and both gadgets keep paying after he is gone. He is a trapper.", "<b>Ash is a simple rifle</b> — it asks nothing complicated of him, even as the early line has cooled.", "<b>Lion and Fuze win on attack</b> — stable team utility, both with enough rounds to trust.", "<b>The support work wins matches</b> — a fair career win rate that the kill column is not carrying. He wins rounds through utility that keeps working, not through needing the kills."],
   w:["<b>Reduce predictability</b> — the same angle, the same camera, the same spot after a trade, and in a clutch he tends to hold where he is rather than move. This is a habit rather than a limitation, and it is the largest available gain.", "<b>The rotate and the plant wait</b> — once the site is open the move still gets walked, and the defuser goes down in the bit of the room that can be seen. Comfort with planting, and reading which angle is exposed, is how a gunfight turns into a round.", "<b>Gunfights are the weak half</b> — the traps win rounds; the duels often do not. Crosshair placement, the angle, and keeping the weapon set rather than tilted are the habits that would make the kill column catch up. A bad night of gunfights is when this shows up, and it is a consistency problem rather than a kit one.", "<b>Thorn's opening record</b> — poor, which usually means playing the razorbloom line rather than setting it and walking away. One round of doing it differently would show up immediately.", "<b>Castle and Blackbeard</b> — two high-volume picks that are not paying back the rounds spent on them. Win rate, gun and survival are all poor on both.", "<b>Survival</b> — the common thread on both attack and defence, including on Ash, where the gun is at its best. Getting off the angle after the trade would lift everything at once."],
-  g:["<b>Move after every contact, then move again</b> — the highest-value change available here. Trade, reposition, take the next fight from somewhere they are not expecting.", "<b>In a clutch, relocate before they arrive</b> — they heard the last shot and they are walking towards it. Break line of sight, change floor or side, and make the first one come to a fresh angle. That turns a coin flip into a real chance.", "<b>Make the play at a run</b> — once the call is made, rotate, swing, or plant. Waiting for a perfect window is how the round goes cold.", "<b>Plant from cover, and do it quickly</b> — learn which bit of site can be seen and which cannot, then plant from the covered one. A slow plant in the open is how a taken site gets given back.", "<b>Capitão is the named-plan pick</b> — smoky bacon is already in the cores, and he has the volume to belong next to Lion and Fuze rather than sitting unused.", "<b>Kapkan is the defence pick when you want the round</b> — strongest win rate he plays, and the traps pay out whether he is alive or not.", "<b>Maestro only in setups that use the Evil Eyes</b> — watch, call it, then leave the camera.", "<b>Tachanka is situational</b> — take him when a hole already exists above a reinforced wall, so the fire launcher can deny the site from behind it. Not a default.", "<b>Montagne is still a suggestion, not a trial</b> — walk the team in on a shield site. Stay alive, call what he sees. It only pays if the stack plays behind the shield.", "<b>Thermite is now the hard-breach with volume</b> — walls when yasbas10 is not in the lobby. Ace stays a trial: win rate is still poor, so it is not a reason to drop Fuze, Lion or Thermite.", "<b>Brava is the gadget-clear trial</b> — Flores destroys the utility; Brava takes it over, cameras, traps, gates and the wall batteries included. The gun is the problem, and the win rate is still poor, so it is not a reason to drop Flores.", "<b>Aruni and Melusi are defensive trials</b> — gates and banshees. Both win their rounds. Worth more play, not a reason to drop Thorn or Kapkan."],
+  g:["<b>Move after every contact, then move again</b> — the highest-value change available here. Trade, reposition, take the next fight from somewhere they are not expecting.", "<b>In a clutch, relocate before they arrive</b> — they heard the last shot and they are walking towards it. Break line of sight, change floor or side, and make the first one come to a fresh angle. That turns a coin flip into a real chance.", "<b>Make the play at a run</b> — once the call is made, rotate, swing, or plant. Waiting for a perfect window is how the round goes cold.", "<b>Plant from cover, and do it quickly</b> — learn which bit of site can be seen and which cannot, then plant from the covered one. A slow plant in the open is how a taken site gets given back.", "<b>Capitão is the named-plan pick</b> — smoky bacon is already in the cores, and he has the volume to belong next to Lion and Fuze rather than sitting unused.", "<b>Kapkan is the defence pick when you want the round</b> — strongest win rate he plays, and the traps pay out whether he is alive or not.", "<b>Maestro only in setups that use the Evil Eyes</b> — watch, call it, then leave the camera.", "<b>Tachanka is situational</b> — take him when a hole already exists above a reinforced wall, so the fire launcher can deny the site from behind it. Not a default.", "<b>Montagne is still a suggestion, not a trial</b> — walk the team in on a shield site. Stay alive, call what he sees. It only pays if the stack plays behind the shield.", "<b>Thermite is now the hard-breach with volume</b> — walls when yasbas10 is not in the lobby. Ace stays a trial: win rate is still poor, so it is not a reason to drop Fuze, Lion or Thermite.", "<b>Brava and Aruni came off the trial list</b> — both now have enough rounds to read, and the K/D on both is very poor. Flores stays the gadget clear. Thorn and Kapkan already cover what Aruni was for.", "<b>Melusi is the defensive trial</b> — banshees slow the push and keep working after he is gone, and he wins his rounds on the small sample. Worth more play, not a reason to drop Thorn or Kapkan."],
   atk:[
    ["Fuze",91,"54%","0.94","42%","Situational vertical. High volume, almost even."],
    ["Lion",95,"53%","0.63","24%","Stable team utility with the volume to trust it."],
-   ["Capitão",119,"47%","0.68","27%","Smoky bacon. Impact EMPs and fire bolts."],
-   ["Flores",112,"41%","0.65","26%","Ratero utility. Win rate is still the problem."],
+   ["Capitão",122,"47%","0.66","27%","Smoky bacon. Impact EMPs and fire bolts."],
+   ["Flores",114,"41%","0.70","26%","Ratero utility. Win rate is still the problem."],
    ["Thermite",48,"50%","0.48","31%","Hard breach when Ace is banned or taken."]
   ],
   def:[
-   ["Thorn",140,"59%","0.83","32%","Highest volume. Set the razorblooms and walk away."],
-   ["Kapkan",118,"56%","0.82","35%","Traps keep paying after death. Win rate holds at volume."],
+   ["Thorn",144,"58%","0.82","32%","Highest volume. Set the razorblooms and walk away."],
+   ["Kapkan",120,"56%","0.81","35%","Traps keep paying after death. Win rate holds at volume."],
    ["Maestro",96,"51%","0.46","34%","Cameras for coordinated setups. Call it, then leave."],
-   ["Kaid",106,"46%","0.51","25%","Wall and hatch denial. The gun has cooled."],
-   ["Mute",45,"44%","0.49","22%","Jammers for the trap pairing."]
+   ["Kaid",107,"46%","0.50","25%","Wall and hatch denial. The gun has cooled."],
+   ["Mute",47,"47%","0.54","26%","Jammers for the trap pairing."]
   ]
  },
  {
@@ -537,61 +476,65 @@ const P = [
    ["Echo",92,"59%","1.02","42%","Yokai intel and plant denial. Several late clutches."],
    ["Tubarão",83,"55%","1.02","39%","Hard breach freeze when Kaid and Bandit are banned on Ranked."]
   ],
-  a:["<b>Solid Snake</b> — parked. The kit asks him to be near them before it pays, and the playstyle has not clicked. Jackal is the same shape: the hunt starts too late. Deimos, Lion and Dokkaebi still work from anywhere, including long range. Grim is the close-mid version, then asks for a gun he dislikes and a one-health body on top.","<b>Other attackers with a weak fit — Gridlock, Maverick, Zofia, Rauora</b> — Gridlock’s early combat line is poor and has not earned more rounds. Maverick is not fun enough to keep. Thermite already covers the wall. Zofia's rifle is not controllable at range. Rauora cooled on every column, and the panels need him on the rotate before they pay. The rifle is already on Dokkaebi. Not a priority.","<b>Set aside — Thorn, Aruni</b> — Thorn no longer fits the intended pool despite the volume; Aruni has a poor K/D on the meaningful sample.","<b>Setting up after the round has started</b> — complex traps belong in prep. Still placing when the clock is live is how the first death arrives. If the site is not already known, take Fenrir rather than starting a Denari setup late.","<b>Queueing through a bad run.</b> The long August sessions kept going well past the point they stopped working. The overnight Ranked block ran through five losses after midnight. The late block on the eleventh ran through five Ranked losses after a slow start. Three losses is still the stop. The earlier tired Border that was followed by a win and a stop is the version that works."],
+  a:["<b>Other attackers with a weak fit — Solid Snake, Jackal, Grim, Gridlock, Maverick, Rauora</b> — Solid Snake is parked: the kit asks him to be near them before it pays, and the playstyle has not clicked. Jackal is the same shape, where the hunt starts too late. Deimos, Lion and Dokkaebi still work from anywhere, including long range. Grim is the close-mid version, then asks for a gun he dislikes and a one-health body on top. Gridlock’s early combat line is poor and has not earned more rounds. Maverick is not fun enough to keep, and Thermite already covers the wall. Rauora cooled on every column, and the panels need him on the rotate before they pay. The rifle is already on Dokkaebi. Not a priority.","<b>Set aside — Thorn, Aruni</b> — Thorn no longer fits the intended pool despite the volume; Aruni has a poor K/D on the meaningful sample.","<b>Setting up after the round has started</b> — complex traps belong in prep. Still placing when the clock is live is how the first death arrives. If the site is not already known, take Fenrir rather than starting a Denari setup late.","<b>Queueing through a bad run.</b> The long August sessions kept going well past the point they stopped working. The overnight Ranked block ran through five losses after midnight. The late block on the eleventh ran through five Ranked losses after a slow start. Three losses is still the stop. The earlier tired Border that was followed by a win and a stop is the version that works."],
   name:"Kulan_G100", handle:"", role:"Planter / Intel",
   trn:"https://r6.tracker.network/r6siege/profile/psn/Kulan_G100/overview",
   cc:"https://stats.cc/siege/Kulan_G100/604dfcce-92e1-4b40-864b-69e025620569/operators",
   summary:"The squad’s most experienced player, its planter, and a creative playmaker. He spots openings the round would otherwise miss, and he performs best when the gadget lets him influence an engagement before he physically commits to it.",
-  strip:[["1,346","Matches"],["3,628","Career kills"],["1.08","Career K/D"],["49.3%","Career WR"],["37.7%","Career HS%"]],
+  strip:[["1,354","Matches"],["3,658","Career kills"],["1.08","Career K/D"],["49.1%","Career WR"],["38.0%","Career HS%"]],
   srv:42,
   note:"Survival is good on the attack mains, and excellent on Twitch.",
-  s:["<b>A creative playmaker</b> — he sees the opening before the round has named it: the wall, the plant, the vertical, the tracked target. That is how this squad gets jobs that were not on the call sheet.", "<b>Rounds with a defined job</b> — hard breach on Thermite, live pressure on Lion, a named target on Deimos. Give him the task and he executes it.", "<b>Twitch is usable now</b> — the shock drones strip the denial so the stack can enter, and the rifle finally pays in a real match. That is the gadget-clear seat the five was missing.", "<b>Aim</b> — a good headshot rate, and his strongest lines are all on rifles that reward patience over speed.", "<b>The first duel on attack</b> — the opening records on Deimos, Thermite, Lion and Dokkaebi are all excellent, on samples large enough to trust. The hesitation at the door is about timing, not about losing the fight. The defensive openings are a separate question.", "<b>The advantages are real</b> — plants, wall denial, openings and multi-kills in the middle of the round. These kills happen while the round is still live, not after it is already lost.", "<b>Reading the site</b> — picks denial that keeps working after he dies, which is how Denari went from a curiosity to a main.", "<b>Complex kits pay when they work before he is in the room</b> — Denari and Echo still win at the top of his pool. Fenrir is the faster mine setup. Skopós is two bodies and two aces. Complexity that has to be executed while he is already exposed is the other kind, and it does not.", "<b>The method itself</b> — tests honestly, holds the sample open, and drops what he likes when it stops working."],
+  s:["<b>A creative playmaker</b> — he sees the opening before the round has named it: the wall, the plant, the vertical, the tracked target. That is how this squad gets jobs that were not on the call sheet.", "<b>Thermite is the breach he owns</b> — the wall comes open, and the hole is the intel: nothing beats looking straight through it. It has become his most-played attacker because the squad needs the wall, and Ace and Hibana have never given him the same presence.", "<b>Rounds with a defined job</b> — hard breach on Thermite, live pressure on Lion, a named target on Deimos. Give him the task and he executes it.", "<b>Twitch is usable now</b> — the shock drones strip the denial so the stack can enter, and the rifle finally pays in a real match. That is the gadget-clear seat the five was missing.", "<b>Aim</b> — a good headshot rate, and his strongest lines are all on rifles that reward patience over speed.", "<b>The first duel on attack</b> — the opening records on Deimos, Thermite, Lion and Dokkaebi are all excellent, on samples large enough to trust. The hesitation at the door is about timing, not about losing the fight. The defensive openings are a separate question.", "<b>The advantages are real</b> — plants, wall denial, openings and multi-kills in the middle of the round. These kills happen while the round is still live, not after it is already lost.", "<b>Reading the site</b> — picks denial that keeps working after he dies, which is how Denari went from a curiosity to a main.", "<b>Complex kits pay when they work before he is in the room</b> — Denari and Echo still win at the top of his pool. Fenrir is the faster mine setup. Skopós is two bodies and two aces. Complexity that has to be executed while he is already exposed is the other kind, and it does not.", "<b>Fenrir is the defender he enjoys most, and the line has followed</b> — excellent K/D and opening record, good survival, and most of his recent defensive rounds. Enjoyment producing rounds, and rounds producing the line, is how it is meant to work.", "<b>The method itself</b> — tests honestly, holds the sample open, and drops what he likes when it stops working."],
   w:["<b>The second fight</b> — the first duel is already being won. Hunting the next one, chasing a tracked name across the map, walking a doorway the drone already passed, running at plant noise, or holding the angle after it has paid, is how a good round becomes a lost one. After one fight he starts, only fights that come to him or that the objective requires.", "<b>First death</b> — taking the opening fight, or arriving at the door alone, is how the planter is gone before the site is. Second contact is the job.", "<b>Entry is not being cleared</b> — hesitation at the door usually comes from worrying about roamers rather than clearing them, and the time spent outside is the time the defence uses to reset. Kapkan traps, and anything else parked in a doorway to break up the entry, are still being found by walking into them. Drone the intended route in prep, shin height and above the frame, then turn the drone around and look at the frame it just passed, especially if Kapkan is confirmed. Clear the room itself: corners, the far side of the doorway, above, hiding spots. After a room is taken, the far side is a second drone, not a second swing. Treat every opponent as a person, including in training. If the door is too unsafe, pivot quickly to one that is known — but enter. Sitting on the choice until the last seconds is how the round is given away. A comfortable named entry beats a cautious one.", "<b>Not ready for the fight while roaming</b> — too often the first shot arrives while he is walking, reloading or mid-reposition. Move between cover with the gun already up and the crosshair at head height, expecting contact rather than reacting to it.", "<b>Predictability</b> — repeating the same rappel entry, or breaking windows in a fixed order, has been read more than once. What works against bots gets punished quickly by people.", "<b>Known utility gets left</b> — frost mats and razorblooms he has already seen still claim the round because the fight arrives first. Clear what you called, then go."],
-  g:["<b>Win the round, not the ratio</b> — the plant and the site matter more than the kill column. Somebody else takes first contact. First death is the one to stop.", "<b>In a five-stack, do not default the wall</b> — trust the breacher. Take intel, the plant, or whatever job is empty. Thermite stays when he is the one who has to open it.", "<b>Call the move before it happens</b> — when a plant, swing or rotate is safe, say so. Name the spawn and who walks in with him.", "<b>Skopós/Echo map rule</b> — roam and flank on small rooms and tight staircases: Villa, Club House, House, Oregon. On a big interior like Bank the flank crosses open ground, so hold the angle.", "<b>Vary the entry</b> — never the same rappel twice in a match, never the same window order, even when the first one worked.", "<b>For slow entries</b> — take the door you know rather than the one closest to site, then work across. Familiar ground first, objective second.", "<b>Deimos is a good stack pick, but wait for the right moment</b> — do not always start with him. Read them on another operator first, then DeathMARK what you found. Prioritise vertical plays, and after the plant hold the defuser from above rather than hunting. Their ping of him is delayed and a snapshot, so keep moving or it catches up.", "<b>The objective sound is bait until proven otherwise</b> — it says where somebody is, not that they are busy. Get to the last cover, stop, then peek. Worse on Deimos, where they already have his ping.", "<b>Oppression as a plan rather than a mood</b> — study Denari and Fenrir trap placement. Optimised traps deny entire lanes without him alive, and the frustration soaks two of the three bans so Kapkan, Bandit or Kaid, Mute, Thorn and Skopós or Echo go free. Dokkaebi is the attacking version.", "<b>Dokkaebi is in the five, and she is the solo-queue pick</b> — the remastered kit is narrower than it looks. The payload only fires at a defender already identified, so it confirms a target rather than sweeping the map, and a hacked camera runs for a short window rather than the rest of the round. The gun and the openings are excellent. The win rate is still poor. The bans have started to land, which is the oppression working.", "<b>Twitch is the fifth, and she is the enabler</b> — shock the denial so the others can enter, then get off the drone. The FAMAS with a holo is the gun that made her usable. Raising the win rate on Twitch and Dokkaebi is what to work on next.", "<b>After a room is taken, drone the far side before the second swing</b> — space already held is when to slow down. If they are identified, call them first.", "<b>Clear spotted utility before the fight</b> — if a frost mat, razorbloom or Kapkan trap has already been called, it goes before the entry. Impact, shotgun, or a second look at the doorway. The plant waits.", "<b>After a fight pays, move</b> — do not farm the same angle once they know it."],
+  g:["<b>Win the round, not the ratio</b> — the plant and the site matter more than the kill column. Somebody else takes first contact. First death is the one to stop.", "<b>Pick what the round needs</b> — the wall, the gadget clear, the intel, or someone to catch throwables. If the stack already has a breacher on Ace or Hibana, take the empty job. If nobody else is opening the wall, Thermite is the pick, and it is his best breach. Jäger is a real pick when grenades and drones keep beating the site, even without a big line behind him.", "<b>Call the move before it happens</b> — when a plant, swing or rotate is safe, say so. Name the spawn and who walks in with him.", "<b>Skopós/Echo map rule</b> — roam and flank on small rooms and tight staircases: Villa, Club House, House, Oregon. On a big interior like Bank the flank crosses open ground, so hold the angle.", "<b>Vary the entry</b> — never the same rappel twice in a match, never the same window order, even when the first one worked.", "<b>For slow entries</b> — take the door you know rather than the one closest to site, then work across. Familiar ground first, objective second.", "<b>Deimos is a good stack pick, but wait for the right moment</b> — do not always start with him. Read them on another operator first, then DeathMARK what you found. Prioritise vertical plays, and after the plant hold the defuser from above rather than hunting. Their ping of him is delayed and a snapshot, so keep moving or it catches up.", "<b>The objective sound is bait until proven otherwise</b> — it says where somebody is, not that they are busy. Get to the last cover, stop, then peek. Worse on Deimos, where they already have his ping.", "<b>Oppression as a plan rather than a mood</b> — study Denari and Fenrir trap placement. Optimised traps deny entire lanes without him alive, and the frustration soaks two of the three bans so Kapkan, Bandit or Kaid, Mute, Thorn and Skopós or Echo go free. Dokkaebi is the attacking version.", "<b>After a room is taken, drone the far side before the second swing</b> — space already held is when to slow down. If they are identified, call them first.", "<b>Clear spotted utility before the fight</b> — if a frost mat, razorbloom or Kapkan trap has already been called, it goes before the entry. Impact, shotgun, or a second look at the doorway. The plant waits.", "<b>After a fight pays, move</b> — do not farm the same angle once they know it."],
   atk:[
    ["Deimos",183,"51%","1.42","46%","Named hunt. Late round and roam clear. Vertical with the revolver."],
-   ["Thermite",180,"52%","1.39","42%","Opens the reinforced wall. The rifle pays once it is open."],
    ["Lion",106,"50%","1.49","46%","Freezes the map for plant and defuse. One ace."],
-   ["Dokkaebi",77,"42%","1.71","38%","Phone call, camera hack, smoke plant. Solo queue pick."],
-   ["Twitch",37,"46%","1.39","51%","Shock the denial, then get off the drone. Holo FAMAS."]
+   ["Thermite",186,"51%","1.35","41%","Opens the wall, then looks through it. The rifle does the rest."],
+   ["Dokkaebi",78,"42%","1.67","37%","Phone call, camera hack, smoke plant. Solo queue pick."],
+   ["Twitch",42,"43%","1.38","50%","Shock the denial, then get off the drone. Holo FAMAS."]
   ],
   def:[
-   ["Denari",156,"53%","1.32","39%","Trap the approaches, then hold an angle or roam and flank."],
-   ["Fenrir",80,"51%","1.57","41%","Hidden mines on a narrow lane. Faster setup than Denari."],
-   ["Bandit",95,"51%","1.30","37%","Batteries on the wall, nitro on the plant."],
+   ["Fenrir",91,"52%","1.64","42%","Hidden mines on a narrow lane. Faster setup than Denari."],
+   ["Denari",157,"53%","1.31","39%","Trap the approaches, then hold an angle or roam and flank."],
+   ["Bandit",96,"50%","1.28","36%","Batteries on the wall, nitro on the plant."],
    ["Valkyrie",104,"50%","1.21","36%","Cameras first, then flank with the Nitro. One ace."],
    ["Skopós",68,"47%","1.58","37%","Two shells. Two aces. Roam tight rooms, hold big interiors."]
   ]
  },
  {
-  tst_a:"No attack substitute settled. Take the job the stack is missing.",
+  tst_a:[
+   ["Blitz","—","—","—","—","Flash shield entry. The stack trades behind him. Semi-auto pistol.",1],
+   ["Montagne","—","—","—","—","Extended shield walks the stack in and covers the plant.",1]
+  ],
   tst_d:[
+   ["Kapkan",6,"50%","0.60","17%","Trap utility works after death and can soften the entry.",1],
    ["Smoke","—","—","—","—","Site denial, and the SMG he has been asking for.",1]
   ],
-  a:["<b>Jäger</b> — win rate, gun and survival are all poor. Played enough to trust, and he has stronger options.","<b>Castle</b> — win rate is still excellent. The gun is still poor, and a fixed-position fight is the pattern.","<b>Frost</b> — early, but the same shape: poor win rate, poor survival, and almost no gun output.","<b>A note on all three</b> — these are small samples, so treat them as early warnings rather than verdicts. The pattern is the point: all three ask him to hold a fixed position and fight for it.","<b>Entry roles of any kind</b> — until the career headshot rate moves. That is aim work outside the game rather than another operator swap."],
+  a:["<b>Jäger</b> — a small sample, but win rate, gun and survival are all very poor. The squad needs someone on anti-throwables, and his account has better uses for the rounds.","<b>Frost</b> — early, with a poor win rate and a poor gun. A small sample, so an early warning rather than a verdict.","<b>Fragging entry roles</b> — until the career headshot rate moves. That is aim work outside the game rather than another operator swap. A shield entry is different: the shield takes first contact and the stack trades behind it."],
   name:"Niro__99", handle:"", role:"Utility / Support",
   trn:"https://r6.tracker.network/r6siege/profile/psn/Niro__99/overview",
   cc:"https://stats.cc/siege/Niro__99/880105f9-9259-4da5-bbef-252a7b736032/operators",
   summary:"An objective-first anchor who drones well, sets the site up in prep, and holds it once the fight arrives.",
-  strip:[["647","Matches"],["1,720","Career kills"],["0.85","Career K/D"],["49.9%","Career WR"],["20.6%","Career HS%"]],
+  strip:[["657","Matches"],["1,732","Career kills"],["0.84","Career K/D"],["49.5%","Career WR"],["20.9%","Career HS%"]],
   srv:22,
   note:"Survival is poor compared with the rest of the squad. The operator changes below are aimed at closing that gap.",
   s:["<b>Kaid carries the defence</b> — by far his largest sample, and the job still suits him.", "<b>Mute wins his rounds</b> — good win rate, and survival is fair, with jammers that keep paying after he is gone. Alibi still wins on the smaller sample.", "<b>Fuze produces</b> — the attack gun that is actually paying, with a good opening record behind it.", "<b>Drone work is a real strength</b> — he manoeuvres them well, calls while he flies, and keeps them alive and hidden.", "<b>He plays for the team rather than the scoreboard</b> — a fair career win rate that the kill column is not carrying, built on taking the operator the round needs and acting on the call. Lately he has been closing sticky rounds out rather than trading out of them."],
   w:["<b>The attack pool leans on the right site turning up</b> — Fuze wants a floor above, Kali wants an exterior angle. On the maps that offer neither there is no natural fallback, which is a pool problem rather than a player one.", "<b>Kali</b> — very poor survival, and it falls away further indoors. Exterior angles only.", "<b>Headshot rate</b> — poor, well behind the others. That is aim work outside the game rather than another operator swap, and it caps what any pick can return.", "<b>Survival</b> — poor compared with the rest of the squad, with Kali and Ying the ones that need the most work. Scanning from cover rather than from the open would move it on its own."],
-  g:["<b>Clear defender gadgets</b> — hard breaching is already done by others. He already keeps drones alive and hidden, so Flores would suit him. Twitch is off: the FAMAS recoil does not suit him.", "<b>Keep Maverick</b> — he already enjoys him. The others already do hard breach, so Thermite is not needed.", "<b>Ying's survival is the open question</b> — the candelas suit an entry the team is already making. Throwing and then following the flash in, rather than throwing and walking in behind it, is the thing to try next.", "<b>Fuze stays, but not as the main</b> — it is a good line and it is situational. Take it when there is a floor above the site rather than by default.", "<b>Kali stays exterior-only</b> — very poor survival, and it falls away further indoors. The secondary is his call: he prefers a semi-automatic pistol for the control, and forcing the machine pistol on him would only cost rounds he would otherwise enjoy.", "<b>Smoke is the gun he asked for</b> — site denial that keeps working after death, on a submachine gun he actually wants to shoot. No sample yet, so it is a substitute on trial.", "<b>Defence</b> — Kaid for volume, Mute when the jammers are the job. Mute is the one that has moved. Alibi on a site that suits decoys. Smoke is the substitute on trial.", "<b>Play behind first contact</b> — low-exposure utility is where he gets paid."],
+  g:["<b>Clear defender gadgets</b> — hard breaching is already done by others. He already keeps drones alive and hidden, so Flores would suit him. Twitch is off: the FAMAS recoil does not suit him.", "<b>Keep Maverick</b> — he already enjoys him. The others already do hard breach, so Thermite is not needed.", "<b>Ying's survival is the open question</b> — the candelas suit an entry the team is already making. Throwing and then following the flash in, rather than throwing and walking in behind it, is the thing to try next.", "<b>Fuze stays, but not as the main</b> — it is a good line and it is situational. Take it when there is a floor above the site rather than by default.", "<b>Kali stays exterior-only</b> — very poor survival, and it falls away further indoors. The secondary is his call: he prefers a semi-automatic pistol for the control, and forcing the machine pistol on him would only cost rounds he would otherwise enjoy.", "<b>Smoke is the gun he asked for</b> — site denial that keeps working after death, on a submachine gun he actually wants to shoot. No sample yet, so it is a substitute on trial.", "<b>Defence</b> — Kaid for volume, Mute when the jammers are the job. Alibi on a site that suits decoys. Castle and Bandit both win their rounds and the gun is poor on both, so they are for holding the site and the wall, not for taking duels. Smoke is the substitute on trial.", "<b>A shield on attack: Blitz or Montagne</b> — both carry a semi-automatic pistol behind the shield, which is the secondary he already prefers. A shield at the front lets the rest of the stack push and trade from behind cover, and that makes the whole attack much harder to stop. No rounds on either yet, so both are substitutes on trial.", "<b>Play behind first contact</b> — low-exposure utility is where he gets paid."],
   atk:[
-   ["Fuze",82,"50%","1.02","33%","Highest volume. The attack gun that is actually paying."],
-   ["Kali",32,"53%","0.69","19%","Very poor survival. Exterior sightlines only, not the default."],
-   ["Lion",44,"45%","0.56","11%","Fair win rate. Survival is the concern. Scan from cover."],
-   ["Ying",39,"38%","0.65","21%","Candelas for the entry. Survival is the problem."],
-   ["Maverick",27,"44%","0.78","33%","Useful breach, and the one he enjoys. Fair survival."]
+   ["Fuze",84,"49%","0.98","32%","Highest volume. The attack gun that is actually paying."],
+   ["Kali",34,"50%","0.64","18%","Very poor survival. Exterior sightlines only, not the default."],
+   ["Lion",45,"44%","0.55","11%","Scan for the plant and defuse. From cover, not the open."],
+   ["Ying",43,"40%","0.57","19%","Candelas for the entry. Survival is the problem."],
+   ["Maverick",28,"46%","0.74","32%","Useful breach, and the one he enjoys. Fair survival."]
   ],
   def:[
-   ["Kaid",112,"49%","0.75","24%","Largest defensive sample. Excellent wall and hatch denial."],
-   ["Mute",75,"56%","0.63","32%","Jammers deny the drones that clear traps. Pair with Kapkan."],
+   ["Kaid",127,"50%","0.72","25%","Largest defensive sample. Excellent wall and hatch denial."],
+   ["Mute",76,"55%","0.62","32%","Jammers deny the drones that clear traps. Pair with Kapkan."],
    ["Alibi",11,"73%","0.88","27%","Highest win rate here. Decoys call the approach for free."],
-   ["Vigil",1,"100%","4.00","100%","Quiet roam. Tiny sample, but the gun was excellent.",1],
-   ["Kapkan",5,"60%","0.75","20%","Trap utility works after death and can soften the entry.",1]
+   ["Castle",29,"55%","0.45","24%","Barricades cut the approaches down. Hold the site, not the duel."],
+   ["Bandit",15,"53%","0.42","20%","Batteries on the reinforced wall. The Kaid alternative when he is banned."]
   ]
  },
  {
@@ -605,7 +548,7 @@ const P = [
   name:"yasbas10", handle:"", role:"Breach / Anchor",
   trn:"https://r6.tracker.network/r6siege/profile/psn/yasbas10/overview",
   cc:"https://stats.cc/siege/yasbas10/7884f2fd-fca7-47de-a0fd-d4c280bcdc16/operators",
-  summary:"A disciplined breach-and-anchor player who gets a lot from a small operator pool.",
+  summary:"A disciplined breach-and-anchor player who gets a lot from a small operator pool, with the best overall career K/D in the squad.",
   strip:[["633","Matches"],["2,097","Career kills"],["1.22","Career K/D"],["51.7%","Career WR"],["36.4%","Career HS%"]],
   srv:34,
   note:"Survival is fair on attack and defence. Attack is still the half with the gap.",
@@ -632,9 +575,9 @@ const P = [
 
 const ROSTER = [
  ["eshwador","377","1.03","49.9%","36.0%","Support / Anchor"],
- ["Big_Bunda_20","849","0.76","50.2%","33.9%","Intel / Support"],
- ["Kulan_G100","1,346","1.08","49.3%","37.7%","Planter / Intel"],
- ["Niro__99","647","0.85","49.9%","20.6%","Utility / Support"],
+ ["Big_Bunda_20","855","0.76","50.1%","33.7%","Intel / Support"],
+ ["Kulan_G100","1,354","1.08","49.1%","38.0%","Planter / Intel"],
+ ["Niro__99","657","0.84","49.5%","20.9%","Utility / Support"],
  ["yasbas10","633","1.22","51.7%","36.4%","Breach / Anchor"]
 ];
 
@@ -656,7 +599,7 @@ const COMPS = [
   note:"The third slot is the read. Roam-heavy site, take the intel option. Anchored site with a floor above it, take the vertical option."},
  {side:"a", title:"Attack · Quad core", tag:"Balanced setup",
   site:"Both halves of the third slot at once, so the site is squeezed from information and from above at the same time.",
-  maps:"Anywhere, though the map record still counts against Club House and Theme Park.",
+  maps:"Anywhere, though Club House and Theme Park are both in the squad's worst five.",
   rows:[["Person 1","Thermite / Ace / Hibana","Hard breacher."],
         ["Person 2","Flores / Twitch / Brava / Thatcher, or Impact EMPs such as Capitão","Enabler."],
         ["Person 3","Lion / Deimos / Jackal / Dokkaebi","Intel. Hunt, trail, disrupt or freeze, depending who is on the site."],
@@ -743,31 +686,6 @@ document.getElementById('cards').innerHTML = P.map(p=>`
 </article>`).join('');
 
 
-const MAPS = [
- ["Club House","German police vehicles and a strip club. Some outside plays, and a basement."],
- ["Oregon","Barnyard house. Basement map, and one we both know well."],
- ["Coastline","Luxurious hotel and mansion by the coast."],
- ["Nighthaven Labs","Lots of hallways. Easy to get flanked."],
- ["Lair","Lots of hallways. Easy to get flanked."],
- ["Fortress","A massive castle. Lots of hallways, easy to get flanked."],
- ["Skyscraper","The East Asian building. Lots of hallways, easy to get flanked."],
- ["Kanal","The military unit. Hallways and staircases, easy to get flanked."],
- ["Outback","Kangaroo Sandwich. Some outside plays."],
- ["Theme Park","Big building with some outside plays."],
- ["Border","Big building with some outside plays. Can get flanked."],
- ["Kafe Dostoyevsky","Big building, large open rooms, wooden surfaces."],
- ["Consulate","Big building, large open rooms."],
- ["Bank","Big building, large open rooms. Basement sites."],
- ["Chalet","Big ski chalet. Narrow hallways, a few outside plays, and a basement."],
- ["Presidential Plane","Narrow hallways. One-sided: outside snipers you cannot shoot back at."],
- ["Calypso Casino","Huge rooms and hallways."],
- ["Tower","Huge open spaces with closed rooms."],
- ["Stadium Bravo","So many rooms and hallways. Very flankable."],
- ["Emerald Plains","Big mansion. Flankable, and a poor Echo map: nowhere to hide the drones."],
- ["Favela","Big building, many storeys, flankable. Aced here."],
- ["House","Literally a house. Know it well, and aced here."],
- ["Yacht","Big yacht. A little interaction with outside, very flankable."]
-];
 
 document.getElementById('comps').innerHTML = COMPS.map(c=>`
 <div class="comp ${c.side}${c.head?' cols'+c.head.length:''}${c.side=='c'?' cores':''}">
@@ -778,50 +696,51 @@ document.getElementById('comps').innerHTML = COMPS.map(c=>`
   <p class="cnote">${c.note}</p>
 </div>`).join('');
 
-document.getElementById('maplist').innerHTML = MAPS.map(m=>`<div><b>${m[0]}</b><span>${m[1]}</span></div>`).join('');
-
-const MAPDEF = [
- ["Presidential Plane","5","Denari","Thermite","Corridors and doors throughout, hard breach rarely needed"],
- ["Kafe Dostoyevsky","2","Denari / Tubarão","Thermite","Chokepoints upstairs and hatches on every floor"],
- ["Bank","1 · 3","Denari / Valkyrie","Thermite","Vault and CCTV are pure access denial, upper floors are open"],
- ["Club House","1 · 4","Denari basement, Valkyrie or Echo upstairs","Thermite","Tight basement, heavy vertical play, roam-heavy"],
- ["Oregon","1 · 4","Denari basement, Tubarão upstairs","Thermite","Basement is close quarters, upper floors need hatch denial"],
- ["Consulate","1 · 5","Denari","Thermite","Garage and Cafeteria are chokepoint-heavy"],
- ["Border","3 · 4","Valkyrie / Sentry","Glaz","Big flanks and high destruction, but the sites themselves are tight"],
- ["Coastline","2 · 3","Valkyrie","Thermite / Glaz","No basement, so play is horizontal and roof-based"],
- ["Villa","2 · 4","Echo / Valkyrie","Thermite / Capitão","Vertical and roam-heavy. Smoky bacon is the named wall plan"],
- ["Chalet","1 · 5","Tubarão","Thermite","Basement plus hard-breach-dependent sites"],
- ["Kanal","2 · 5","Tubarão / Echo","Thermite","Hatches and breachable walls throughout"],
- ["Theme Park","4","Sentry","Thermite","Tight, cluttered, short sightlines"]
+/* map = [name, squad games, squad wins, Kulan_G100 games, Kulan_G100 wins, note] · stats.cc, all playlists */
+const MAPREC = [
+ ["Chalet",65,38,28,17,"Narrow routes and a basement. Tubarão on defence."],
+ ["Emerald Plains",40,22,23,12,"Big flankable mansion. Nowhere to hide Echo drones."],
+ ["Nighthaven Labs",54,29,22,12,"Long hallways, easy to get flanked. Trap the corridor, watch the flank."],
+ ["Consulate",68,36,29,14,"Chokepoint garage and cafeteria. Denari on defence."],
+ ["Presidential Plane",41,21,19,10,"Corridors and doors, rarely a hard breach. Traps collect for free."],
+ ["Oregon",54,27,22,11,"A basement map we know well. Denari below, Tubarão upstairs."],
+ ["Fortress",53,26,22,11,"A castle of hallways. Home of the fourteen-kill night."],
+ ["Tower",45,22,21,9,"Huge open spaces with closed rooms. Survival is highest here."],
+ ["Kafe Dostoyevsky",75,36,26,14,"Big wooden rooms, hatches on every floor. Denari or Tubarão."],
+ ["Kanal",50,24,22,11,"Hallways, staircases and hatches. Tubarão or Echo."],
+ ["House",40,19,22,11,"Small and well known. Roaming and flanking pay here."],
+ ["Lair",50,22,23,11,"Hallways and flanks, the same warning as Labs."],
+ ["Stadium Bravo",39,17,18,7,"Rooms and hallways everywhere. Very flankable."],
+ ["Favela",46,20,21,11,"Many storeys, flankable. Aced here."],
+ ["Skyscraper",38,16,20,9,"Hallways, easy to get flanked. Few games on any account."],
+ ["Bank",87,36,34,15,"Vault basement, open floors above. Fights get won, rounds do not."],
+ ["Villa",91,37,40,15,"Vertical and roam-heavy. Smoky bacon is the named plan."],
+ ["Stadium 2020",40,16,18,6,"Few games per account, and losing on most of them."],
+ ["Calypso Casino",71,28,32,12,"Huge rooms and hallways. Better in Ranked than Quick Match."],
+ ["Border",75,29,25,11,"Big flanks, tight sites. Valkyrie or Sentry on defence, Glaz on attack."],
+ ["Club House",67,21,29,12,"Tight basement, roam-heavy upstairs. The seasonal hole. Needs a named plan."],
+ ["Coastline",55,17,24,8,"No basement, so every fight is horizontal. Valkyrie on defence."],
+ ["Theme Park",56,17,27,6,"Tight and cluttered, short sightlines. Sentry on defence."],
+ ["Yacht",36,10,21,6,"Very flankable, some outside angles. Fewest games of any map."],
+ ["Outback",42,11,18,7,"Outside plays. Nobody in the squad has a winning record here."]
 ];
-document.getElementById('mapdefaults').innerHTML = MAPDEF.map(m=>`<tr><td><b>${m[0]}</b></td><td>${m[1]}</td><td>${m[2]}</td><td>${m[3]}</td><td>${m[4]}</td></tr>`).join('');
-
-const MAPLOG = [
- ["Theme Park","Mixed","mid","2–5 · 24–22 kills","0–1 earlier, then Ranked 5–3 and 4–2, then Quick Match 0–3","Two converted Ranked wins now. Winning the round was always the gap rather than aim. The 10th was a 4–2 with a thin kill column, and it still won. The 11th added a Quick Match stuffing."],
- ["Calypso Casino","Mixed","mid","5–5 · 38–27 kills","Two Ranked wins, a 1–4, a 4–0, then Quick Match 3–0 and Ranked 1–4","Bad in Quick Match, then Ranked wins including a 4–0 and a 5–4, then a 1–4, then a Ranked 4–0 at 4–0 with two 1v1 clutches on the 10th. The 11th was a Quick Match 3–0 then a Ranked 1–4 at 5–4. Playlist still matters, and it does not always run the same way."],
- ["Consulate","Watch","bad","2–4 · 18–24 kills","0–3, then Ranked 3–5, 5–4 and 4–1","First Ranked win here was a 5–4 at 8–6 against a 14–5. The 13th was a Ranked 4–1 at 0–1. Still negative on count. Chokepoint-heavy sites, now with two converted nights, including one with almost no gun."],
- ["Chalet","Mixed","mid","2–3 · 14–17 kills","0–4 twice, then Ranked 4–1 twice, plus Quick Match 0–3 and 2–2","Was clean-negative until the first converted win, a 4–1 on the 30th. A second Ranked 4–1 on the 2nd, with a 3K. The 9th added a Quick Match 2–2. Narrow routes plus basement pressure."],
- ["Presidential Plane","Mixed","mid","1–2 · 10–8 kills","In the bad block, then a Quick Match 2–3","Corridors plus outside angles that cannot be answered. A 3K in a loss. Watch rather than avoid."],
- ["Villa","Mixed","mid","5–5 · 66–37 kills","0–2 twice, then a 4K on a 1–4","Was the win-the-fights-lose-the-round problem in its sharpest form, until a Ranked 4–0 on smoky bacon, a Ranked 5–3 with two 3Ks on the 29th, then a Ranked 4–2 and a Quick Match 3–1 on the 1st. A Ranked 1–4 on the 2nd with a 6–4 kill column is the same shape again. The 11th added another Ranked 1–4 at 5–4, a 1v2 lost. The 13th converted a Ranked 4–2. Small rooms and tight staircases suit the roam and flank."],
- ["Club House","Volatile","mid","2–9 · 36–34 kills","0–3 earlier, then Ranked 0–4, 0–4, 1–4, 0–4, 2–4 and 2–4, plus a Quick Match 3–1","Was the worst map on the log until an 11–3 win with an ace on it. Ranked on this map is the seasonal hole: every Ranked Club House this season has been a loss. That is a named-plan gap, the way Villa was before smoky bacon. The 3rd added two more 2–4s, including a teamkill on the plant as Deimos. Small rooms and tight staircases still suit the roam and flank."],
- ["Bank","Watch","bad","3–9 · 79–48 kills","Four Ranked losses, a 5–3, then a 1–4","Still winning the gunfights. The converted one remains the 5–3 with 16 kills. The 10th was a 1–4 at 4–3 with a 3K. After a fight pays, the last angle gets hunted. Relocate. Conversion, not aim."],
- ["Outback","Mixed","mid","1–2 · 8–8 kills","6–1 game","Was Good on the older window, has drifted to even. Worth watching rather than reclassifying."],
- ["Oregon","Mixed","mid","3–3 · 24–20 kills","Two Ranked wins, then a Quick Match stuffing","A Ranked steamroll in an earlier winning block, then a 4–2 on the 30th with Fenrir. Fights are being won. Rounds depend on the playlist."],
- ["Kanal","Mixed","mid","3–3 · 21–17 kills","9–3 Ranked win, Mute clutch, a 1–4, then a 2–4","Was Good. The 30th added a 2–4 and the latest window is even, so it comes off the clean-positive column. The ceiling is still there. The floor is too."],
- ["Coastline","Mixed","mid","2–6 · 25–28 kills","Quick Match 0–3, then Ranked 3–5, 4–2, 0–4, 0–4 and 1–4","A Quick Match stuffing on the 26th, then a Ranked 3–5 with an 8–6 gun line. The 2nd added a Ranked 4–2 with a 1v3 clutch, then a 0–4. The 11th added another Ranked 0–4 at 2–4. The 13th was a 1–4 at 2–5. Gun is no longer the excuse. Big rooms, no basement."],
- ["Border","Mixed","mid","4–5 · 36–27 kills","Ranked 4–2 at the peak, then 1–4, 3–5 and 1–4","No longer the cleanest line. The 2nd was a 1–4 after two teammates left. The 4th was a 3–5 with a 10–6 and a 1v1 clutch that did not convert. The 11th was a 1–4 at 4–4. A named plan and two on comms is still the converting version, not a map law."],
- ["Emerald Plains","Good","good","2–1 · 9–6 kills","Not played","Still positive despite a poor Echo map note, though the record is no longer perfect."],
- ["Kafe Dostoyevsky","Mixed","mid","5–3 · 37–20 kills","Ranked 3–5, then Ranked 5–3, 4–1, 4–0 and 4–1","Gun output is still positive. Two converted Ranked wins on the 13th: a 4–0 and a 4–1 with a 4K and a 1v1 clutch. Big rooms, and the home map of the Lion and Ace core."],
- ["Favela","Good","good","1–1 · 7–4 kills","Not logged","Positive gun record, and an ace here historically."],
- ["House","Good","good","2–0 · 5–3 kills","Quick Match 3–0","Two wins, and an ace here historically. Small and well known."],
- ["Nighthaven Labs","Mixed","mid","3–2 · 25–15 kills","Two Ranked wins, then a Quick Match 2–3 with a 4K","Two Ranked wins including a 4–1 with a 1v1, then a 2–4, then a Quick Match loss with a 4K that did not convert. The 13th added a Quick Match 2–1. Gun output still positive. Hallways and flanks."],
- ["Fortress","Mixed","mid","3–1 · 22–9 kills","Ranked 4–0, a 1–4, then a 4–2 and a 4–0","The 14–3 on the 3rd is the gun night on this map: Ranked 4–2, three 3Ks, back to Bronze I. The 13th added another Ranked 4–0. Same hallway warning as Labs. Still a small sample."],
- ["Lair","Mixed","mid","1–5 · 30–26 kills","Ranked 4–2, then 1–4, 4–5, and Quick Match 0–3 and 2–3","One stuffed Unranked, a Ranked win with a 1v1, then a Ranked 1–4 where the round barely started. The 4th added a Ranked 4–5 at 9–7 and a Quick Match stuffing. The 9th added another Quick Match 2–3. Hallways and flanks, same warning as Labs."],
- ["Yacht","Mixed","mid","1–0 · 3–0 kills","Quick Match 3–1","One Quick Match win with a clean gun line. Too small to promote."],
- ["Tower","Good","good","2–0 · 9–1 on the latest","Quick Match 3–2, then 3–1","Two Quick Match wins. The 11th was a 3–1 at 9–1 with a 4K and a 3K. Huge rooms. Too few Ranked to treat it as a Ranked read."]
-];
-document.getElementById('maplog').innerHTML = MAPLOG.map(m=>
- `<div><b>${m[0]}<span class="rd ${m[2]}">${m[1]}</span></b><span class="rec">${m[3]} <i>·</i> ${m[4]}</span><span>${m[5]}</span></div>`).join('');
+const MAPSUM = "Chalet is the squad’s best map. The worst five, Outback, Yacht, Theme Park, Coastline and Club House, are losing on every account that has played them properly. Villa and Bank are the two maps played most, and both are poor, so the most games are going where the wins are not.";
+const MAPNOTE = "Career records from stats.cc, all playlists, all five accounts added together. A game counts once per player, so a five-stack match counts five times. The bar is the squad win rate and the tick marks even. Grades use the win-rate bands, and the squad wins 43% of its games across all maps, so fair is above our own level. Kulan_G100’s own record sits under each bar. Stadium Alpha is left out with two games. Attack default is Thermite unless the tile says otherwise. Pattern worth testing: the best maps lean towards corridors and doorways, where traps keep working after death, and most of the worst have outside plays.";
+const pct = (w,g) => Math.round(100*w/g);
+const mapGrade = wr => wr>=60?["Excellent","good"]:wr>=53?["Good","good"]:wr>=45?["Fair","fair"]:wr>=38?["Poor","poor"]:["Very poor","vpoor"];
+const mapSorted = [...MAPREC].sort((x,y)=>y[2]/y[1]-x[2]/x[1]);
+const mapTile = m => { const wr=pct(m[2],m[1]), g=mapGrade(wr); return `<div class="mt ${g[1]}">
+  <div class="mt-h"><b>${m[0]}</b><span>${g[0]}</span></div>
+  <div class="mt-bar"><i style="width:${wr}%"></i></div>
+  <div class="mt-fig"><span><b>${wr}%</b> squad · ${m[1]} games</span><span>Kulan_G100 ${pct(m[4],m[3])}% · ${m[3]}</span></div>
+  <p>${m[5]}</p></div>`; };
+const mapGroup = (label, list) => `<h4 class="mg-h">${label}</h4>${list.map(mapTile).join('')}`;
+document.getElementById('mapsum').innerHTML = MAPSUM;
+document.getElementById('mapnote').innerHTML = MAPNOTE;
+document.getElementById('mapgrid').innerHTML =
+  mapGroup('Top five', mapSorted.slice(0,5)) +
+  mapGroup('The middle', mapSorted.slice(5,-5)) +
+  mapGroup('Worst five', mapSorted.slice(-5));
 </script>
 </body>
 </html>
