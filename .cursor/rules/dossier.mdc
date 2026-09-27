@@ -43,7 +43,7 @@ Edit **data**, not the render templates, unless the layout itself is wrong.
 | Journal entries, trends, export snapshots, map snapshots, history | `journal.html` (local only, gitignored, never on the page) |
 | Look / print CSS / card markup | only if the user asked for a design change |
 
-Inside `P`, each player has: `name`, `role`, `summary`, `strip` (career figures), `srv` + `note` (survival gauge), `s` / `w` / `g` / `a` (prose bullet arrays), `atk` / `def` (top-five tables), and `tst_a` / `tst_d` (substitute blocks, or the string `"na"`). On Kulan_G100's card those blocks are labelled **Substitutes**. On the other four they are labelled **Substitutes (on trial)**, because the samples are not large enough to call them settled subs.
+Inside `P`, each player has: `name`, `role`, `summary`, `strip` (career figures), `srv` + `note` (survival gauge), `s` / `w` / `g` / `a` (prose bullet arrays), `atk` / `def` (top-five tables), and `tst_a` / `tst_d` (substitute blocks, or the string `"na"`). On Kulan_G100's and Big_Bunda_20's cards those blocks are labelled **Substitutes** (set in `subLabel`). On the other three they are labelled **Substitutes (on trial)**, because the samples are not large enough to call them settled subs.
 
 Local tracker PDFs live in `pdfs/`. That folder is gitignored so it is never pushed. Read those files when refreshing operator tables. Do not add `pdfs/` to `.cursorignore`.
 
