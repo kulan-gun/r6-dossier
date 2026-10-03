@@ -45,17 +45,17 @@ Edit **data**, not the render templates, unless the layout itself is wrong.
 
 Inside `P`, each player has: `name`, `role`, `summary`, `strip` (career figures), `srv` + `note` (survival gauge), `s` / `w` / `g` / `a` (prose bullet arrays), `atk` / `def` (top-five tables), and `tst_a` / `tst_d` (substitute blocks, or the string `"na"`). On Kulan_G100's and Big_Bunda_20's cards those blocks are labelled **Substitutes** (set in `subLabel`). On the other three they are labelled **Substitutes (on trial)**, because the samples are not large enough to call them settled subs.
 
-Local tracker PDFs live in `pdfs/`. That folder is gitignored so it is never pushed. Read those files when refreshing operator tables. Do not add `pdfs/` to `.cursorignore`.
+Local tracker PDFs live in `operators/` (renamed from `pdfs/` on 3 October). Profile overview screenshots live in `snapshots/`, named `YYYYMMDD_handle.png`; use them for the career strips. Map exports live in `maps/`. All three folders are gitignored so they are never pushed. Read those files when refreshing operator tables. Do not add them to `.cursorignore`.
 
 `rough-notes.md` is gitignored. The handle-to-name map and new braindumps. `journal.html` is gitignored as well: the journal, trends and patterns, working notes, export snapshots and history live there. Keep its trends section current when a refresh changes the picture. Do not commit it, and never copy real names from it onto the page, into commits, or into README.
 
-Top-five attack and defence order uses the equal-weight score in `README.md` (win rate, K/D, survival, rounds — 25% each), compared inside sample-size bands (30+ / 11–29 / ≤10). Do not sort by rounds alone.
+Top-five attack and defence order uses the score in `README.md` (rounds 40% on a log scale to 300, win rate, K/D and survival 20% each), compared inside sample-size bands (30+ / 11–29 / ≤10). Do not sort by rounds alone.
 
 After a content update, bump `<meta name="document-version">` to `YYYY-MM-DD-HHMM` in local time.
 
 ## Reading the tracker PDFs
 
-Tracker exports in `pdfs/` are the source of truth for operator tables. Read them properly — most errors in this project have come from working off the top of a table or a screenshot.
+Tracker exports in `operators/` are the source of truth for operator tables. Read them properly — most errors in this project have come from working off the top of a table or a screenshot.
 
 **Extract the whole table, every time.**
 
@@ -80,7 +80,7 @@ Tracker exports in `pdfs/` are the source of truth for operator tables. Read the
 
 **Picking the best operators.**
 
-- Score with the equal-weight method in `README.md` (win rate, K/D, survival, rounds), compared **inside** sample-size bands.
+- Score with the method in `README.md` (rounds 40%, win rate, K/D and survival 20% each), compared **inside** sample-size bands. Rounds carry the most weight because holding a line over twice the rounds is harder than posting it once.
 - Surface candidates the page does not already list: operators with a strong line and low volume, operators whose role fills a gap in the pool, and operators whose figures have moved meaningfully since the last export.
 - Report what you found and why, including the band each candidate sits in, before editing any table.
 
